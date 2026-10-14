@@ -2024,10 +2024,8 @@ function mapStyle(file){
       {id:'bldg',type:'fill',source:'pm','source-layer':'buildings',minzoom:14,paint:{'fill-color':'#DAD7CC'}},
       {id:'roads',type:'line',source:'pm','source-layer':'roads',paint:{'line-color':'#FFFFFF','line-width':['interpolate',['linear'],['zoom'],10,0.4,16,4]}});}
   return {version:8,sources:src,layers:L};}
-function overlayHtml(){ if(!MAP_URL||mapState.failed)return '';
-  if(S.dl!==null) return '<div class="sp-ov"><b>Saving the Montréal map on this device…</b><span id="sp-dl">'+Math.round(S.dl*100)+'%</span></div>';
-  if(S.mapNeed) return '<div class="sp-ov"><b>Save the Montréal map on this device</b><span class="hint" style="margin:0">One-time download, then it opens instantly and works offline. Use Wi-Fi if you can.</span><button class="post-btn sm" data-act="mapdl">Download map</button></div>';
-  return '';}
+function overlayHtml(){ if(!MAP_URL||mapState.failed||!mapState.dlErr||mapState.saved)return '';
+  return '<div class="sp-ov"><b>Couldn\'t save the map for offline use</b><span class="hint" style="margin:0;color:#b3261e">'+esc(mapState.dlErr)+' ('+esc(MAP_URL)+')</span><button class="post-btn sm" data-act="mapdl">Try again</button></div>';}
 async function mountMap(){
   var slot=document.getElementById('sp-map-slot'); if(!slot||mapState.failed)return;
   if(!mapState.holder){mapState.holder=document.createElement('div');mapState.holder.style.cssText='position:absolute;inset:0';}
@@ -2036,15 +2034,12 @@ async function mountMap(){
   if(mapState.busy)return; mapState.busy=true;
   try{ await loadLib(); var file=null;
     if(MAP_URL){ var rec=null; try{rec=await idbGet('montreal');}catch(e){}
-      if(rec&&rec.v===MAP_VERSION) file=new File([rec.blob],'montreal.pmtiles');
-      else{ S.mapNeed=true; if(!mapState.logged){mapState.logged=true;var had=false;try{had=!!localStorage.getItem('gah_map_dl');}catch(e){}
-        api.logMap('no_saved_map',rec?'old_version':(had?'evicted':'none'));} } }
+      if(rec&&rec.v===MAP_VERSION){ file=new File([rec.blob],'montreal.pmtiles'); mapState.saved=true; } else prepMap(); }
     var abs=MAP_URL?new URL(MAP_URL,location.href).href:'';
     if(file) mapState.proto.add(new pmtiles.PMTiles(new pmtiles.FileSource(file)));
     else if(abs){ file={name:abs}; mapState.proto.add(new pmtiles.PMTiles(abs)); }  /* no saved copy yet: stream only the tiles on screen, so the map shows right away */
     mapState.map=new maplibregl.Map({container:mapState.holder,style:mapStyle(file),center:[-73.5673,45.5017],zoom:11,minZoom:9,maxZoom:16,maxBounds:[[-74.1,45.3],[-73.3,45.8]],attributionControl:{compact:true}});
-    mapState.saved=!S.mapNeed&&!!file; mapState.busy=false; refreshPins(); render(); locateMe();
-    if(S.mapNeed&&S.dl===null&&!mapState.autoDl){mapState.autoDl=true; downloadMap();}  /* save the full map in the background, automatically */
+    mapState.busy=false; refreshPins(); render(); locateMe();
     return;
   }catch(e){ mapState.failed=true; mapState.busy=false; mapState.map=null; render(); locateMe(); return; }}
 function refreshPins(){ var m=mapState.map; if(!m||!window.maplibregl)return;
@@ -2053,17 +2048,27 @@ function refreshPins(){ var m=mapState.map; if(!m||!window.maplibregl)return;
   spRows('wildlife').filter(function(r){return r.lat!=null;}).slice(0,200).forEach(function(r){
     var el=document.createElement('div');el.className='sp-pin'+(S.pin===r.id?' sel':'');el.textContent=r.emoji;el.onclick=function(e){e.stopPropagation();S.pin=r.id;render();};
     mapState.markers.push(new maplibregl.Marker({element:el}).setLngLat([r.lng,r.lat]).addTo(m));});}
+/* Runs when the app opens (not when the map page opens): loads the map library and, if this phone has no saved copy of the map, downloads it quietly in the background. */
+function prepMap(){
+  if(!MAP_URL||mapState.prep)return; mapState.prep=true;
+  loadLib().catch(function(){});
+  (async function(){
+    var rec=null; try{rec=await idbGet('montreal');}catch(e){}
+    if(rec&&rec.v===MAP_VERSION){mapState.saved=true;return;}
+    var had=false;try{had=!!localStorage.getItem('gah_map_dl');}catch(e){}
+    api.logMap('no_saved_map',rec?'old_version':(had?'evicted':'none'));
+    downloadMap();
+  })();}
 async function downloadMap(){
-  S.dl=0; render();
-  try{ var r=await fetch(MAP_URL); if(!r.ok)throw new Error('Map download failed ('+r.status+')');
-    var total=+r.headers.get('content-length')||0,rd=r.body.getReader(),parts=[],got=0;
-    for(;;){var x=await rd.read(); if(x.done)break; parts.push(x.value); got+=x.value.length; S.dl=total?got/total:0.5; var el=document.getElementById('sp-dl'); if(el)el.textContent=Math.round(S.dl*100)+'%';}
-    var blob=new Blob(parts,{type:'application/octet-stream'});
-    try{ await idbSet('montreal',{v:MAP_VERSION,blob:blob}); localStorage.setItem('gah_map_dl','1'); if(navigator.storage&&navigator.storage.persist)navigator.storage.persist(); }catch(e){}
-    api.logMap('downloaded','',blob.size); S.mapNeed=false; S.dl=null; mapState.saved=true;
-    var file=new File([blob],'montreal.pmtiles'); mapState.proto.add(new pmtiles.PMTiles(new pmtiles.FileSource(file))); mapState.map.setStyle(mapStyle(file));
-  }catch(e){ S.dl=null; S.err=e.message; }
-  render();}
+  if(mapState.dlP&&!mapState.dlErr)return mapState.dlP; mapState.dlErr=''; render();
+  mapState.dlP=(async function(){
+    try{ var r=await fetch(MAP_URL,{cache:'no-cache'}); if(!r.ok)throw new Error('Map download failed ('+r.status+')');
+      var blob=await r.blob();
+      try{ await idbSet('montreal',{v:MAP_VERSION,blob:blob}); localStorage.setItem('gah_map_dl','1'); if(navigator.storage&&navigator.storage.persist)navigator.storage.persist(); }catch(e){}
+      api.logMap('downloaded','',blob.size); mapState.saved=true;   /* the map on screen keeps streaming; next visit opens from this saved copy */
+    }catch(e){ mapState.dlErr=e.message; }
+    render();
+  })(); return mapState.dlP;}
 
 /* simple map used when the interactive one can't start (e.g. a sandbox that blocks web workers) */
 function fallbackMap(){var P=mapState.pos,B=P?{w:P.lng-0.07,e:P.lng+0.07,s:P.lat-0.045,n:P.lat+0.045}:{w:-73.70,e:-73.45,s:45.43,n:45.58};
@@ -2183,7 +2188,7 @@ function typing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a
 window.softRefresh=function(){ if(S.me&&!typing()) refresh(); };
 async function start(){
   try{ S.session=await api.session(); S.me=S.session?await api.me():null; if(S.me)await loadAll(); }catch(e){S.err=e.message;}
-  render();
+  render(); if(S.me) prepMap();
 }
 window.addEventListener('hashchange',function(){S.err='';S.ok='';S.page={};S.newImage=null;refresh();window.scrollTo(0,0);});
 
