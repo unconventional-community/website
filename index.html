@@ -1632,6 +1632,21 @@
   .sp-tile.unseen .e{filter:grayscale(1) brightness(.6);opacity:.35}
   .sp-tile.unseen .n{color:var(--muted)}
   .sp-sheet-note{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .sp-stop{position:relative;width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #3E5A3B;box-shadow:0 1px 6px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:19px;cursor:pointer}
+  .sp-stop .n{position:absolute;left:-7px;top:-7px;width:18px;height:18px;border-radius:50%;background:#3E5A3B;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .sp-stop.grey{border-color:#aaa;filter:grayscale(1);opacity:.7}
+  .sp-stop.sel{outline:3px solid var(--ink);outline-offset:2px;opacity:1}
+  .tr-stop{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--paper);margin-top:8px;cursor:pointer}
+  .tr-stop.on{border-color:var(--ink)}
+  .tr-stop .num{flex:none;width:26px;height:26px;border-radius:50%;background:#3E5A3B;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .tr-stop .e{font-size:24px;flex:none}
+  .tr-stop.grey .e{filter:grayscale(1);opacity:.55}
+  .tr-stop .tx{flex:1;min-width:0}
+  .tr-stop .n1{font-size:13.5px;font-weight:600;color:var(--ink)}
+  .tr-stop .n2{font-size:12px;color:var(--muted);margin-top:2px}
+  .slogan{font-family:'Fraunces',serif;font-size:22px;line-height:1.25;color:var(--ink);margin:6px 0 2px !important}
+  .slogan em{font-style:italic;color:#3E5A3B}
+  .slogan-sub{font-size:13px;color:var(--muted);margin:0 0 14px !important}
   .sp-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -2px;scrollbar-width:none}
   .sp-chips::-webkit-scrollbar{display:none}
   .sp-chip{flex:none;border:1px solid var(--border);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
@@ -1868,7 +1883,7 @@ function rankHelpers(list,budget){
 /* ===================== STATE + ROUTER ===================== */
 var S={session:null,me:null,topics:[],services:[],feed:[],bookings:[],ratings:[],matches:{},conns:[],people:[],my:{emoji:'',text:'',visible:false,at:0},draftEmoji:null,draftText:null,emojiOpen:false,editStatus:false,cc:null,sights:[],pin:null,spot:{},just:null,mapNeed:false,dl:null,tab:'foryou',ptab:'about',err:'',ok:'',stars:0,newImage:null,page:{}};
 var root=$('#root');
-function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
+function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='trail')return {v:'trail',id:p[1]};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
 function go(h){S.err='';S.ok='';location.hash=h;}
 function flash(k,m){S.err=k==='err'?m:'';S.ok=k==='ok'?m:'';}
 function msgs(){return (S.err?'<div class="note err">'+esc(S.err)+'</div>':'')+(S.ok?'<div class="note ok">'+esc(S.ok)+'</div>':'');}
@@ -1883,7 +1898,7 @@ function appbar(){
 
 function viewAuth(){
   root.innerHTML=(!api.live?'<div class="note demo"><b>Demo mode</b> — data stays in this browser, helpers are fake.</div>':'')+
-  '<div class="hero"><h1>🤝 Give a Hand</h1><p>Stuck on a project? Post what you need. Someone at Concordia who can help will offer — and you pay them for their time.</p></div>'+
+  '<div class="hero"><h1>🤝 Give a Hand</h1><p class="slogan">What makes a neighbourhood? <em>You do.</em></p><p class="slogan-sub">Ask for help, spot what\'s around you.</p><p>Stuck on a project? Post what you need. Someone at Concordia who can help will offer — and you pay them for their time.</p></div>'+
   '<div class="auth card-box"><label>Your Concordia email</label><input id="email" type="email" placeholder="you@concordia.ca" autocomplete="email">'+msgs()+
   '<p class="hint">We\'ll send a sign-in link. No password.</p><button class="post-btn wide" data-act="signin">'+(api.live?'Email me a sign-in link':'Enter demo')+'</button></div>';
 }
@@ -1920,7 +1935,7 @@ function viewFeed(){
     if(mine.length) h+='<p class="rail-label">📌 Your requests</p><div class="grid" style="margin-bottom:26px">'+mine.map(function(r){return card(r,true);}).join('')+'</div>';
     h+='<p class="rail-label">📋 For you</p><p class="rail-sub">Requests in topics you can help with come first, then everything else, newest first.</p><div class="grid">'+
       forYouGrid(forYou)+'</div>';
-    h+=jumpRail()+spottedRail();
+    h+=jumpRail()+trailsRail()+spottedRail();
   }
   root.innerHTML=h;
 }
@@ -2021,6 +2036,30 @@ var TOPICS={
   logVerb:'👀 I saw this piece',hasMap:false,locatable:true,
   items:[['Mural','🎨'],['Street art','🎨'],['Sculpture','🗿'],['Installation','🖼️']]}
 };
+
+/* ---- Trails: hand-made routes (sample data; coordinates are approximate — walk them and adjust before real use) ---- */
+var TRAILS=[
+ {id:'lafontaine',name:'Parc La Fontaine bird loop',icon:'🦆',km:1.6,mins:35,blurb:'Ponds, lawns and big trees — the easiest first walk.',
+  line:[[-73.5702,45.5272],[-73.5685,45.5280],[-73.5668,45.5272],[-73.5662,45.5260],[-73.5672,45.5247],[-73.5690,45.5243],[-73.5708,45.5252],[-73.5712,45.5264],[-73.5702,45.5272]],
+  stops:[{e:'🦆',name:'Upper pond',sp:'Mallard Duck',note:'Look along the reeds at the pond edge.',ll:[-73.5676,45.5274]},
+         {e:'🦆',name:'Big lawn',sp:'Canada Goose',note:'Geese graze on the open grass.',ll:[-73.5664,45.5258]},
+         {e:'🐦',name:'Tall trees',sp:'Blue Jay',note:'Listen for the loud call overhead.',ll:[-73.5686,45.5244]},
+         {e:'🐦',name:'Shrubs by the path',sp:'Northern Cardinal',note:'A flash of red in the bushes.',ll:[-73.5710,45.5258]},
+         {e:'🌳',name:'Old maples',sp:null,note:'A good place to sit and rest.',ll:[-73.5696,45.5268]}]},
+ {id:'mont-royal',name:'Mont-Royal lookout walk',icon:'🦅',km:2.4,mins:55,blurb:'From Beaver Lake up to the belvedere.',
+  line:[[-73.5868,45.5119],[-73.5877,45.5100],[-73.5885,45.5082],[-73.5880,45.5062],[-73.5872,45.5045],[-73.5874,45.5036]],
+  stops:[{e:'🐦',name:'Beaver Lake',sp:'Black-capped Chickadee',note:'They come close to people on the paths.',ll:[-73.5868,45.5119]},
+         {e:'🐦',name:'Forest stretch',sp:'Downy Woodpecker',note:'Tap-tap on tree trunks.',ll:[-73.5885,45.5082]},
+         {e:'🦅',name:'Open slope',sp:'Red-tailed Hawk',note:'Scan the sky above the slope.',ll:[-73.5875,45.5052]},
+         {e:'🏛️',name:'Belvedere',sp:null,note:'The city view — the end of the walk.',ll:[-73.5874,45.5036]}]},
+ {id:'vieux-port',name:'Vieux-Port waterfront stroll',icon:'🕊️',km:1.3,mins:30,blurb:'Water, old stone and a few easy birds.',
+  line:[[-73.5538,45.5088],[-73.5516,45.5072],[-73.5500,45.5052],[-73.5481,45.5036],[-73.5468,45.5020]],
+  stops:[{e:'🏛️',name:'Old stone market',sp:null,note:'Start by the historic market building.',ll:[-73.5538,45.5088]},
+         {e:'🦆',name:'Quay edge',sp:'Mallard Duck',note:'Ducks gather by the water steps.',ll:[-73.5500,45.5052]},
+         {e:'🕊️',name:'Plaza',sp:'Mourning Dove',note:'Soft calls from the lampposts.',ll:[-73.5481,45.5036]}]}
+];
+function trailBy(id){return TRAILS.filter(function(t){return t.id===id;})[0];}
+function trailProg(t){var tr=t.stops.filter(function(x){return x.sp;}),got=tr.filter(function(x){return spHave(x.sp);}).length;return {got:got,total:tr.length};}
 var MINI_SVG='<svg viewBox="0 0 400 225" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="225" fill="#EEF0EA"/><ellipse cx="90" cy="60" rx="70" ry="40" fill="#D6E3C8"/><path d="M0 170 Q120 140 400 190 L400 225 L0 225Z" fill="#BFD7E6"/><g stroke="#fff" stroke-width="5" fill="none"><path d="M0 110H400"/><path d="M200 0V225"/><path d="M0 40L400 150"/></g></svg>';
 var mapState={pos:null,located:false,saved:false,you:null,map:null,holder:null,markers:[],busy:false,failed:false,logged:false,libP:null,proto:null};
 function spAgo(t){var m=Math.round((Date.now()-new Date(t))/60000);if(m<2)return 'just now';if(m<60)return m+' min ago';var h=Math.round(m/60);if(h<24)return h+' h ago';return Math.round(h/24)+' d ago';}
@@ -2060,6 +2099,9 @@ function jumpRail(){
     cards.push('<div class="continue-card" data-go="guide/'+tk+'"><div class="emoji-thumb">'+nx[1]+'</div><div class="continue-card-body"><div class="continue-tag">'+T.icon+' '+pl+'</div><div class="continue-title">Next up: '+esc(nx[0])+'</div><div class="continue-meta">'+your+' of '+total+' '+T.itemNoun+' logged</div><div class="continue-progress-bar"><div class="continue-progress-fill" style="width:'+pct+'%"></div></div></div></div>');});
   if(!cards.length)return '';
   return '<p class="rail-label">🔁 Jump back in</p><div class="continue-rail">'+cards.join('')+'</div>';}
+function trailsRail(){
+  return '<p class="rail-label">🥾 Trails nearby</p><p class="rail-sub">Hand-picked walks — see what you could spot along the way.</p><div class="continue-rail">'+TRAILS.map(function(t){var pg=trailProg(t);
+    return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">🥾 trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join('')+'</div>';}
 function spottedRail(){
   var cards=[],seen={};
   S.sights.forEach(function(r){var tk=Object.keys(TOPICS).filter(function(k){return TOPICS[k].cat===r.category;})[0]; if(!tk||r.user_id===S.me.id)return;
@@ -2110,9 +2152,25 @@ async function mountMap(){
 function refreshPins(){ var m=mapState.map; if(!m||!window.maplibregl)return;
   mapState.markers.forEach(function(k){k.remove();}); mapState.markers=[]; if(mapState.you){mapState.you.remove();mapState.you=null;}
   if(mapState.pos){var ye=document.createElement('div');ye.className='sp-you';mapState.you=new maplibregl.Marker({element:ye}).setLngLat([mapState.pos.lng,mapState.pos.lat]).addTo(m);}
+  var tr=route().v==='trail'?trailBy(route().id):null; drawTrailLine(m,tr);
+  if(tr){
+    if(mapState.fitId!==tr.id){mapState.fitId=tr.id; var b=new maplibregl.LngLatBounds(); tr.line.forEach(function(c){b.extend(c);}); tr.stops.forEach(function(x){b.extend(x.ll);}); m.fitBounds(b,{padding:{top:50,bottom:110,left:40,right:40},duration:0,maxZoom:16});}
+    tr.stops.forEach(function(x,i){ var el=document.createElement('div'); var have=x.sp&&spHave(x.sp);
+      el.className='sp-stop'+(x.sp?(have?' done':' grey'):'')+(S.tstop===i?' sel':''); el.innerHTML='<span class="n">'+(i+1)+'</span>'+x.e;
+      el.onclick=function(ev){ev.stopPropagation();S.tstop=i;render();};
+      mapState.markers.push(new maplibregl.Marker({element:el}).setLngLat(x.ll).addTo(m)); });
+    return; }
+  if(mapState.fitId){mapState.fitId=null; var P=mapState.pos; m.jumpTo({center:P?[P.lng,P.lat]:[-73.5673,45.5017],zoom:P?14:11});}
   spPins().forEach(function(r){
     var el=document.createElement('div');el.className='sp-pin'+(spHave(r.species)?'':' grey')+(S.pin===r.id?' sel':'');el.textContent=r.emoji;el.onclick=function(e){e.stopPropagation();S.pin=r.id;render();};
     mapState.markers.push(new maplibregl.Marker({element:el}).setLngLat([r.lng,r.lat]).addTo(m));});}
+function drawTrailLine(m,tr){
+  var go=function(){ var data={type:'Feature',geometry:{type:'LineString',coordinates:tr?tr.line:[]}};
+    if(m.getSource('trail')){m.getSource('trail').setData(data);return;}
+    m.addSource('trail',{type:'geojson',data:data});
+    m.addLayer({id:'trail-case',type:'line',source:'trail',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#fff','line-width':8}});
+    m.addLayer({id:'trail-line',type:'line',source:'trail',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#3E5A3B','line-width':4,'line-dasharray':[2,1.4]}}); };
+  if(m.isStyleLoaded())go(); else m.once('load',go);}
 /* Runs when the app opens (not when the map page opens): loads the map library and, if this phone has no saved copy of the map, downloads it quietly in the background. */
 function prepMap(){
   if(!MAP_URL||mapState.prep)return; mapState.prep=true;
@@ -2141,6 +2199,18 @@ function fallbackMap(){var P=mapState.pos,B=P?{w:P.lng-0.07,e:P.lng+0.07,s:P.lat
     var x=Math.min(96,Math.max(4,(r.lng-B.w)/(B.e-B.w)*100)),y=Math.min(94,Math.max(6,(B.n-r.lat)/(B.n-B.s)*100));
     return '<div class="sp-pin'+(spHave(r.species)?'':' grey')+(S.pin===r.id?' sel':'')+'" style="position:absolute;left:'+x+'%;top:'+y+'%;transform:translate(-50%,-50%)" data-act="pinsel" data-id="'+esc(r.id)+'">'+esc(r.emoji)+'</div>';}).join('');}
 /* ---- the topic page (field guide + map) ---- */
+function viewTrail(id){
+  var t=trailBy(id); if(!t){location.hash='#/';return;}
+  var pg=trailProg(t),sel=S.tstop!=null?t.stops[S.tstop]:null,h='';
+  h+='<button class="back-btn" data-go="">← Back to feed</button><div style="margin-bottom:16px"><p class="rail-label" style="margin-top:0">'+t.icon+' '+esc(t.name)+'</p><p class="post-desc" style="margin-top:-8px">'+esc(t.blurb)+' · '+t.km+' km · about '+t.mins+' min</p></div>'+msgs();
+  var sheet=sel?'<div class="sp-sheet"><button class="sp-sheet-x" data-act="tstopclear" aria-label="Close">✕</button><div class="map-detail-title">'+(S.tstop+1)+'. '+sel.e+' '+esc(sel.name)+'</div><div class="map-detail-meta">'+esc(sel.note)+'</div></div>':'<div class="sp-hint">Tap a numbered stop</div>';
+  h+='<div class="map-card sp-big" style="margin-bottom:22px"><div class="map-area">'+(mapState.failed?fallbackMap():'<div id="sp-map-slot" style="position:absolute;inset:0"></div>')+sheet+'</div>'+
+     (mapState.failed?'<p class="hint" style="margin:8px 0 0">Simple map shown — the trail line needs a normal browser tab.</p>':'')+
+     (pg.total?'<div class="sp-prog">🌿 <b>'+pg.got+' of '+pg.total+'</b> birds on this trail are in your guide'+(pg.got===pg.total?' — trail complete!':'.')+'</div>':'')+
+     '<div>'+t.stops.map(function(x,i){var have=x.sp&&spHave(x.sp);
+        var act=x.sp?(have?'<button class="fg-log-btn logged" disabled>✓ Logged</button>':'<button class="fg-log-btn" data-act="fglog" data-t="wildlife" data-name="'+esc(x.sp)+'">👀 I saw it</button>'):'';
+        return '<div class="tr-stop'+(S.tstop===i?' on':'')+(x.sp&&!have?' grey':'')+'" data-act="tstop" data-i="'+i+'"><div class="num">'+(i+1)+'</div><div class="e">'+x.e+'</div><div class="tx"><div class="n1">'+esc(x.name)+(x.sp?' · '+esc(x.sp):'')+'</div><div class="n2">'+esc(x.note)+'</div></div>'+act+'</div>';}).join('')+'</div></div>';
+  root.innerHTML=h;}
 function viewGuide(tk){
   var T=TOPICS[tk]; if(!T){location.hash='#/';return;}
   var your=spYour(tk),total=T.items.length,sel=S.sights.filter(function(r){return r.id===S.pin;})[0],h='';
@@ -2249,7 +2319,7 @@ function render(){
   if(!S.session){appbar();return viewAuth();}
   if(!S.me){appbar();return viewSetup();}
   appbar(); var rt=route(), y=window.scrollY, fid=document.activeElement&&document.activeElement.id, fv=document.activeElement&&document.activeElement.value;
-  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
+  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
   if(fid&&document.getElementById(fid)&&document.activeElement.tagName!=='SELECT'&&document.getElementById(fid).type!=='file'){var f=document.getElementById(fid);f.focus();if(fv!=null)f.value=fv;}
   fitConnRail(); mountMap(); window.scrollTo(0,y);
 }
@@ -2260,7 +2330,7 @@ async function start(){
   try{ S.session=await api.session(); S.me=S.session?await api.me():null; if(S.me)await loadAll(); }catch(e){S.err=e.message;}
   render(); if(S.me) prepMap();
 }
-window.addEventListener('hashchange',function(){S.err='';S.ok='';S.page={};S.newImage=null;refresh();window.scrollTo(0,0);});
+window.addEventListener('hashchange',function(){S.tstop=null;S.err='';S.ok='';S.page={};S.newImage=null;refresh();window.scrollTo(0,0);});
 
 function dollars(id){return Math.round(parseFloat($(id).value||'0')*100);}
 function resizeImage(file,cb){
@@ -2306,6 +2376,8 @@ document.addEventListener('click',async function(e){
     if(a==='pinsel'){S.spNote='';S.pin=t.dataset.id;return render();}
     if(a==='guide'){S.guideOpen=true;return render();}
     if(a==='guideclose'){S.guideOpen=false;return render();}
+    if(a==='tstop'){S.tstop=+t.dataset.i; var tt=trailBy(route().id),sx=tt&&tt.stops[S.tstop]; if(sx&&mapState.map)mapState.map.flyTo({center:sx.ll,zoom:16}); return render();}
+    if(a==='tstopclear'){S.tstop=null;return render();}
     if(a==='pinclear'){S.pin=null;return render();}
     if(a==='spfilter'){ var nm=t.dataset.name; S.guideOpen=false; S.spFocus=nm||null; S.spNote='';
       if(nm){ var rows=spRows('wildlife').filter(function(r){return r.species===nm&&r.lat!=null;}).sort(function(x,y){return new Date(y.seen_at)-new Date(x.seen_at);});
