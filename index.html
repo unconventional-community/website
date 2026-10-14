@@ -1578,6 +1578,69 @@
   .emoji-thumb.sm{height:84px;font-size:38px}
   .sp-loc{position:absolute;right:10px;top:10px;z-index:3;width:36px;height:36px;border-radius:50%;border:0;background:var(--card);box-shadow:0 1px 5px rgba(0,0,0,.25);cursor:pointer;font-size:16px}
   .sp-ov{position:absolute;left:10px;right:10px;bottom:10px;z-index:3;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+  /* birds page: big map, floating detail sheet, species chips */
+  .map-card.sp-big{padding:12px}
+  .map-card.sp-big .map-area{aspect-ratio:auto;height:68vh;min-height:380px;max-height:640px}
+  .sp-ov{top:10px;bottom:auto;right:56px}
+  .sp-sheet{position:absolute;left:10px;right:10px;bottom:10px;z-index:4;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 40px 12px 14px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+  .sp-sheet .map-detail-title{font-size:15px}
+  .sp-sheet-x{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;border:0;background:var(--paper);cursor:pointer;font-size:14px;color:var(--muted)}
+  .sp-hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;background:var(--card);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--muted);box-shadow:0 1px 5px rgba(0,0,0,.2);white-space:nowrap;pointer-events:none}
+  .sp-rail{display:flex;gap:10px;overflow-x:auto;padding:12px 2px 2px;scrollbar-width:none;scroll-snap-type:x proximity}
+  .sp-rail::-webkit-scrollbar{display:none}
+  .sp-tile{flex:none;width:128px;scroll-snap-align:start;border:1px solid var(--border);background:var(--paper);border-radius:12px;padding:10px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+  .sp-tile.on{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+  .sp-tile .e{font-size:26px;line-height:1.1}
+  .sp-tile .n{font-size:12.5px;font-weight:600;color:var(--ink)}
+  .sp-tile .m{font-size:11px;color:var(--muted)}
+  .sp-tile .fg-log-btn,.sp-tile .ghost-btn{margin-top:6px;width:100%;font-size:12px;padding:6px 4px}
+  .sp-prog{font-size:12px;color:#3E5A3B;background:var(--sage-light);border:1px solid var(--sage);border-radius:10px;padding:8px 12px;margin-top:12px;line-height:1.4}
+  .sp-split{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+  .sp-right{min-width:0}
+  @media(min-width:900px){
+    .sp-split{grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);gap:16px;align-items:start}
+    .map-card.sp-big .map-area{height:72vh;max-height:720px}
+    .sp-right{display:flex;flex-direction:column;height:72vh;max-height:720px}
+    .sp-right .sp-prog{margin-top:0;flex:none}
+    .sp-rail{flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:10px 2px 2px;flex:1;scroll-snap-type:none}
+    .sp-tile{width:auto;flex-direction:row;align-items:center;gap:10px;padding:8px 10px}
+    .sp-tile .e{font-size:24px;flex:none}
+    .sp-tile .tx{flex:1;min-width:0}
+    .sp-tile .fg-log-btn,.sp-tile .ghost-btn{margin-top:0;width:auto;flex:none;padding:6px 10px}
+  }
+  /* phone: guide is a slide-over drawer from the right (like a game inventory); wide screen: inline on the right */
+  .sp-bag{position:absolute;left:10px;top:10px;z-index:3;border:0;border-radius:999px;background:var(--card);box-shadow:0 1px 5px rgba(0,0,0,.25);padding:8px 12px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+  .sp-right{position:fixed;top:0;right:0;bottom:0;width:88%;max-width:380px;z-index:60;background:var(--card);box-shadow:-8px 0 24px rgba(0,0,0,.2);transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;padding:14px;overflow:hidden}
+  .sp-right.open{transform:translateX(0)}
+  .sp-back{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.35)}
+  .sp-dhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--ink)}
+  .sp-dhead button{width:30px;height:30px;border-radius:50%;border:0;background:var(--paper);cursor:pointer;font-size:14px}
+  .sp-right .sp-prog{margin-top:0;flex:none}
+  .sp-rail{flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:10px 2px 2px;flex:1;scroll-snap-type:none}
+  .sp-tile{width:auto;flex-direction:row;align-items:center;gap:10px;padding:8px 10px}
+  .sp-tile .e{font-size:24px;flex:none}
+  .sp-tile .tx{flex:1;min-width:0}
+  .sp-tile .fg-log-btn,.sp-tile .ghost-btn{margin-top:0;width:auto;flex:none;padding:6px 10px}
+  @media(min-width:900px){
+    .sp-bag,.sp-back,.sp-dhead{display:none}
+    .sp-right{position:static;transform:none;width:auto;max-width:none;box-shadow:none;background:transparent;padding:0;z-index:auto;transition:none;height:72vh;max-height:720px}
+  }
+  .sp-pin.grey{filter:grayscale(1);opacity:.55}
+  .sp-pin.grey.sel{opacity:1}
+  .sp-tile.seen-by-others .e{filter:grayscale(1);opacity:.55}
+  .sp-tile.unseen{border-style:dashed;background:transparent}
+  .sp-tile.unseen .e{filter:grayscale(1) brightness(.6);opacity:.35}
+  .sp-tile.unseen .n{color:var(--muted)}
+  .sp-sheet-note{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .sp-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -2px;scrollbar-width:none}
+  .sp-chips::-webkit-scrollbar{display:none}
+  .sp-chip{flex:none;border:1px solid var(--border);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
+  .sp-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  @media(max-width:640px){
+    .fieldguide-grid.compact{grid-template-columns:repeat(2,1fr);gap:8px}
+    .fieldguide-grid.compact .fg-spotters-label{display:none}
+    .fieldguide-grid.compact .fg-entry-body{padding:8px}
+  }
   .sp-pin{width:34px;height:34px;border-radius:50%;background:var(--card);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
   .sp-pin.sel{outline:3px solid var(--ink);outline-offset:2px}
   .sp-you{width:16px;height:16px;border-radius:50%;background:#3B82F6;border:3px solid #fff;box-shadow:0 0 0 4px rgba(59,130,246,.25)}
@@ -1976,6 +2039,8 @@ async function syncSights(){var me=S.me&&S.me.id,key='sx2_'+me,c={};try{c=JSON.p
   try{localStorage.setItem(key,JSON.stringify({at:at||since,rows:all}));}catch(e){}
   return all;}
 function spRows(tk){var c=TOPICS[tk].cat;return S.sights.filter(function(r){return r.category===c;});}
+function spHave(name){return S.sights.some(function(r){return r.species===name&&r.user_id===S.me.id;});}
+function spPins(){return spRows('wildlife').filter(function(r){return r.lat!=null&&(!S.spFilter||r.species===S.spFilter);}).slice(0,200);}
 function spStat(tk,name){var rows=spRows(tk).filter(function(r){return r.species===name;}),u={},who=[];
   rows.forEach(function(r){if(!u[r.user_id]){u[r.user_id]=1;who.push({n:r.user_id===S.me.id?'You':r.user_name});}});
   var mine=rows.filter(function(r){return r.user_id===S.me.id;});
@@ -2045,8 +2110,8 @@ async function mountMap(){
 function refreshPins(){ var m=mapState.map; if(!m||!window.maplibregl)return;
   mapState.markers.forEach(function(k){k.remove();}); mapState.markers=[]; if(mapState.you){mapState.you.remove();mapState.you=null;}
   if(mapState.pos){var ye=document.createElement('div');ye.className='sp-you';mapState.you=new maplibregl.Marker({element:ye}).setLngLat([mapState.pos.lng,mapState.pos.lat]).addTo(m);}
-  spRows('wildlife').filter(function(r){return r.lat!=null;}).slice(0,200).forEach(function(r){
-    var el=document.createElement('div');el.className='sp-pin'+(S.pin===r.id?' sel':'');el.textContent=r.emoji;el.onclick=function(e){e.stopPropagation();S.pin=r.id;render();};
+  spPins().forEach(function(r){
+    var el=document.createElement('div');el.className='sp-pin'+(spHave(r.species)?'':' grey')+(S.pin===r.id?' sel':'');el.textContent=r.emoji;el.onclick=function(e){e.stopPropagation();S.pin=r.id;render();};
     mapState.markers.push(new maplibregl.Marker({element:el}).setLngLat([r.lng,r.lat]).addTo(m));});}
 /* Runs when the app opens (not when the map page opens): loads the map library and, if this phone has no saved copy of the map, downloads it quietly in the background. */
 function prepMap(){
@@ -2072,18 +2137,23 @@ async function downloadMap(){
 
 /* simple map used when the interactive one can't start (e.g. a sandbox that blocks web workers) */
 function fallbackMap(){var P=mapState.pos,B=P?{w:P.lng-0.07,e:P.lng+0.07,s:P.lat-0.045,n:P.lat+0.045}:{w:-73.70,e:-73.45,s:45.43,n:45.58};
-  return MINI_SVG+(P?'<div class="sp-you" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)"></div>':'')+spRows('wildlife').filter(function(r){return r.lat!=null;}).slice(0,200).map(function(r){
+  return MINI_SVG+(P?'<div class="sp-you" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)"></div>':'')+spPins().map(function(r){
     var x=Math.min(96,Math.max(4,(r.lng-B.w)/(B.e-B.w)*100)),y=Math.min(94,Math.max(6,(B.n-r.lat)/(B.n-B.s)*100));
-    return '<div class="sp-pin'+(S.pin===r.id?' sel':'')+'" style="position:absolute;left:'+x+'%;top:'+y+'%;transform:translate(-50%,-50%)" data-act="pinsel" data-id="'+esc(r.id)+'">'+esc(r.emoji)+'</div>';}).join('');}
+    return '<div class="sp-pin'+(spHave(r.species)?'':' grey')+(S.pin===r.id?' sel':'')+'" style="position:absolute;left:'+x+'%;top:'+y+'%;transform:translate(-50%,-50%)" data-act="pinsel" data-id="'+esc(r.id)+'">'+esc(r.emoji)+'</div>';}).join('');}
 /* ---- the topic page (field guide + map) ---- */
 function viewGuide(tk){
   var T=TOPICS[tk]; if(!T){location.hash='#/';return;}
   var your=spYour(tk),total=T.items.length,sel=S.sights.filter(function(r){return r.id===S.pin;})[0],h='';
   h+='<button class="back-btn" data-go="">← Back to feed</button><div style="margin-bottom:20px"><p class="rail-label" style="margin-top:0">'+T.icon+' '+esc(T.label)+'</p><p class="post-desc" style="margin-top:-8px">Everything logged nearby, all in one place. Tap one you\'ve seen — no need to find someone else\'s post about it first.</p></div>'+msgs();
   if(T.hasMap){
-    var det=sel?'<div class="map-detail-title">'+esc(sel.emoji)+' '+esc(sel.species)+(sel.count>1?' ×'+sel.count:'')+'</div><div class="map-detail-meta">'+esc(sel.place||'Pinned spot')+' · '+esc(sel.user_id===S.me.id?'You':sel.user_name)+' · '+spAgo(sel.seen_at)+'</div>':'<p class="map-detail-placeholder">Tap a spot on the map to see what\'s been seen there.</p>';
-    h+='<p class="rail-label">'+T.mapLabel+'</p><div class="map-card" style="margin-bottom:22px"><div class="map-head"><span class="map-title">'+T.mapTitle+'</span><button class="ghost-btn sm" data-act="pinit" data-t="'+tk+'">📍 Add to the map</button></div><p class="map-sub">'+T.mapSub+'</p>'+
-      '<div class="map-area">'+(mapState.failed?fallbackMap():'<div id="sp-map-slot" style="position:absolute;inset:0"></div><button class="sp-loc" data-act="maploc" title="Centre on me">📍</button>'+overlayHtml())+'</div>'+(mapState.saved?'<p class="hint" style="margin:8px 0 0">✓ Montréal map saved on this device — opens instantly and works offline.</p>':(mapState.failed?'<p class="hint" style="margin:8px 0 0">Simple map shown — the full map needs a normal browser tab.</p>':''))+'<div class="map-detail">'+det+'</div></div>';}
+    var nx0=T.items.filter(function(it){return !spStat(tk,it[0]).mine;})[0];
+    var prog='<div class="sp-prog">🌿 You\'ve logged <b>'+your+' of '+total+'</b> '+T.itemPlural+(nx0?' — tap one below that you\'ve spotted too.':' — you\'ve got them all.')+'</div>';
+    var rail='<div class="sp-rail">'+(S.spFilter?'<div class="sp-tile" data-act="spfilter" data-name=""><div class="e">🗺️</div><div class="tx"><div class="n">Show all</div><div class="m">clear filter</div></div></div>':'')+T.items.map(function(it){var st=spStat(tk,it[0]);
+      var btn=st.mine?'<button class="fg-log-btn logged" disabled>✓ Logged</button>':'<button class="fg-log-btn" data-act="fglog" data-t="'+tk+'" data-name="'+esc(it[0])+'">👀 I saw it</button>';
+      return '<div class="sp-tile'+(S.spFocus===it[0]?' on':'')+(st.mine?'':(st.n?' seen-by-others':' unseen'))+'" data-act="spfilter" data-name="'+esc(it[0])+'"><div class="e">'+it[1]+'</div><div class="tx"><div class="n">'+esc(it[0])+'</div><div class="m">'+(st.mine?'Spotted '+st.n+'x':(st.n?'Seen by others · '+st.n+'x':'Nobody yet'))+'</div></div>'+btn+'</div>';}).join('')+'</div>';
+    var sheet=sel?'<div class="sp-sheet"><button class="sp-sheet-x" data-act="pinclear" aria-label="Close">✕</button><div class="map-detail-title">'+esc(sel.emoji)+' '+esc(sel.species)+(sel.count>1?' ×'+sel.count:'')+'</div><div class="map-detail-meta">'+esc(sel.place||'Pinned spot')+' · '+esc(sel.user_id===S.me.id?'You':sel.user_name)+' · '+spAgo(sel.seen_at)+'</div>'+(S.spNote?'<div class="sp-sheet-note">'+esc(S.spNote)+'</div>':'')+(spHave(sel.species)?'':'<div class="sp-sheet-note">Not in your guide yet — <a href="#" data-act="fglog" data-t="'+tk+'" data-name="'+esc(sel.species)+'" style="color:var(--ink);font-weight:600">I saw one too 👀</a></div>')+'</div>':'<div class="sp-hint">'+esc(S.spNote||'Tap a pin to see what was spotted')+'</div>';
+    h+='<div class="map-card sp-big" style="margin-bottom:22px"><div class="map-head"><span class="map-title">'+T.mapTitle+'</span><button class="ghost-btn sm" data-act="pinit" data-t="'+tk+'">📍 Add to the map</button></div>'+
+      '<div class="sp-split"><div class="sp-left"><div class="map-area"><button class="sp-bag" data-act="guide">📖 '+your+'/'+total+'</button>'+(mapState.failed?fallbackMap():'<div id="sp-map-slot" style="position:absolute;inset:0"></div><button class="sp-loc" data-act="maploc" title="Centre on me">📍</button>'+overlayHtml())+sheet+'</div>'+(mapState.failed?'<p class="hint" style="margin:8px 0 0">Simple map shown — the full map needs a normal browser tab.</p>':'')+'</div>'+(S.guideOpen?'<div class="sp-back" data-act="guideclose"></div>':'')+'<div class="sp-right'+(S.guideOpen?' open':'')+'"><div class="sp-dhead"><span>📖 Field guide</span><button data-act="guideclose" aria-label="Close">✕</button></div>'+prog+rail+'</div></div></div>';}
   var grid=T.items.map(function(it,i){var st=spStat(tk,it[0]),last=st.last,logRow;
     var meta=st.n?('Spotted '+st.n+'x · most recent: '+(last.place?esc(last.place)+', ':'')+spAgo(last.seen_at)):'Not spotted yet — be the first';
     var chips=st.who.slice(0,4).map(function(w){return '<div class="mini-avatar" title="'+esc(w.n)+'">'+esc(initials(w.n))+'</div>';}).join('');
@@ -2093,8 +2163,8 @@ function viewGuide(tk){
     return '<div class="fg-entry'+(S.just===it[0]?' just-logged':'')+'" data-act="fgopen" data-t="'+tk+'" data-name="'+esc(it[0])+'"><div class="emoji-thumb sm">'+it[1]+'</div><div class="fg-entry-body"><div class="fg-entry-name">'+esc(it[0])+'</div><div class="fg-entry-meta">'+meta+'</div>'+(chips?'<div class="fg-spotters">'+chips+'<span class="fg-spotters-label">spotted by '+st.who.map(function(w){return esc(w.n);}).join(', ')+'</span></div>':'')+logRow+'</div></div>';}).join('');
   S.just=null;
   var nx=T.items.filter(function(it){return !spStat(tk,it[0]).mine;})[0];
-  h+='<div class="fieldguide-card"><div class="fieldguide-head"><span class="fieldguide-title">'+T.icon+' '+esc(T.label)+'</span><span class="fieldguide-count">'+total+' '+T.itemNoun+' in the guide</span></div><p class="fieldguide-sub">'+T.fgSub+'</p>'+
-    '<div class="fg-progress">🌿 You\'ve personally logged <b>'+your+' of '+total+'</b> '+T.itemPlural+' here'+(nx?' — next up: <b>'+esc(nx[0])+'</b>.':' — you\'ve got them all.')+'</div><div class="fieldguide-grid">'+grid+'</div></div>';
+  if(!T.hasMap) h+='<div class="fieldguide-card"><div class="fieldguide-head"><span class="fieldguide-title">'+T.icon+' '+esc(T.label)+'</span><span class="fieldguide-count">'+total+' '+T.itemNoun+' in the guide</span></div><p class="fieldguide-sub">'+T.fgSub+'</p>'+
+    '<div class="fg-progress">🌿 You\'ve personally logged <b>'+your+' of '+total+'</b> '+T.itemPlural+' here'+(nx?' — next up: <b>'+esc(nx[0])+'</b>.':' — you\'ve got them all.')+'</div><div class="fieldguide-grid compact">'+grid+'</div></div>';
   root.innerHTML=h;}
 function grabSpot(){var sp=S.spot,g=function(id){var e=document.getElementById(id);return e?e.value:null;};
   if(g('spsp')!=null)sp.name=g('spsp'); if(g('spplace')!=null)sp.place=g('spplace'); if(g('spnote')!=null)sp.note=g('spnote');}
@@ -2233,14 +2303,24 @@ document.addEventListener('click',async function(e){
     if(a==='cask'){S.cc=t.dataset.id;return render();}
     if(a==='ckeep'){S.cc=null;return render();}
     if(a==='ccancel'){S.cc=null;await api.cancelConn(t.dataset.id);flash('ok','Cancelled.');return refresh();}
-    if(a==='pinsel'){S.pin=t.dataset.id;return render();}
+    if(a==='pinsel'){S.spNote='';S.pin=t.dataset.id;return render();}
+    if(a==='guide'){S.guideOpen=true;return render();}
+    if(a==='guideclose'){S.guideOpen=false;return render();}
+    if(a==='pinclear'){S.pin=null;return render();}
+    if(a==='spfilter'){ var nm=t.dataset.name; S.guideOpen=false; S.spFocus=nm||null; S.spNote='';
+      if(nm){ var rows=spRows('wildlife').filter(function(r){return r.species===nm&&r.lat!=null;}).sort(function(x,y){return new Date(y.seen_at)-new Date(x.seen_at);});
+        if(!rows.length){S.pin=null;S.spNote='No pin for '+nm+' yet';}
+        else{ S.spCycle=S.spCycle||{}; var k=(S.spCycle[nm]==null?0:S.spCycle[nm]+1)%rows.length; S.spCycle[nm]=k; var pr=rows[k]; S.pin=pr.id;
+          if(mapState.map)mapState.map.flyTo({center:[pr.lng,pr.lat],zoom:15}); if(rows.length>1)S.spNote=nm+' · '+(k+1)+' of '+rows.length+' — tap again for the next'; } }
+      else S.pin=null;
+      return render();}
     if(a==='railgo'){S.pin=t.dataset.id;location.hash='#/guide/'+t.dataset.t;return;}
     if(a==='fglog'){var T0=TOPICS[t.dataset.t],it0=T0.items.filter(function(x){return x[0]===t.dataset.name;})[0];
       await api.addSighting({category:T0.cat,species:it0[0],emoji:it0[1],count:1,note:'',place:'',lat:null,lng:null});
       S.just=it0[0];S.sights=await syncSights();return render();}
     if(a==='fgopen'){var T1=TOPICS[t.dataset.t],pr=null;
       if(T1.hasMap){pr=spRows(t.dataset.t).filter(function(r){return r.species===t.dataset.name&&r.lat!=null;})[0];}
-      if(pr){S.pin=pr.id;if(mapState.map)mapState.map.flyTo({center:[pr.lng,pr.lat],zoom:15});render();var md=document.querySelector('.map-detail');if(md)md.scrollIntoView({behavior:'smooth',block:'center'});}
+      if(pr){S.pin=pr.id;if(mapState.map)mapState.map.flyTo({center:[pr.lng,pr.lat],zoom:15});render();}
       return;}
     if(a==='pinit'){S.spot={name:t.dataset.name||''};location.hash='#/spot/'+t.dataset.t;return;}
     if(a==='maploc'){var q=await getPos();mapState.pos=q;if(mapState.map){mapState.map.flyTo({center:[q.lng,q.lat],zoom:15});refreshPins();}else render();return;}
