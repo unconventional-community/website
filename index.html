@@ -2141,7 +2141,6 @@ function connRail(){
   var inc=S.conns.filter(function(c){return c.dir==='in'&&c.status==='pending';}), live=statusLive();
   var o='<p class="rail-label">👥 Connections</p><p style="font-size:12px;color:var(--muted);margin:-6px 0 14px;">People with a status showing come first, then the ones whose tags match yours. Where to meet stays hidden until they approve, and either of you can disconnect anytime.</p>'+
    '';
-  if(inc.length) o+='<div class="stack" style="margin-bottom:16px">'+inc.map(function(c){return '<div class="offer-card"><div class="offer-avatar">'+esc(initials(c.other_name))+'</div><div class="offer-main"><div class="row-top"><b>'+esc(c.other_name)+'</b><span class="row-time">wants to join you</span></div><input id="place-'+c.id+'" placeholder="Where would you meet? (only they see it)"><div class="btn-row">'+(connBusy()?'<span class="hint" style="margin:0">Cancel your current connection to approve.</span>':'<button class="post-btn sm" data-act="cappr" data-id="'+c.id+'">Approve</button>')+'<button class="ghost-btn sm" data-act="cdecl" data-id="'+c.id+'">Decline</button></div></div></div>';}).join('')+'</div>';
   var mineT=followed().concat(COMMON_TAGS).concat(live?(S.my.tags||[]):[]);
   function ovl(p){return (p.tags||[]).filter(function(t){return mineT.indexOf(t)>-1;});}
   var people=S.people.slice().sort(function(x,y){return ((isOnline(y)?1000:0)+(y.status?100:0)+ovl(y).length)-((isOnline(x)?1000:0)+(x.status?100:0)+ovl(x).length);});
