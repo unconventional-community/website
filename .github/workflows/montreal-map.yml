@@ -1,0 +1,31 @@
+name: Build Montréal map
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pmtiles tool
+        run: |
+          curl -sL https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_x86_64.tar.gz | tar xz pmtiles
+      - name: Cut Montréal out of the world map
+        run: |
+          mkdir -p maps
+          for i in 1 2 3 4 5 6 7; do
+            d=$(date -u -d "-$i day" +%Y%m%d)
+            echo "Trying build $d"
+            if ./pmtiles extract "https://build.protomaps.com/$d.pmtiles" maps/montreal.pmtiles \
+               --bbox=-74.00,45.40,-73.47,45.72 --maxzoom=15; then break; fi
+          done
+          ls -l maps/montreal.pmtiles
+          size=$(stat -c %s maps/montreal.pmtiles)
+          if [ "$size" -gt 95000000 ]; then echo "File over GitHub's 100 MB limit: lower --maxzoom to 14"; exit 1; fi
+      - name: Save to the repo
+        run: |
+          git config user.name "map-bot"; git config user.email "map-bot@users.noreply.github.com"
+          git add maps/montreal.pmtiles
+          git commit -m "Update Montréal map" || echo "no change"
+          git push
+ 
