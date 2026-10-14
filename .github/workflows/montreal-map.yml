@@ -17,7 +17,7 @@ jobs:
             d=$(date -u -d "-$i day" +%Y%m%d)
             echo "Trying build $d"
             if ./pmtiles extract "https://build.protomaps.com/$d.pmtiles" maps/montreal.pmtiles \
-               --bbox=-74.00,45.40,-73.47,45.72 --maxzoom=15; then break; fi
+               --bbox=-74.00,45.40,-73.47,45.72 --maxzoom=14; then break; fi
           done
           ls -l maps/montreal.pmtiles
           size=$(stat -c %s maps/montreal.pmtiles)
