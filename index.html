@@ -168,6 +168,14 @@
     background:var(--ink);
     color:#fff;
   }
+  .hdr-logo{flex:none;display:flex;margin-right:8px}
+  .hdr-logo img{width:30px;height:30px;border-radius:8px;display:block}
+  .hdr-place{font-size:16px;text-decoration:none;min-width:0;flex:0 1 auto;margin-right:12px}
+  .hdr-place span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hdr-tabs{background:none;border:0;border-radius:0;padding:0;gap:4px}
+  .hdr-tabs .tab-btn{font-size:14px;padding:6px 12px;border-radius:0;background:none;border-bottom:2px solid transparent}
+  .hdr-tabs .tab-btn.active{background:none;color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+  @media(max-width:640px){.hdr-place{max-width:34%;margin-right:6px;font-size:14px}.hdr-logo{margin-right:6px}.hdr-logo img{width:26px;height:26px}.hdr-tabs .tab-btn{padding:6px 7px;font-size:12.5px}.appbar-inner .pname{display:none}}
   .tab-desc{
     font-size:13px;
     color:var(--muted);
@@ -218,6 +226,20 @@
     flex:1 1 auto;
     width:100%;
   }
+  .grid.two-rows{grid-template-rows:auto auto;grid-auto-rows:0;row-gap:0;overflow:hidden;margin-bottom:22px}
+  .grid.two-rows>*{margin-bottom:16px}
+  /* compact cards for the home "For you" (Roblox-style): small thumbnail, one-line titles with ... */
+  .grid.two-rows{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));column-gap:12px}
+  .grid.two-rows>*{margin-bottom:12px}
+  .grid.two-rows .card{border-radius:12px}
+  .grid.two-rows .thumb{aspect-ratio:16/9}
+  .grid.two-rows .pin{top:6px;left:6px;font-size:9px;padding:2px 6px}
+  .grid.two-rows .card-body{padding:8px 10px 10px;gap:4px}
+  .grid.two-rows .tag{font-size:10px;padding:2px 7px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .grid.two-rows .axis-dot{display:none}
+  .grid.two-rows .title{font-size:12.5px;line-height:1.3;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .grid.two-rows .meta{font-size:10.5px;gap:6px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+  .grid.two-rows .meta span:nth-child(n+2){overflow:hidden;text-overflow:ellipsis}
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
@@ -682,6 +704,12 @@
   }
   .live-card.offline .live-activity{color:var(--muted);}
 
+  .neighbour-tile{flex:0 0 92px;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer}
+  .neighbour-avatar-wrap{position:relative;flex:none;margin-bottom:10px}
+  .neighbour-avatar{width:60px;height:60px;border-radius:50%;background:var(--mustard-light);color:#7A5A18;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);box-shadow:0 0 0 1.5px var(--border);transition:transform .15s ease}
+  .neighbour-tile:hover .neighbour-avatar{transform:scale(1.05)}
+  .neighbour-interest-hint{position:absolute;bottom:1px;right:1px;width:22px;height:22px;border-radius:50%;background:var(--card);border:2px solid var(--card);box-shadow:0 0 0 1px var(--border);display:flex;align-items:center;justify-content:center;font-size:11px}
+  .neighbour-tile-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
   .continue-rail{
     display:flex;
     gap:12px;
@@ -703,6 +731,12 @@
     transition:transform .12s ease;
   }
   .continue-card:hover{transform:translateY(-2px);}
+  #r-jump .continue-card{flex:0 0 150px;border-radius:12px}
+  #r-jump .emoji-thumb{height:84px;font-size:34px}
+  #r-jump .continue-card-body{padding:8px 10px 10px}
+  #r-jump .continue-tag{font-size:10px;padding:1px 7px;margin-bottom:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #r-jump .continue-title{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #r-jump .continue-meta{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .continue-card img{
     width:100%;height:104px;object-fit:cover;display:block;
   }
@@ -786,6 +820,12 @@
   .continue-live-text{font-size:10.5px;color:var(--muted);font-weight:500;}
 
   .rail-with-arrows{position:relative;margin-bottom:26px;}
+  .rail-with-arrows.conn-wrap{margin-bottom:4px}
+  #conn-rail{padding-bottom:0}
+  .live-note{position:absolute;left:-8px;top:-9px;max-width:84px;background:var(--card);border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.14);border-radius:12px;padding:2px 8px;font-size:10.5px;line-height:1.25;color:var(--ink);z-index:2;pointer-events:none}
+  .live-note span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .live-note::after{content:"";position:absolute;left:16px;bottom:-4px;width:7px;height:7px;background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border);transform:rotate(45deg)}
+  .live-hover-tooltip{z-index:70}
   .rail-with-arrows .continue-rail{overflow-x:hidden;scroll-behavior:smooth;margin-bottom:0;}
   .rail-nav-arrow{
     position:absolute;top:50%;transform:translateY(-50%);
@@ -1833,7 +1873,30 @@ function makeSupabaseApi(){
 
 function makeDemoApi(){
   var KEY='gah_demo_v2', d=load();
-  function load(){ var s=localStorage.getItem(KEY); return s?JSON.parse(s):seed(); }
+  function load(){ var s=localStorage.getItem(KEY); return topUp(s?JSON.parse(s):seed()); }
+  /* one-time extra sample requests so the feed looks full (existing demo data is kept) */
+  function topUp(x){
+    if(x.rseed)return x; x.rseed=1;
+    var more=['Gardening','Cooking','Language practice','Bike repair','Furniture repair','Tutoring','Moving help'];
+    more.forEach(function(n){ if(!x.topics.some(function(t){return t.name===n;})) x.topics.push({id:'t'+(100+x.topics.length),name:n}); });
+    function tid(n){return x.topics.filter(function(t){return t.name===n;})[0].id;}
+    var now=Date.now(),H=3600000,R=[
+      ['n1','Gardening','Which herbs survive a north-facing balcony?','Montréal winters, small pots, very little direct sun.',1500,5,1],
+      ['n2','Cooking','Teach me to make a proper pot of dal','Total beginner, I only own one pan.',1800,7,0],
+      ['n3','Language practice','Looking for a French conversation partner','Intermediate, want to practise over coffee.',1000,11,2],
+      ['n4','Bike repair','Rear derailleur keeps skipping gears','Old road bike, probably needs a cable adjustment.',2000,14,1],
+      ['n1','Furniture repair','Wobbly wooden chair, how do I tighten the joints?','Glue and clamps at home, not sure where to start.',2000,20,0],
+      ['n2','Tutoring','Calculus help before Friday\'s midterm','Limits and derivatives, two hours would be great.',2500,22,3],
+      ['n3','Moving help','Need two people to carry a couch up 3 floors','Saturday morning, pizza included.',3000,30,1],
+      ['n4','Photography','Product photos for my Etsy shop','Small ceramics, need lighting tips with a phone.',2000,34,0],
+      ['n1','Writing & editing','Proofread my cover letter before Monday','One page, applying for a summer job.',1500,40,2],
+      ['n2','Music production','How do I sidechain a kick in Ableton?','Learning, just got my first MIDI keyboard.',1800,46,0],
+      ['n3','Illustration','Help picking colours for a children\'s book','Soft watercolour look, a woodland story.',2000,52,1],
+      ['n4','Web development','Deploying my first site, what hosting should I use?','Static portfolio, basically HTML and CSS.',2500,60,0],
+      ['n1','Video editing','Cut my travel vlog down to 5 minutes','Footage is 40 minutes, Premiere Pro.',2500,70,1],
+      ['n2','Startup / business plan','Review my one-page business plan','Small bakery idea, need numbers sanity-checked.',3000,80,2]];
+    R.forEach(function(r,i){ x.requests.push({id:'rx'+i,requester_id:r[0],topic_id:tid(r[1]),title:r[2],details:r[3],budget_cents:r[4],image:null,status:'open',offers_count:r[6],created_at:new Date(now-r[5]*H).toISOString()}); });
+    return x; }
   function save(){ localStorage.setItem(KEY,JSON.stringify(d)); }
   function uid(){ return 'd'+Math.random().toString(36).slice(2,10); }
   function seed(){
@@ -1923,6 +1986,8 @@ function makeDemoApi(){
     sightings:async function(since){ if(!d.sights){var ps=d.profiles.filter(function(p){return p.id!=='me';}),n=Date.now();
         var sg=function(i,c,sp,e,k,pl,la,ln,h,mine){var t=new Date(n-h*3600e3).toISOString(),u=ps[i%ps.length];return {id:'s'+i,user_id:mine?'me':u.id,user_name:mine?'You':u.name,category:c,species:sp,emoji:e,count:k,note:'',place:pl,lat:la,lng:ln,seen_at:t,created_at:t};};
         var tg=function(o,t){o.tags=t;return o;};d.sights=[sg(0,'bird','Great Blue Heron','🐦',1,'Parc La Fontaine pond',45.527,-73.570,2),sg(1,'bird','Northern Cardinal','🐦',1,'Mount Royal, east side',45.504,-73.585,5),sg(2,'bird','Snowy Owl','🦉',1,'Lachine canal',45.480,-73.588,30),sg(3,'bird','House Sparrow','🐦',2,'',null,null,20),sg(4,'bird','Mallard Duck','🦆',3,'Parc La Fontaine pond',45.5275,-73.5695,48),sg(5,'art','Mural','🎨',1,'Boulevard Saint-Laurent',null,null,9),sg(6,'bird','Blue Jay','🐦',1,'',null,null,70,true),sg(7,'bird','House Sparrow','🐦',1,'',null,null,90,true),tg(sg(8,'other','Retaining wall','🧱',1,'Rue Gilford',45.5235,-73.5855,12),['dry-stone','construction']),tg(sg(9,'other','Garden wall','🪨',1,'Mont-Royal, east side',45.5045,-73.5875,40),['dry-stone','construction']),tg(sg(10,'other','Window light','🪟',1,'Boulevard Saint-Laurent',45.5160,-73.5770,6),['street-photography','photography']),tg(sg(11,'other','Bridge at night','🌉',1,'Lachine canal',45.4805,-73.5890,20),['long-exposure','photography']),tg(sg(12,'other','Alley scene','🧱',1,'Ruelle verte, Plateau',45.5230,-73.5800,16),['urban-sketching','sketching']),tg(sg(13,'other','Balcony planters','🪴',1,'Rue Rachel',45.5200,-73.5760,30),['container-gardening','gardening'])];save();}
+      if(!d.sseed2){ d.sseed2=1; d.sights=d.sights.filter(function(r){return String(r.id).indexOf('sm')!==0;}); var nw=Date.now(),mk=function(i,c,sp,e,h){var t=new Date(nw-h*3600e3).toISOString();return {id:'sm'+i,user_id:'me',user_name:'You',category:c,species:sp,emoji:e,count:1,note:'',place:'',lat:null,lng:null,seen_at:t,created_at:new Date(nw+i).toISOString(),tags:[]};};
+        [['art','Mural','🎨'],['art','Sculpture','🗿'],['bird','Mallard Duck','🦆'],['bird','Black-capped Chickadee','🐦'],['bird','Canada Goose','🦆'],['animal','Eastern Gray Squirrel','🐿️'],['animal','Groundhog','🦫'],['animal','Raccoon','🦝'],['tree','Sugar Maple','🍁'],['tree','Red Oak','🌳'],['tree','American Elm','🌳'],['flower','Rose','🌹'],['flower','Chrysanthemum','🌼'],['art','Alley street art','🎨'],['art','Leonard Cohen mural','🎨']].forEach(function(x,i){d.sights.unshift(mk(i,x[0],x[1],x[2],100+i*3));}); save(); }
       return d.sights.filter(function(r){return !since||r.created_at>since;}); },
     notifs:async function(){
       if(!d.nseed){ d.nseed=1; var now=Date.now(),D=864e5,H=36e5,pc=(d.conns||[]).filter(function(c){return c.to_id==='me'&&c.status==='pending';})[0],pp=prof(pc&&pc.from_id),N=[];
@@ -1960,7 +2025,7 @@ function rankHelpers(list,budget){
 /* ===================== STATE + ROUTER ===================== */
 var S={session:null,me:null,topics:[],services:[],feed:[],bookings:[],ratings:[],matches:{},conns:[],people:[],my:{emoji:'',text:'',visible:false,tags:[],at:0},draftEmoji:null,draftText:null,draftTags:null,notifOpen:false,newKind:'need',notifs:[],emojiOpen:false,editStatus:false,cc:null,sights:[],pin:null,spot:{},just:null,mapNeed:false,dl:null,interests:(function(){try{return JSON.parse(localStorage.getItem('gah_interests')||'[]');}catch(e){return [];}})(),tab:'foryou',ptab:'about',err:'',ok:'',stars:0,newImage:null,page:{}};
 var root=$('#root');
-function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='offer')return {v:'offer',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='interests')return {v:'interests'};if(p[0]==='trail')return {v:'trail',id:p[1]};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
+function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='offer')return {v:'offer',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='interests')return {v:'interests'};if(p[0]==='trail')return {v:'trail',id:p[1]};if(p[0]==='person')return {v:'person',id:p[1]};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
 function go(h){S.err='';S.ok='';location.hash=h;}
 function flash(k,m){S.err=k==='err'?m:'';S.ok=k==='ok'?m:'';}
 function msgs(){return (S.err?'<div class="note err">'+esc(S.err)+'</div>':'')+(S.ok?'<div class="note ok">'+esc(S.ok)+'</div>':'');}
@@ -2020,7 +2085,9 @@ function notifPanel(){
 }
 function appbar(){
   var n=S.me?notifCount():0;
-  $('#appbar').innerHTML='<div class="appbar-inner"><a class="brand" href="#/">🤝 Give a Hand</a><div class="appbar-right" style="margin-left:auto;">'+
+  var onFeed=S.me&&route().v==='feed';
+  var tabs=onFeed?'<div class="tabs hdr-tabs">'+[['foryou','Home'],['explore','Explore'],['recent','Recent']].map(function(t){return '<button class="tab-btn '+(S.tab===t[0]?'active':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>':'';
+  $('#appbar').innerHTML='<div class="appbar-inner">'+(S.me&&S.me.space?'<a class="hdr-logo" href="#/" title="Unconventional Community"><img src="data:image/jpeg;base64,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" alt="Unconventional Community"></a><a class="place hdr-place" href="#/" title="'+esc(S.me.space.name)+'">📍 <span>'+esc(S.me.space.name)+'</span></a>':'<a class="brand" href="#/">🤝 Give a Hand</a>')+tabs+'<div class="appbar-right" style="margin-left:auto;">'+
    (S.me?'<div style="position:relative"><button class="icon-btn" data-act="bell" title="Notifications" aria-label="Notifications'+(n?' ('+n+' new)':'')+'">🔔'+(n?'<span class="badge pulse"></span>':'')+'</button>'+(S.notifOpen?notifPanel():'')+'</div>'+
    '<div class="profile-chip" data-go="me" data-ptab="about"><div class="avatar-big">'+esc(initials(S.me.name))+'</div><span class="pname">'+esc(first(S.me.name))+'</span></div>':'')+'</div></div>';
 }
@@ -2051,19 +2118,19 @@ function viewFeed(){
   var rest=S.feed.filter(function(r){return r.requester_id!==S.me.id;});
   var recent=S.feed.slice();
   var forYou=rest.slice().sort(function(a,b){var am=(mineTopics.indexOf(a.topic_id)>-1||S.interests.indexOf(normTag(a.topic))>-1)?1:0,bm=(mineTopics.indexOf(b.topic_id)>-1||S.interests.indexOf(normTag(b.topic))>-1)?1:0;return bm-am||new Date(b.created_at)-new Date(a.created_at);});
-  var h=(!api.live?'<div class="note demo"><b>Demo mode</b> — data stays in this browser and the helpers are fake. Add your Supabase keys to go live.</div>':'')+composer()+
-   '<div class="topbar"><div class="place">📍 '+esc(S.me.space.name)+'</div><div class="tabs"><button class="tab-btn '+(S.tab==='recent'?'active':'')+'" data-tab="recent">Recent</button><button class="tab-btn '+(S.tab==='foryou'?'active':'')+'" data-tab="foryou">For you</button></div></div>'+msgs();
+  var h=composer()+msgs();
   if(S.tab==='recent'){
     h+='<p class="tab-desc"><span class="dot"></span>Everyone in the space, newest first — no ranking, no filtering.</p><div class="list">'+
       (recent.map(function(r){return '<div class="row clickable" data-go="post/'+r.id+'">'+
         '<div class="row-av" style="'+thumbStyle(r.topic)+'">'+(r.image?'<img src="'+r.image+'" alt="">':esc(initials(r.requester_name)))+'</div>'+
         '<div class="row-body"><div class="row-top"><span class="row-name">'+esc(r.requester_name)+'</span><span class="row-time">· '+agoLong(r.created_at)+'</span></div>'+
         '<p class="row-text">'+esc(r.title)+'</p><div class="row-tags"><span class="tag labor">'+esc(r.topic)+'</span><span class="row-offers">'+offersLabel(r)+'</span></div></div></div>';}).join('')||'<div class="empty">No requests yet. Be the first to ask.</div>')+'</div>';
+  } else if(S.tab==='explore'){
+    h+='<p class="rail-sub" style="margin:0 0 14px">Look around: see what neighbours have spotted, open a field guide or try a trail.</p>'+neighboursRail()+spottedRail()+guidesRail()+trailsRail();
   } else {
     h+=connRail();
-    h+='<p class="rail-label">📋 For you</p><p class="rail-sub">Requests in topics you can help with come first, then everything else, newest first.</p><div class="grid">'+
-      forYouGrid(forYou)+'</div>';
-    h+=guidesRail()+jumpRail()+trailsRail()+spottedRail();
+    h+='<p class="rail-label">📋 For you</p><div class="grid two-rows">'+forYouGrid(forYou)+'</div>';
+    h+=jumpRail();
   }
   root.innerHTML=h;
 }
@@ -2139,19 +2206,19 @@ function connBusy(){return S.conns.some(function(c){return c.status==='approved'
 function connRail(){
   var by={}; S.conns.forEach(function(c){by[c.other_id]=c;});
   var inc=S.conns.filter(function(c){return c.dir==='in'&&c.status==='pending';}), live=statusLive();
-  var o='<p class="rail-label">👥 Connections</p><p style="font-size:12px;color:var(--muted);margin:-6px 0 14px;">People with a status showing come first, then the ones whose tags match yours. Where to meet stays hidden until they approve, and either of you can disconnect anytime.</p>'+
+  var o='<p class="rail-label">👥 Connections</p><div style="height:4px"></div>'+
    '';
   var mineT=followed().concat(COMMON_TAGS).concat(live?(S.my.tags||[]):[]);
   function ovl(p){return (p.tags||[]).filter(function(t){return mineT.indexOf(t)>-1;});}
   var people=S.people.slice().sort(function(x,y){return ((isOnline(y)?1000:0)+(y.status?100:0)+ovl(y).length)-((isOnline(x)?1000:0)+(x.status?100:0)+ovl(x).length);});
-  o+='<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="conn-prev" data-act="cnav" data-dir="-1">‹</div><div class="live-rail" id="conn-rail" style="overflow-x:hidden;margin-bottom:0">'+(people.map(function(p){var c=by[p.id],st=c&&c.status,mineOut=c&&c.dir==='out',body='';
+  o+='<div class="rail-with-arrows conn-wrap"><div class="rail-nav-arrow left hidden" id="conn-prev" data-act="cnav" data-dir="-1">‹</div><div class="live-rail" id="conn-rail" style="overflow-x:hidden;margin-bottom:0'+(people.some(function(p){return p.stext;})?';padding-top:9px':'')+'">'+(people.map(function(p){var c=by[p.id],st=c&&c.status,mineOut=c&&c.dir==='out',body='';
     if(!c) body='';
     else if(st==='pending'&&mineOut) body='<div class="live-status-badge show pending">🕓 Requested</div><button class="ghost-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Withdraw</button>';
     else if(st==='pending') body='<div class="live-status-badge show pending">Asked to join you</div>';
     else if(st==='approved') body='<div class="live-status-badge show unlocked">✅ Approved</div><div class="live-visible-location show">📍 '+esc(c.place)+'</div><a class="live-join-btn unlocked" style="display:block;margin-top:8px;text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.place)+'">Get directions →</a>'+(S.cc===c.id?'<button class="post-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Yes, cancel</button><button class="ghost-btn sm" style="margin-top:4px" data-act="ckeep">Keep</button>':'<button class="ghost-btn sm" style="margin-top:6px" data-act="cask" data-id="'+c.id+'">Cancel</button>')+'';
-    else body='<div class="live-activity">Not connected</div>';
+    else body='';
     var act=p.stext?'<div class="live-activity" title="'+esc(p.stext)+'" style="max-width:92px;overflow:hidden;text-overflow:ellipsis;display:block">'+esc(p.stext)+'</div>':(isOnline(p)?'':'<div class="live-activity">'+esc(lastSeenText(p))+'</div>');
-    return '<div class="live-card'+(st==='approved'?' has-status':'')+(isOnline(p)?'':' offline')+'"'+(!c&&!connBusy()?' data-join="'+p.id+'"':'')+'><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.emoji?emojiBadge(p.emoji):(isOnline(p)?'<div class="live-online" title="Online"></div>':'<div class="live-online off" title="Offline"></div>'))+'</div><div class="live-name">'+esc(p.name)+'</div>'+(p.tags&&p.tags.length?'<div class="live-tags">'+p.tags.slice(0,3).map(function(t){return '<span class="'+(mineT.indexOf(t)>-1?'m':'')+'">#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+act+body+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
+    return '<div class="live-card'+(st==='approved'?' has-status':'')+(isOnline(p)?'':' offline')+'"'+(!c&&!connBusy()&&p.status?' data-join="'+p.id+'"':'')+'><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.stext?'<div class="live-note" title="'+esc(p.stext)+'"><span>'+esc(p.stext)+'</span></div>':'')+(p.emoji?emojiBadge(p.emoji):isOnline(p)?'<div class="live-online" title="Online"></div>':'<div class="live-online off" title="'+esc(lastSeenText(p))+'"></div>')+'</div><div class="live-name">'+esc(p.name)+'</div>'+(p.tags&&p.tags.length?'<div class="live-tags">'+p.tags.slice(0,3).map(function(t){return '<span class="'+(mineT.indexOf(t)>-1?'m':'')+'">#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+body+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
   return o;
 }
 /* Arrows instead of a scrollbar (same pattern as the feed): only whole cards show, arrows page by one card. */
@@ -2219,7 +2286,48 @@ var TRAILS=[
   stops:[{e:'🏛️',name:'Old stone market',sp:null,note:'Start by the historic market building.',ll:[-73.5538,45.5088]},
          {e:'🦆',name:'Quay edge',sp:'Mallard Duck',note:'Ducks gather by the water steps.',ll:[-73.5500,45.5052]},
          {e:'🕊️',name:'Plaza',sp:'Mourning Dove',note:'Soft calls from the lampposts.',ll:[-73.5481,45.5036]}]}
+ ,{id:'lachine',kind:'animals',name:'Lachine Canal critter walk',icon:'🦫',km:1.8,mins:40,blurb:'Grassy banks and quiet water west of Atwater Market.',
+  line:[[-73.5738,45.4790],[-73.5775,45.4768],[-73.5820,45.4748],[-73.5865,45.4728],[-73.5910,45.4706]],
+  stops:[{c:'animal',e:'🐿️',name:'Market trees',sp:'Eastern Gray Squirrel',note:'Easy one — they work the benches for crumbs.',ll:[-73.5742,45.4788]},
+         {c:'animal',e:'🦫',name:'Grassy bank',sp:'Groundhog',note:'Scan the sunny slopes; they stand up to look around.',ll:[-73.5798,45.4757]},
+         {c:'animal',e:'🐀',name:'Water edge',sp:'Muskrat',note:'A small V-shaped ripple near the reeds, mostly at dusk.',ll:[-73.5842,45.4738]},
+         {c:'animal',e:'🐿️',name:'Stone wall',sp:'Eastern Chipmunk',note:'Quick stripes darting along the stones.',ll:[-73.5890,45.4716]}]},
+ {id:'angrignon',kind:'animals',name:'Parc Angrignon animal loop',icon:'🦊',km:2.2,mins:50,blurb:'Woods and a pond — foxes and beavers live here.',
+  line:[[-73.6045,45.4465],[-73.6020,45.4480],[-73.5995,45.4465],[-73.6005,45.4440],[-73.6035,45.4435],[-73.6045,45.4465]],
+  stops:[{c:'animal',e:'🐿️',name:'Park entrance',sp:'Eastern Gray Squirrel',note:'Starts here, on the first big trees.',ll:[-73.6045,45.4465]},
+         {c:'animal',e:'🦝',name:'Wooded edge',sp:'Raccoon',note:'Best around dusk — look for tracks by the water.',ll:[-73.6010,45.4478]},
+         {c:'animal',e:'🦫',name:'The pond',sp:'Beaver',note:'Chewed tree stumps are the giveaway.',ll:[-73.5998,45.4458]},
+         {c:'animal',e:'🦊',name:'Quiet meadow',sp:'Red Fox',note:'Go early and stay still at the field edge.',ll:[-73.6030,45.4438]}]},
+ {id:'jeanne-mance',kind:'trees',name:'Jeanne-Mance to Mont-Royal tree walk',icon:'🌳',km:1.2,mins:30,blurb:'Big old trees on the way up the mountain. Fall colours are best in October.',
+  line:[[-73.5890,45.5185],[-73.5885,45.5168],[-73.5875,45.5152],[-73.5870,45.5138],[-73.5880,45.5120]],
+  stops:[{c:'tree',e:'🍁',name:'Park lawn',sp:'Sugar Maple',note:'Five-pointed leaves with smooth edges; reds and oranges in fall.',ll:[-73.5890,45.5183]},
+         {c:'tree',e:'🌳',name:'Open grove',sp:'American Elm',note:'Vase-shaped crown, like a green fountain.',ll:[-73.5885,45.5167]},
+         {c:'tree',e:'🌳',name:'Monument slope',sp:'Red Oak',note:'Pointed lobes; look for acorns underfoot.',ll:[-73.5873,45.5150]},
+         {c:'tree',e:'🌲',name:'Shady path',sp:'Eastern White Pine',note:'Needles in bundles of five, soft to the touch.',ll:[-73.5871,45.5138]},
+         {c:'tree',e:'🌳',name:'Upper trail',sp:'Silver Maple',note:'Deeply cut leaves with a silvery underside.',ll:[-73.5880,45.5121]}]},
+ {id:'botanique-fleurs',kind:'flowers',name:'Jardin botanique flower walk',icon:'🌸',km:1.5,mins:45,blurb:'What blooms depends on the season — chrysanthemums in October, peonies in June.',
+  line:[[-73.5648,45.5588],[-73.5635,45.5600],[-73.5620,45.5612],[-73.5605,45.5625],[-73.5615,45.5640]],
+  stops:[{c:'flower',e:'🌹',name:'Rose garden',sp:'Rose',note:'Best from late June to September.',ll:[-73.5648,45.5588]},
+         {c:'flower',e:'🌸',name:'Peony beds',sp:'Peony',note:'Big blooms in early summer.',ll:[-73.5635,45.5600]},
+         {c:'flower',e:'🪻',name:'Lilac collection',sp:'Lilac',note:'Fragrant in May; leaves only the rest of the year.',ll:[-73.5620,45.5612]},
+         {c:'flower',e:'🪷',name:'Water pools',sp:'Water Lily',note:'Floating blooms, mainly July to September.',ll:[-73.5605,45.5625]},
+         {c:'flower',e:'🌼',name:'Autumn display',sp:'Chrysanthemum',note:'The classic fall flower — peak in October.',ll:[-73.5615,45.5640]}]},
+ {id:'saint-laurent-murals',kind:'art',name:'Boulevard Saint-Laurent mural walk',icon:'🎨',km:1.6,mins:40,blurb:'Giant walls and alley art through the Plateau and Mile End.',
+  line:[[-73.5742,45.5110],[-73.5765,45.5152],[-73.5788,45.5196],[-73.5812,45.5238]],
+  stops:[{c:'art',e:'🎨',name:'Sherbrooke corner',sp:'Plateau side-wall mural',note:'Look up at the tall side walls near the start.',ll:[-73.5744,45.5114]},
+         {c:'art',e:'🎨',name:'Side alley',sp:'Alley street art',note:'Peek down the lanes off the main street.',ll:[-73.5766,45.5154]},
+         {c:'art',e:'🖼️',name:'Mid-block',sp:'Boulevard mural',note:'Murals change every year, so look for new ones.',ll:[-73.5788,45.5196]},
+         {c:'art',e:'🎨',name:'Mile End end',sp:'Mile End mural',note:'The last big wall before the end of the walk.',ll:[-73.5811,45.5236]}]},
+ {id:'downtown-art',kind:'art',name:'Downtown sculpture & art walk',icon:'🗿',km:1.9,mins:45,blurb:'A famous mural, museum sculpture, statues and a plaza.',
+  line:[[-73.5778,45.4975],[-73.5798,45.4985],[-73.5772,45.5048],[-73.5680,45.5085]],
+  stops:[{c:'art',e:'🎨',name:'Crescent Street',sp:'Leonard Cohen mural',note:'A huge portrait mural, visible from the street.',ll:[-73.5778,45.4975]},
+         {c:'art',e:'🗿',name:'Museum front',sp:'Museum-front sculpture',note:'Outdoor sculpture by the Musée des beaux-arts.',ll:[-73.5798,45.4985]},
+         {c:'art',e:'🗿',name:'McGill campus',sp:'McGill campus statue',note:'Statues and monuments around the lower campus.',ll:[-73.5772,45.5048]},
+         {c:'art',e:'🖼️',name:'Place des Arts',sp:'Place des Arts plaza art',note:'Public art around the plaza.',ll:[-73.5680,45.5085]}]}
 ];
+/* trail kinds: label + what the progress line calls things; a stop's category (c) defaults to 'bird' */
+var TKIND={birds:{e:'🐦',l:'birds',noun:'birds'},animals:{e:'🦊',l:'animals',noun:'animals'},trees:{e:'🌳',l:'trees',noun:'trees'},flowers:{e:'🌸',l:'flowers',noun:'flowers'},art:{e:'🎨',l:'art',noun:'art pieces'}};
+TRAILS.forEach(function(t){t.kind=t.kind||'birds';});
 function trailBy(id){return TRAILS.filter(function(t){return t.id===id;})[0];}
 function trailProg(t){var tr=t.stops.filter(function(x){return x.sp;}),got=tr.filter(function(x){return spHave(x.sp);}).length;return {got:got,total:tr.length};}
 var MINI_SVG='<svg viewBox="0 0 400 225" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="225" fill="#EEF0EA"/><ellipse cx="90" cy="60" rx="70" ry="40" fill="#D6E3C8"/><path d="M0 170 Q120 140 400 190 L400 225 L0 225Z" fill="#BFD7E6"/><g stroke="#fff" stroke-width="5" fill="none"><path d="M0 110H400"/><path d="M200 0V225"/><path d="M0 40L400 150"/></g></svg>';
@@ -2307,12 +2415,16 @@ function viewInterests(){
   root.innerHTML='<button class="back-btn" data-go="">← Back to feed</button><div class="auth card-box wide-box"><h2 class="form-h">Your interests</h2>'+interestsBody()+'</div>';}
 /* ---- rails below the grid: arrows instead of a scrollbar, same as the neighbourhood feed (whole cards only, one card per click) ---- */
 var RAIL_GAP=12, railPos={};
-function arrowRail(id,html){return '<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="'+id+'-prev" data-act="rnav" data-r="'+id+'" data-dir="-1">‹</div><div class="continue-rail" id="'+id+'" data-rail="1">'+html+'</div><div class="rail-nav-arrow right hidden" id="'+id+'-next" data-act="rnav" data-r="'+id+'" data-dir="1">›</div></div>';}
-function railStep(el){var c=el.querySelector('.continue-card');return c?c.offsetWidth+RAIL_GAP:0;}
+function arrowRail(id,html,min){return '<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="'+id+'-prev" data-act="rnav" data-r="'+id+'" data-dir="-1">‹</div><div class="continue-rail" id="'+id+'" data-rail="1"'+(min?' data-min="'+min+'"':'')+'>'+html+'</div><div class="rail-nav-arrow right hidden" id="'+id+'-next" data-act="rnav" data-r="'+id+'" data-dir="1">›</div></div>';}
+function railStep(el){if(el.dataset.step)return +el.dataset.step; var c=el.querySelector('.continue-card,.neighbour-tile');return c?c.offsetWidth+RAIL_GAP:0;}
 function railArrows(el){var pv=document.getElementById(el.id+'-prev'),nx=document.getElementById(el.id+'-next');if(!pv||!nx)return;
   pv.classList.toggle('hidden',el.scrollLeft<=0);nx.classList.toggle('hidden',el.scrollLeft+el.clientWidth>=el.scrollWidth-1);}
-function fitRails(){document.querySelectorAll('.continue-rail[data-rail]').forEach(function(el){var st=railStep(el);if(!st)return;
-  el.style.maxWidth='none';var n=Math.max(1,Math.floor((el.clientWidth+RAIL_GAP)/st));el.style.maxWidth=(n*st-RAIL_GAP)+'px';
+function fitRails(){document.querySelectorAll('.continue-rail[data-rail]').forEach(function(el){
+  if(el.dataset.min){ /* same sizing as the For you grid: as many cards as fit, stretched evenly to fill the row */
+    el.style.maxWidth='none'; var mn=+el.dataset.min,W=el.clientWidth,k=Math.max(1,Math.floor((W+RAIL_GAP)/(mn+RAIL_GAP))),w=(W-(k-1)*RAIL_GAP)/k;
+    el.querySelectorAll('.continue-card').forEach(function(c){c.style.flex='0 0 '+w+'px';}); el.dataset.step=w+RAIL_GAP; }
+  var st=railStep(el);if(!st)return;
+  if(!el.dataset.min){el.style.maxWidth='none';var n=Math.max(1,Math.floor((el.clientWidth+RAIL_GAP)/st));el.style.maxWidth=(n*st-RAIL_GAP)+'px';}
   el.style.scrollBehavior='auto';el.scrollLeft=railPos[el.id]||0;el.style.scrollBehavior='smooth';
   el.onscroll=function(){railPos[el.id]=el.scrollLeft;railArrows(el);};railArrows(el);});}
 window.addEventListener('resize',fitRails);
@@ -2321,11 +2433,34 @@ function jumpRail(){
   Object.keys(TOPICS).forEach(function(tk){var T=TOPICS[tk],your=spYour(tk),total=T.items.length; if(!topicVisible(tk)||your===0||your>=total)return;
     var nx=T.items.filter(function(it){return !spStat(tk,it[0]).mine;})[0], pct=Math.round(your/total*100), pl=T.itemPlural.charAt(0).toUpperCase()+T.itemPlural.slice(1);
     cards.push('<div class="continue-card" data-go="guide/'+tk+'"><div class="emoji-thumb">'+nx[1]+'</div><div class="continue-card-body"><div class="continue-tag">'+T.icon+' '+pl+'</div><div class="continue-title">Next up: '+esc(nx[0])+'</div><div class="continue-meta">'+your+' of '+total+' '+T.itemNoun+' logged</div><div class="continue-progress-bar"><div class="continue-progress-fill" style="width:'+pct+'%"></div></div></div></div>');});
+  TRAILS.forEach(function(t){var pg=trailProg(t); if(!pg.total||pg.got===0||pg.got>=pg.total)return;
+    var nx=t.stops.filter(function(x){return x.sp&&!spHave(x.sp);})[0], pct=Math.round(pg.got/pg.total*100);
+    cards.push('<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">'+TKIND[t.kind].e+' '+TKIND[t.kind].l+' trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">Next: '+esc(nx?nx.name:'finish')+' · '+pg.got+'/'+pg.total+'</div><div class="continue-progress-bar"><div class="continue-progress-fill" style="width:'+pct+'%"></div></div></div></div>');});
   if(!cards.length)return '';
-  return '<p class="rail-label">🔁 Jump back in</p>'+arrowRail('r-jump',cards.join(''));}
+  return '<p class="rail-label">🔁 Jump back in</p>'+arrowRail('r-jump',cards.join(''),150);}
+/* ---- Neighbours: people nearby, with a small emoji for what they log most (same idea as the neighbourhood feed) ---- */
+var CAT_EMOJI={bird:'🪶',animal:'🦊',tree:'🌳',flower:'🌸',art:'🎨',architecture:'🏛️',other:'🔖'};
+function personCounts(id){var c={},n=0;S.sights.forEach(function(r){if(r.user_id===id){c[r.category]=(c[r.category]||0)+1;n++;}});return {c:c,n:n};}
+function personHint(id){var pc=personCounts(id),best=null;Object.keys(pc.c).forEach(function(k){if(!best||pc.c[k]>pc.c[best])best=k;});return best?(CAT_EMOJI[best]||'🔖'):'👋';}
+function neighboursRail(){
+  var list=S.people.slice().sort(function(a,b){return personCounts(b.id).n-personCounts(a.id).n;}).slice(0,16);
+  if(!list.length)return '';
+  return '<p class="rail-label">🏘️ Neighbours</p><p class="rail-sub">See what people nearby have spotted</p>'+arrowRail('r-neigh',list.map(function(p){
+    return '<div class="neighbour-tile" data-go="person/'+esc(p.id)+'"><div class="neighbour-avatar-wrap"><div class="neighbour-avatar">'+esc(initials(p.name))+'</div><div class="neighbour-interest-hint">'+personHint(p.id)+'</div></div><div class="neighbour-tile-name">'+esc(first(p.name))+'</div></div>';}).join(''));}
+function viewPerson(id){
+  var p=S.people.filter(function(x){return x.id===id;})[0]; if(!p){location.hash='#/';return;}
+  var rows=S.sights.filter(function(r){return r.user_id===id;}),pc=personCounts(id),h='';
+  var chips=Object.keys(pc.c).map(function(k){return '<span class="tag" style="margin-right:6px">'+(CAT_EMOJI[k]||'🔖')+' '+pc.c[k]+' '+esc(k)+'</span>';}).join('');
+  h+='<button class="back-btn" data-go="">← Back to feed</button><div class="card-box" style="margin-top:14px;text-align:center"><div class="neighbour-avatar-wrap" style="display:inline-block"><div class="neighbour-avatar" style="width:84px;height:84px;font-size:26px">'+esc(initials(p.name))+'</div><div class="neighbour-interest-hint" style="width:28px;height:28px;font-size:14px">'+personHint(id)+'</div></div>'+
+    '<h2 class="form-h" style="margin:10px 0 2px">'+esc(p.name)+'</h2>'+(isOnline(p)?'<p class="rail-sub" style="margin:0">Online now</p>':'<p class="rail-sub" style="margin:0">'+esc(lastSeenText(p))+'</p>')+
+    (p.stext?'<p style="margin:10px 0 0">'+esc((p.emoji?p.emoji+' ':'')+p.stext)+'</p>':'')+(p.bio?'<p class="post-desc">'+esc(p.bio)+'</p>':'')+
+    (p.tags&&p.tags.length?'<div class="live-tags" style="margin-top:8px">'+p.tags.map(function(t){return '<span>#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+'</div>'+
+    '<p class="rail-label">👀 Spotted</p>'+(chips?'<div style="margin:-4px 0 12px">'+chips+'</div>':'')+
+    (rows.length?'<div class="fieldguide-grid compact">'+rows.slice(0,30).map(function(r){return '<div class="fg-entry"><div class="emoji-thumb sm">'+esc(r.emoji)+'</div><div class="fg-entry-body"><div class="fg-entry-name">'+esc(r.species)+(r.count>1?' ×'+r.count:'')+'</div><div class="fg-entry-meta">'+spAgo(r.seen_at)+(r.place?' · '+esc(r.place):'')+'</div></div></div>';}).join('')+'</div>':'<div class="empty small">'+esc(first(p.name))+' hasn\'t spotted anything yet.</div>');
+  root.innerHTML=h;}
 function trailsRail(){
   return '<p class="rail-label">🥾 Trails nearby</p><p class="rail-sub">Hand-picked walks — see what you could spot along the way.</p>'+arrowRail('r-trails',TRAILS.map(function(t){var pg=trailProg(t);
-    return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">🥾 trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join(''));}
+    return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">'+TKIND[t.kind].e+' '+TKIND[t.kind].l+' trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join(''));}
 function spottedRail(){
   var cards=[],seen={};
   S.sights.forEach(function(r){var tk=Object.keys(TOPICS).filter(function(k){return TOPICS[k].cat===r.category;})[0]; if(!tk||!topicVisible(tk)||r.user_id===S.me.id)return;
@@ -2430,9 +2565,9 @@ function viewTrail(id){
   var sheet=sel?'<div class="sp-sheet"><button class="sp-sheet-x" data-act="tstopclear" aria-label="Close">✕</button><div class="map-detail-title">'+(S.tstop+1)+'. '+sel.e+' '+esc(sel.name)+'</div><div class="map-detail-meta">'+esc(sel.note)+'</div></div>':'<div class="sp-hint">Tap a numbered stop</div>';
   h+='<div class="map-card sp-big" style="margin-bottom:22px"><div class="map-area">'+(mapState.failed?fallbackMap():'<div id="sp-map-slot" style="position:absolute;inset:0"></div>')+sheet+'</div>'+
      (mapState.failed?'<p class="hint" style="margin:8px 0 0">Simple map shown — the trail line needs a normal browser tab.</p>':'')+
-     (pg.total?'<div class="sp-prog">🌿 <b>'+pg.got+' of '+pg.total+'</b> birds on this trail are in your guide'+(pg.got===pg.total?' — trail complete!':'.')+'</div>':'')+
+     (pg.total?'<div class="sp-prog">🌿 <b>'+pg.got+' of '+pg.total+'</b> '+TKIND[t.kind].noun+' on this trail '+(pg.total===1?'is':'are')+' in your guide'+(pg.got===pg.total?' — trail complete!':'.')+'</div>':'')+
      '<div>'+t.stops.map(function(x,i){var have=x.sp&&spHave(x.sp);
-        var act=x.sp?(have?'<button class="fg-log-btn logged" disabled>✓ Logged</button>':'<button class="fg-log-btn" data-act="fglog" data-t="wildlife" data-name="'+esc(x.sp)+'">👀 I saw it</button>'):'';
+        var act=x.sp?(have?'<button class="fg-log-btn logged" disabled>✓ Logged</button>':'<button class="fg-log-btn" data-act="tlog" data-id="'+esc(t.id)+'" data-i="'+i+'">👀 I saw it</button>'):'';
         return '<div class="tr-stop'+(S.tstop===i?' on':'')+(x.sp&&!have?' grey':'')+'" data-act="tstop" data-i="'+i+'"><div class="num">'+(i+1)+'</div><div class="e">'+x.e+'</div><div class="tx"><div class="n1">'+esc(x.name)+(x.sp?' · '+esc(x.sp):'')+'</div><div class="n2">'+esc(x.note)+'</div></div>'+act+'</div>';}).join('')+'</div></div>';
   root.innerHTML=h;}
 function viewGuide(tk){
@@ -2568,7 +2703,7 @@ function render(){
   if(!S.session){appbar();return viewAuth();}
   if(!S.me){appbar();return viewSetup();}
   appbar(); var rt=route(), y=window.scrollY, fid=document.activeElement&&document.activeElement.id, fv=document.activeElement&&document.activeElement.value;
-  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='offer')viewOffer(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='interests')viewInterests();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
+  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='offer')viewOffer(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='interests')viewInterests();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='person')viewPerson(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
   if(fid&&document.getElementById(fid)&&document.activeElement.tagName!=='SELECT'&&document.getElementById(fid).type!=='file'){var f=document.getElementById(fid);f.focus();if(fv!=null)f.value=fv;}
   hideJoinTip(); fitConnRail(); fitRails(); mountMap(); window.scrollTo(0,y);
 }
@@ -2652,6 +2787,9 @@ document.addEventListener('click',async function(e){
     if(a==='fglog'){var T0=TOPICS[t.dataset.t],it0=T0.items.filter(function(x){return x[0]===t.dataset.name;})[0];
       await api.addSighting({category:T0.cat,species:it0[0],emoji:it0[1],count:1,note:'',place:'',lat:null,lng:null,tags:T0.tag?[T0.tag]:[]});
       S.just=it0[0];S.sights=await syncSights();return render();}
+    if(a==='tlog'){var tt2=trailBy(t.dataset.id),sx2=tt2&&tt2.stops[+t.dataset.i]; if(!sx2||!sx2.sp)return;
+      await api.addSighting({category:sx2.c||'bird',species:sx2.sp,emoji:sx2.e,count:1,note:'',place:tt2.name,lat:null,lng:null,tags:tt2.kind==='birds'?[]:[tt2.kind]});
+      S.sights=await syncSights();return render();}
     if(a==='fgopen'){var T1=TOPICS[t.dataset.t],pr=null;
       if(T1.hasMap){pr=spRows(t.dataset.t).filter(function(r){return r.species===t.dataset.name&&r.lat!=null;})[0];}
       if(pr){S.pin=pr.id;if(mapState.map)mapState.map.flyTo({center:[pr.lng,pr.lat],zoom:15});render();}
