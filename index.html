@@ -77,6 +77,26 @@
     background:var(--coral);
     border:1.5px solid var(--card);
   }
+  .icon-btn .badge.pulse{width:10px;height:10px;background:#E5322D;box-shadow:0 0 0 0 rgba(229,50,45,.6);animation:badgePulse 1.8s infinite}
+  @keyframes badgePulse{0%{box-shadow:0 0 0 0 rgba(229,50,45,.55)}70%{box-shadow:0 0 0 8px rgba(229,50,45,0)}100%{box-shadow:0 0 0 0 rgba(229,50,45,0)}}
+  .notif-panel{position:absolute;top:100%;right:-50px;margin-top:12px;width:330px;max-width:calc(100vw - 32px);background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(32,48,61,.18);z-index:60;max-height:70vh;overflow:auto}
+  .notif-head{font-weight:600;font-size:13px;padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:1}
+  .notif-item.unread{background:rgba(229,50,45,.05);box-shadow:inset 3px 0 0 #E5322D}
+  .notif-actions{display:flex;gap:14px}
+  .notif-item{position:relative}
+  .notif-x{position:absolute;top:8px;right:10px;width:24px;height:24px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:12px;cursor:pointer;opacity:.55}
+  .notif-item:hover .notif-x,.notif-x:focus{opacity:1;background:var(--paper)}
+  .notif-text{padding-right:22px}
+  .notif-time{color:var(--muted);font-size:12px;font-weight:400;margin-left:4px;white-space:nowrap}
+  .notif-state{font-size:12.5px;color:var(--muted)}
+  .notif-state.accepted{color:#3E5A3B;font-weight:600}
+  .notif-foot{padding:10px 16px;text-align:center;color:var(--muted);font-size:11.5px;border-top:1px solid var(--border)}
+  .notif-item{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+  .notif-item:last-child{border-bottom:0}
+  .notif-main{flex:1;min-width:0}
+  .notif-text{font-size:14px;margin-bottom:8px;line-height:1.35}
+  .notif-main input{width:100%;margin-bottom:8px}
+  .notif-empty{padding:22px 16px;text-align:center;color:var(--muted);font-size:13px}
   .profile-chip{
     display:flex;
     align-items:center;
@@ -521,6 +541,8 @@
     border:2px solid var(--card);
     box-shadow:0 0 0 1.5px var(--border);
   }
+  .live-online{position:absolute;bottom:1px;right:1px;width:14px;height:14px;border-radius:50%;background:#34C25E;border:2.5px solid var(--card)}
+  .live-online.off{background:#B9BFBB}
   .live-pulse{
     position:absolute;
     bottom:1px;right:1px;
@@ -620,6 +642,9 @@
   }
   .live-visible-location.show{display:block;}
   .live-avatar-wrap,.live-name{cursor:pointer;}
+  .live-hover-tooltip{position:fixed;display:none;padding:4px;z-index:60}
+  .live-hover-tooltip.show{display:block}
+  .live-card[data-join]{cursor:pointer}
   .live-join-btn{
     margin:0;
     background:var(--sage);color:#fff;
@@ -973,6 +998,19 @@
   .map-detail-spotters .mini-avatar:first-child{margin-left:0;}
   .map-detail-placeholder{font-size:12px;color:var(--muted);text-align:center;padding:6px 0;}
 
+  .ichips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .tagadd{display:flex;gap:8px;margin:0 0 8px}
+  .suggest{border:1px solid #e3e3da;border-radius:12px;background:#fff;overflow:hidden;margin:0 0 14px}
+  .sugg{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font:inherit;font-size:14px;padding:11px 14px;background:none;border:0;border-bottom:1px solid #eeeee6;color:var(--ink);cursor:pointer;text-align:left}
+  .sugg:last-child{border-bottom:0}
+  .sugg-m{font-size:12px;color:var(--muted)}
+  .sugg-empty{padding:12px 14px;font-size:13px;color:var(--muted)}
+  .ichip.lock{cursor:default;background:#f4f4ee;color:var(--muted)}
+  .tagadd input{flex:1}
+  .iarea{display:block;font:inherit;font-size:13px;color:var(--muted);background:none;border:0;padding:0;margin:0 0 6px;cursor:pointer;text-align:left}
+  .iarea.on{color:#3E5A3B;font-weight:600}
+  .ichip{font:inherit;font-size:13px;padding:7px 13px;border-radius:999px;border:1px solid #d9d9d0;background:#fff;color:var(--ink);cursor:pointer}
+  .ichip.on{background:var(--sage-light);border-color:var(--sage);color:#3E5A3B;font-weight:600}
   .fieldguide-card{
     grid-column:1/-1;
     background:var(--card);
@@ -1569,6 +1607,19 @@
   .st-link{background:none;border:0;padding:0;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
   .st-link:hover{color:var(--ink);text-decoration:underline}
   .st-link.danger:hover{color:#B4503C}
+  .st-tagrow{display:flex;align-items:center;gap:6px;margin:10px 0 0 12px;max-width:420px}
+  .st-hash{color:var(--sage);font-weight:700}
+  .st-taginput{flex:1;min-width:0;border:0!important;border-bottom:1px solid var(--border)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;outline:none;font:inherit;font-size:13px;padding:4px 2px!important;margin:0!important}
+  .st-taginput:focus{border-bottom-color:var(--sage)!important}
+  .st-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0 12px}
+  .st-chip{border:1px solid var(--border);background:var(--card);border-radius:999px;font:inherit;font-size:12px;padding:3px 10px;color:var(--muted);cursor:pointer}
+  .st-chip.on{background:var(--sage-light);border-color:var(--sage);color:#3E5A3B;font-weight:600}
+  .live-tags{font-size:10.5px;color:var(--muted);line-height:1.35;margin:2px 0 4px;max-width:92px;overflow-wrap:anywhere}
+  .live-tags .m{color:#3E5A3B;font-weight:600}
+  .kind-pick{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .kind-pill{border:1px solid var(--border);background:var(--card);border-radius:999px;font:inherit;font-size:13.5px;padding:8px 16px;color:var(--muted);cursor:pointer}
+  .kind-pill.on{background:var(--sage-light);border-color:var(--sage);color:#3E5A3B;font-weight:600}
+  .posts-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
   .st-picker{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-top:8px;padding:8px;max-height:176px;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 24px rgba(32,48,61,.12)}
   .st-picker button{font-size:21px;background:none;border:0;border-radius:10px;padding:6px 0;cursor:pointer}
   .st-picker button:hover{background:var(--paper)}
@@ -1755,10 +1806,11 @@ function makeSupabaseApi(){
     ask:async function(requestId,helperId,price){ chk(await sb.from('bookings').insert({request_id:requestId,requester_id:uid,helper_id:helperId,initiator:'requester',price_cents:price})); },
     offer:async function(requestId,requesterId,price,note){ chk(await sb.from('bookings').insert({request_id:requestId,requester_id:requesterId,helper_id:uid,initiator:'helper',price_cents:price,note:note})); },
     setBooking:async function(id,patch,requestId,reopen){ chk(await sb.from('bookings').update(patch).eq('id',id)); /* reopen handled by the bookings_sync trigger (see decline-anytime.sql) */ },
-    people:async function(){ var ps=chk(await sb.from('profiles').select('id,display_name,bio').neq('id',uid)), st=chk(await sb.from('statuses').select('profile_id,emoji,text')); /* RLS only returns visible, fresh ones */
-      return ps.map(function(p){var x=st.filter(function(r){return r.profile_id===p.id;})[0];return {id:p.id,name:p.display_name,bio:p.bio,status:x?((x.emoji+' '+x.text).trim()):'',emoji:x?x.emoji:'',stext:x?x.text:''};}); },
-    myStatus:async function(){ var r=(await sb.from('statuses').select('*').eq('profile_id',uid).maybeSingle()).data; return r?{emoji:r.emoji,text:r.text,visible:r.visible,at:Date.parse(r.updated_at)}:{emoji:'',text:'',visible:false,at:0}; },
-    setStatus:async function(emoji,text,visible){ chk(await sb.from('statuses').upsert({profile_id:uid,emoji:emoji,text:text,visible:visible})); },
+    people:async function(){ var pq=await sb.from('profiles').select('id,display_name,bio,last_seen').neq('id',uid); if(pq.error)pq=await sb.from('profiles').select('id,display_name,bio').neq('id',uid); var ps=chk(pq), st=chk(await sb.from('statuses').select('profile_id,emoji,text,tags')); /* RLS only returns visible, fresh ones */
+      return ps.map(function(p){var x=st.filter(function(r){return r.profile_id===p.id;})[0];return {id:p.id,name:p.display_name,bio:p.bio,status:x?((x.emoji+' '+x.text).trim()):'',emoji:x?x.emoji:'',stext:x?x.text:'',tags:x?(x.tags||[]):[],seen:p.last_seen?Date.parse(p.last_seen):0};}); },
+    ping:async function(){ try{ await sb.rpc('touch_presence'); }catch(e){} },
+    myStatus:async function(){ var r=(await sb.from('statuses').select('*').eq('profile_id',uid).maybeSingle()).data; return r?{emoji:r.emoji,text:r.text,visible:r.visible,tags:r.tags||[],at:Date.parse(r.updated_at)}:{emoji:'',text:'',visible:false,tags:[],at:0}; },
+    setStatus:async function(emoji,text,visible,tags){ chk(await sb.from('statuses').upsert({profile_id:uid,emoji:emoji,text:text,visible:visible,tags:tags||[]})); },
     conns:async function(){
       var rows=chk(await sb.from('connections').select('*, f:profiles!connections_from_id_fkey(id,display_name), t:profiles!connections_to_id_fkey(id,display_name)').or('from_id.eq.'+uid+',to_id.eq.'+uid).order('created_at',{ascending:false}));
       return rows.map(function(c){var out=c.from_id===uid,o=out?c.t:c.f;return {id:c.id,dir:out?'out':'in',status:c.status,place:c.place,other_id:o.id,other_name:o.display_name};}); },
@@ -1766,8 +1818,14 @@ function makeSupabaseApi(){
     setConn:async function(id,patch){ chk(await sb.from('connections').update(patch).eq('id',id)); },
     cancelConn:async function(id){ chk(await sb.from('connections').delete().eq('id',id)); },
     sightings:async function(since){ var q=sb.from('sightings').select('*, p:profiles(display_name)').order('created_at',{ascending:false}).limit(500); if(since) q=q.gt('created_at',since);
-      return chk(await q).map(function(r){return {id:r.id,user_id:r.user_id,user_name:r.p?r.p.display_name:'',category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng,seen_at:r.seen_at,created_at:r.created_at};}); },
-    addSighting:async function(r){ chk(await sb.from('sightings').insert({user_id:uid,category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng})); },
+      return chk(await q).map(function(r){return {id:r.id,user_id:r.user_id,user_name:r.p?r.p.display_name:'',category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng,seen_at:r.seen_at,created_at:r.created_at,tags:r.tags||[]};}); },
+    tagStats:async function(){ return chk(await sb.from('tag_popularity').select('*')); },
+    notifs:async function(){ try{ var r=await sb.from('notifications').select('*').order('created_at',{ascending:false}).limit(100); return r.error?[]:(r.data||[]); }catch(e){ return []; } },
+    markNotifsRead:async function(){ try{ await sb.from('notifications').update({read:true}).eq('user_id',uid).eq('read',false); }catch(e){} },
+    dismissNotifs:async function(ids){ try{ await sb.from('notifications').delete().in('id',ids); }catch(e){} },
+    myTags:async function(){ return chk(await sb.from('user_tags').select('tag')).map(function(r){return r.tag;}); },
+    setTag:async function(tag,on){ if(on) chk(await sb.from('user_tags').insert({user_id:uid,tag:tag})); else chk(await sb.from('user_tags').delete().eq('user_id',uid).eq('tag',tag)); },
+    addSighting:async function(r){ chk(await sb.from('sightings').insert({user_id:uid,category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng,tags:r.tags||[]})); },
     logMap:async function(kind,detail,bytes){ try{ await sb.from('map_events').insert({user_id:uid,kind:kind,detail:detail||'',bytes:bytes||null}); }catch(e){} },
     review:async function(bookingId,helperId,rating,comment){ chk(await sb.from('reviews').insert({booking_id:bookingId,reviewer_id:uid,helper_id:helperId,rating:rating,comment:comment})); }
   };
@@ -1852,9 +1910,9 @@ function makeDemoApi(){
     setBooking:async function(id,patch,requestId,reopen){d.bookings.forEach(function(b){if(b.id===id)Object.assign(b,patch);});
       if(patch.status==='accepted')d.requests.forEach(function(r){if(r.id===requestId)r.status='matched';});
       if(reopen)d.requests.forEach(function(r){if(r.id===requestId)r.status='open';});save();},
-    people:async function(){var demo=[['☕','working at the library'],['🎧','mixing a track'],['🖥️','coding at home']];return d.profiles.filter(function(p){return p.id!=='me';}).map(function(p,i){return {id:p.id,name:p.name,bio:p.bio,status:demo[i]?demo[i].join(' '):'',emoji:demo[i]?demo[i][0]:'',stext:demo[i]?demo[i][1]:''};});},
-    myStatus:async function(){return d.mystatus||{emoji:'',text:'',visible:false,at:0};},
-    setStatus:async function(emoji,text,visible){d.mystatus={emoji:emoji,text:text,visible:visible,at:Date.now()};save();},
+    people:async function(){var demo=[['☕','working at the library','study,coffee'],['🎧','mixing a track','music,beginner'],['🖥️','coding at home','coding,birds']];var M=6e4,seenAgo=[0,0,0,2*M,180*M,26*60*M,5*1440*M];return d.profiles.filter(function(p){return p.id!=='me';}).map(function(p,i){return {id:p.id,name:p.name,bio:p.bio,seen:Date.now()-(seenAgo[i]!=null?seenAgo[i]:7*1440*M),status:demo[i]?demo[i].join(' '):'',emoji:demo[i]?demo[i][0]:'',stext:demo[i]?demo[i][1]:'',tags:demo[i]?demo[i][2].split(','):[]};});},
+    myStatus:async function(){return d.mystatus||{emoji:'',text:'',visible:false,tags:[],at:0};},
+    setStatus:async function(emoji,text,visible,tags){d.mystatus={emoji:emoji,text:text,visible:visible,tags:tags||[],at:Date.now()};save();},
     conns:async function(){d.conns=d.conns||[];
       if(!d.cseed){d.cseed=1;var p0=d.profiles.filter(function(p){return p.id!=='me';})[2];if(p0)d.conns.push({id:uid(),from_id:p0.id,to_id:'me',status:'pending',place:null});save();}
       return d.conns.map(function(c){var out=c.from_id==='me',o=prof(out?c.to_id:c.from_id);return {id:c.id,dir:out?'out':'in',status:c.status,place:c.place,other_id:o.id,other_name:o.name};});},
@@ -1864,9 +1922,29 @@ function makeDemoApi(){
     cancelConn:async function(id){d.conns=d.conns.filter(function(c){return c.id!==id;});save();},
     sightings:async function(since){ if(!d.sights){var ps=d.profiles.filter(function(p){return p.id!=='me';}),n=Date.now();
         var sg=function(i,c,sp,e,k,pl,la,ln,h,mine){var t=new Date(n-h*3600e3).toISOString(),u=ps[i%ps.length];return {id:'s'+i,user_id:mine?'me':u.id,user_name:mine?'You':u.name,category:c,species:sp,emoji:e,count:k,note:'',place:pl,lat:la,lng:ln,seen_at:t,created_at:t};};
-        d.sights=[sg(0,'bird','Great Blue Heron','🐦',1,'Parc La Fontaine pond',45.527,-73.570,2),sg(1,'bird','Northern Cardinal','🐦',1,'Mount Royal, east side',45.504,-73.585,5),sg(2,'bird','Snowy Owl','🦉',1,'Lachine canal',45.480,-73.588,30),sg(3,'bird','House Sparrow','🐦',2,'',null,null,20),sg(4,'bird','Mallard Duck','🦆',3,'Parc La Fontaine pond',45.5275,-73.5695,48),sg(5,'art','Mural','🎨',1,'Boulevard Saint-Laurent',null,null,9),sg(6,'bird','Blue Jay','🐦',1,'',null,null,70,true),sg(7,'bird','House Sparrow','🐦',1,'',null,null,90,true)];save();}
+        var tg=function(o,t){o.tags=t;return o;};d.sights=[sg(0,'bird','Great Blue Heron','🐦',1,'Parc La Fontaine pond',45.527,-73.570,2),sg(1,'bird','Northern Cardinal','🐦',1,'Mount Royal, east side',45.504,-73.585,5),sg(2,'bird','Snowy Owl','🦉',1,'Lachine canal',45.480,-73.588,30),sg(3,'bird','House Sparrow','🐦',2,'',null,null,20),sg(4,'bird','Mallard Duck','🦆',3,'Parc La Fontaine pond',45.5275,-73.5695,48),sg(5,'art','Mural','🎨',1,'Boulevard Saint-Laurent',null,null,9),sg(6,'bird','Blue Jay','🐦',1,'',null,null,70,true),sg(7,'bird','House Sparrow','🐦',1,'',null,null,90,true),tg(sg(8,'other','Retaining wall','🧱',1,'Rue Gilford',45.5235,-73.5855,12),['dry-stone','construction']),tg(sg(9,'other','Garden wall','🪨',1,'Mont-Royal, east side',45.5045,-73.5875,40),['dry-stone','construction']),tg(sg(10,'other','Window light','🪟',1,'Boulevard Saint-Laurent',45.5160,-73.5770,6),['street-photography','photography']),tg(sg(11,'other','Bridge at night','🌉',1,'Lachine canal',45.4805,-73.5890,20),['long-exposure','photography']),tg(sg(12,'other','Alley scene','🧱',1,'Ruelle verte, Plateau',45.5230,-73.5800,16),['urban-sketching','sketching']),tg(sg(13,'other','Balcony planters','🪴',1,'Rue Rachel',45.5200,-73.5760,30),['container-gardening','gardening'])];save();}
       return d.sights.filter(function(r){return !since||r.created_at>since;}); },
-    addSighting:async function(r){ var t=new Date().toISOString(); d.sights=d.sights||[]; d.sights.unshift({id:uid(),user_id:'me',user_name:(d.me&&d.me.profile&&d.me.profile.name)||'You',category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng,seen_at:t,created_at:t}); save(); },
+    notifs:async function(){
+      if(!d.nseed){ d.nseed=1; var now=Date.now(),D=864e5,H=36e5,pc=(d.conns||[]).filter(function(c){return c.to_id==='me'&&c.status==='pending';})[0],pp=prof(pc&&pc.from_id),N=[];
+        function n(k,who,detail,ago,read,ref,state){N.push({id:uid(),kind:k,actor_name:who,detail:detail||'',ref:ref||null,state:state||null,read:!!read,created_at:new Date(now-ago).toISOString()});}
+        if(pc&&pp) n('join',pp.name,'',5*60000,false,pc.id);
+        n('approved','Maya R.','',2*D,true);
+        n('offer','Alex T.','Logo feedback for my poster',6*D,true);
+        n('declined','Sam K.','',20*D,true);
+        n('offer_accepted','Priya N.','Intro to Figma',36*D,true);
+        n('spotted','Léa B.','a Northern Cardinal near Mount Royal · #birds',63*D,true);
+        n('join','Noah D.','',77*D,true,null,'accepted');
+        n('ask','Chloé M.','Help me film a short interview',84*D,true);
+        n('join','Old Request','',100*D,true,null,'declined'); /* older than 3 months: stored but never shown */
+        d.notifs=N; save(); }
+      return d.notifs||[]; },
+    markNotifsRead:async function(){ (d.notifs||[]).forEach(function(x){x.read=true;}); save(); },
+    dismissNotifs:async function(ids){ d.notifs=(d.notifs||[]).filter(function(x){return ids.indexOf(x.id)<0;}); save(); },
+    ping:async function(){},
+    tagStats:async function(){ return null; },
+    myTags:async function(){ return null; },
+    setTag:async function(){ return null; },
+    addSighting:async function(r){ var t=new Date().toISOString(); d.sights=d.sights||[]; d.sights.unshift({id:uid(),user_id:'me',user_name:(d.me&&d.me.profile&&d.me.profile.name)||'You',category:r.category,species:r.species,emoji:r.emoji,count:r.count,note:r.note,place:r.place,lat:r.lat,lng:r.lng,tags:r.tags||[],seen_at:t,created_at:t}); save(); },
     logMap:async function(kind,detail,bytes){ d.mapEvents=d.mapEvents||[]; d.mapEvents.push({kind:kind,detail:detail||'',bytes:bytes||null,at:new Date().toISOString()}); save(); },
     review:async function(bookingId,helperId,rating,comment){d.reviews.push({booking_id:bookingId,helper_id:helperId,rating:rating,comment:comment});save();}
   };
@@ -1880,18 +1958,70 @@ function rankHelpers(list,budget){
 }
 
 /* ===================== STATE + ROUTER ===================== */
-var S={session:null,me:null,topics:[],services:[],feed:[],bookings:[],ratings:[],matches:{},conns:[],people:[],my:{emoji:'',text:'',visible:false,at:0},draftEmoji:null,draftText:null,emojiOpen:false,editStatus:false,cc:null,sights:[],pin:null,spot:{},just:null,mapNeed:false,dl:null,tab:'foryou',ptab:'about',err:'',ok:'',stars:0,newImage:null,page:{}};
+var S={session:null,me:null,topics:[],services:[],feed:[],bookings:[],ratings:[],matches:{},conns:[],people:[],my:{emoji:'',text:'',visible:false,tags:[],at:0},draftEmoji:null,draftText:null,draftTags:null,notifOpen:false,newKind:'need',notifs:[],emojiOpen:false,editStatus:false,cc:null,sights:[],pin:null,spot:{},just:null,mapNeed:false,dl:null,interests:(function(){try{return JSON.parse(localStorage.getItem('gah_interests')||'[]');}catch(e){return [];}})(),tab:'foryou',ptab:'about',err:'',ok:'',stars:0,newImage:null,page:{}};
 var root=$('#root');
-function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='trail')return {v:'trail',id:p[1]};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
+function route(){var h=location.hash.replace(/^#\/?/,'');if(!h)return {v:'feed'};var p=h.split('/');if(p[0]==='post')return {v:'post',id:p[1]};if(p[0]==='offer')return {v:'offer',id:p[1]};if(p[0]==='me')return {v:'me'};if(p[0]==='new')return {v:'new'};if(p[0]==='guide')return {v:'guide',t:p[1]||'wildlife'};if(p[0]==='interests')return {v:'interests'};if(p[0]==='trail')return {v:'trail',id:p[1]};if(p[0]==='spot')return {v:'spot',t:p[1]||'wildlife'};return {v:'feed'};}
 function go(h){S.err='';S.ok='';location.hash=h;}
 function flash(k,m){S.err=k==='err'?m:'';S.ok=k==='ok'?m:'';}
 function msgs(){return (S.err?'<div class="note err">'+esc(S.err)+'</div>':'')+(S.ok?'<div class="note ok">'+esc(S.ok)+'</div>':'');}
 function pendingForMe(){return S.bookings.filter(function(b){return b.status==='pending'&&b.initiator!==b.role;}).length;}
 
+function incomingConns(){return S.conns.filter(function(c){return c.dir==='in'&&c.status==='pending';});}
+var ONLINE_MS=5*60000;
+function isOnline(p){return !!p.status||(p.seen&&Date.now()-p.seen<ONLINE_MS);}
+function lastSeenText(p){if(!p.seen)return 'Offline';var m=(Date.now()-p.seen)/6e4;if(m<60)return 'Active '+Math.max(5,Math.round(m))+'m ago';if(m<1440)return 'Active '+Math.round(m/60)+'h ago';if(m<2880)return 'Active yesterday';return 'Active '+Math.round(m/1440)+'d ago';}
+var NOTIF_DAYS=90, dismissedRefs=(function(){try{return JSON.parse(localStorage.getItem('gah_dismissed')||'[]');}catch(e){return [];}})();
+function canDismiss(x){return String(x.id).indexOf('live-')!==0&&!joinPending(x);}
+function dismissNotifs(list){ var ids=[]; list.forEach(function(x){ids.push(x.id);if(x.ref&&dismissedRefs.indexOf(x.ref)<0)dismissedRefs.push(x.ref);});
+  try{localStorage.setItem('gah_dismissed',JSON.stringify(dismissedRefs.slice(-300)));}catch(e){}
+  S.notifs=(S.notifs||[]).filter(function(x){return ids.indexOf(x.id)<0;}); appbar();
+  try{Promise.resolve(api.dismissNotifs(ids)).catch(function(){});}catch(e){} }
+function notifAgo(iso){var m=(Date.now()-new Date(iso).getTime())/6e4; if(m<60)return Math.max(1,Math.round(m))+'m'; if(m<1440)return Math.round(m/60)+'h'; if(m<20160)return Math.round(m/1440)+'d'; return Math.round(m/10080)+'w';}
+/* History stays in the list (max 3 months). Pending join requests / offers that have no stored row yet are added live so nothing is missed. */
+function notifItems(){
+  var cut=Date.now()-NOTIF_DAYS*864e5, rows=(S.notifs||[]).filter(function(x){return new Date(x.created_at).getTime()>=cut;}), have={};
+  rows.forEach(function(x){if(x.ref)have[x.ref]=1;});
+  incomingConns().forEach(function(c){if(!have[c.id])rows.push({id:'live-'+c.id,kind:'join',actor_name:c.other_name,detail:'',ref:c.id,read:false,created_at:new Date().toISOString()});});
+  S.bookings.filter(function(b){return b.status==='pending'&&b.initiator!==b.role;}).forEach(function(b){if(!have[b.id]&&dismissedRefs.indexOf(b.id)<0)rows.push({id:'live-'+b.id,kind:'offer',actor_name:b.other_name,detail:b.title||'',ref:b.id,read:false,created_at:b.created_at||new Date().toISOString()});});
+  return rows.sort(function(x,y){return new Date(y.created_at)-new Date(x.created_at);});
+}
+function joinPending(x){return x.kind==='join'&&incomingConns().some(function(c){return c.id===x.ref;});}
+function notifCount(){return notifItems().filter(function(x){return !x.read||joinPending(x);}).length;}
+function closeNotif(){ if(!S.notifOpen)return; S.notifOpen=false;
+  if((S.notifs||[]).some(function(x){return !x.read;})){ S.notifs.forEach(function(x){x.read=true;}); try{Promise.resolve(api.markNotifsRead()).catch(function(){});}catch(e){} }
+  appbar(); }
+var NOTIF_ICON={join:'🤝',approved:'✅',declined:'💬',offer:'💬',ask:'🙋',offer_accepted:'🎉',spotted:'👀'};
+function notifLine(x){var w='<b>'+esc(first(x.actor_name))+'</b>',d=x.detail?esc(x.detail):'';
+  switch(x.kind){
+    case 'join':return w+' would like to join you';
+    case 'approved':return w+' approved your request — open Connections to see where to meet';
+    case 'declined':return w+' declined your request';
+    case 'offer':return w+' sent you an offer'+(d?' on “'+d+'”':'');
+    case 'ask':return w+' asked for your help'+(d?': “'+d+'”':'');
+    case 'offer_accepted':return w+' accepted your offer'+(d?' on “'+d+'”':'');
+    case 'spotted':return w+' spotted '+d;
+    default:return w+' '+d;}}
+function notifPanel(){
+  var items=notifItems(),unread=items.some(function(x){return !x.read;});
+  var o='<div class="notif-panel"><div class="notif-head"><span>Notifications</span>'+'<span class="notif-actions">'+(unread?'<button class="st-link" data-act="nread">Mark all read</button>':'')+(items.some(canDismiss)?'<button class="st-link" data-act="nclear">Clear all</button>':'')+'</span></div>';
+  items.forEach(function(x){
+    var c=x.kind==='join'?S.conns.filter(function(k){return k.id===x.ref;})[0]:null, pend=joinPending(x), body='';
+    if(x.kind==='join'){
+      if(pend){ body=connBusy()?'<div class="hint" style="margin:6px 0">Cancel your current connection to accept.</div><div class="btn-row"><button class="ghost-btn sm" data-act="cdecl" data-id="'+c.id+'">Decline</button></div>'
+        :'<input id="nplace-'+c.id+'" placeholder="Where would you meet? (only they see it)"><div class="btn-row"><button class="post-btn sm" data-act="nappr" data-id="'+c.id+'">Accept</button><button class="ghost-btn sm" data-act="cdecl" data-id="'+c.id+'">Decline</button></div>'; }
+      else { var st=c?(c.status==='approved'?'accepted':c.status==='declined'?'declined':'closed'):(x.state||'closed');
+        body='<div class="notif-state '+st+'">'+(st==='accepted'?'✓ You accepted':st==='declined'?'You declined':'No longer available')+'</div>'; }
+    } else if(x.kind==='offer'||x.kind==='ask'||x.kind==='offer_accepted'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="me" data-ptab="sessions">View</button></div>'; }
+    else if(x.kind==='approved'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="">Open Connections</button></div>'; }
+    else if(x.kind==='spotted'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="guide/wildlife">See it</button></div>'; }
+    o+='<div class="notif-item'+(x.read&&!pend?'':' unread')+'">'+(canDismiss(x)?'<button class="notif-x" data-act="ndismiss" data-id="'+esc(x.id)+'" title="Dismiss" aria-label="Dismiss">✕</button>':'')+'<div class="offer-avatar">'+esc(initials(x.actor_name))+'</div><div class="notif-main"><div class="notif-text">'+(NOTIF_ICON[x.kind]||'')+' '+notifLine(x)+' <span class="notif-time">'+notifAgo(x.created_at)+'</span></div>'+body+'</div></div>';});
+  if(!items.length)o+='<div class="notif-empty">You\'re all caught up.</div>';
+  return o+'<div class="notif-foot">Showing the last 3 months</div></div>';
+}
 function appbar(){
-  var n=S.me?pendingForMe():0;
+  var n=S.me?notifCount():0;
   $('#appbar').innerHTML='<div class="appbar-inner"><a class="brand" href="#/">🤝 Give a Hand</a><div class="appbar-right" style="margin-left:auto;">'+
-   (S.me?'<button class="icon-btn" data-go="me" data-ptab="sessions" title="Offers waiting for you">🔔'+(n?'<span class="badge"></span>':'')+'</button>'+
+   (S.me?'<div style="position:relative"><button class="icon-btn" data-act="bell" title="Notifications" aria-label="Notifications'+(n?' ('+n+' new)':'')+'">🔔'+(n?'<span class="badge pulse"></span>':'')+'</button>'+(S.notifOpen?notifPanel():'')+'</div>'+
    '<div class="profile-chip" data-go="me" data-ptab="about"><div class="avatar-big">'+esc(initials(S.me.name))+'</div><span class="pname">'+esc(first(S.me.name))+'</span></div>':'')+'</div></div>';
 }
 
@@ -1920,7 +2050,7 @@ function viewFeed(){
   var mine=S.feed.filter(function(r){return r.requester_id===S.me.id;});
   var rest=S.feed.filter(function(r){return r.requester_id!==S.me.id;});
   var recent=S.feed.slice();
-  var forYou=rest.slice().sort(function(a,b){var am=mineTopics.indexOf(a.topic_id)>-1?1:0,bm=mineTopics.indexOf(b.topic_id)>-1?1:0;return bm-am||new Date(b.created_at)-new Date(a.created_at);});
+  var forYou=rest.slice().sort(function(a,b){var am=(mineTopics.indexOf(a.topic_id)>-1||S.interests.indexOf(normTag(a.topic))>-1)?1:0,bm=(mineTopics.indexOf(b.topic_id)>-1||S.interests.indexOf(normTag(b.topic))>-1)?1:0;return bm-am||new Date(b.created_at)-new Date(a.created_at);});
   var h=(!api.live?'<div class="note demo"><b>Demo mode</b> — data stays in this browser and the helpers are fake. Add your Supabase keys to go live.</div>':'')+composer()+
    '<div class="topbar"><div class="place">📍 '+esc(S.me.space.name)+'</div><div class="tabs"><button class="tab-btn '+(S.tab==='recent'?'active':'')+'" data-tab="recent">Recent</button><button class="tab-btn '+(S.tab==='foryou'?'active':'')+'" data-tab="foryou">For you</button></div></div>'+msgs();
   if(S.tab==='recent'){
@@ -1931,10 +2061,9 @@ function viewFeed(){
         '<p class="row-text">'+esc(r.title)+'</p><div class="row-tags"><span class="tag labor">'+esc(r.topic)+'</span><span class="row-offers">'+offersLabel(r)+'</span></div></div></div>';}).join('')||'<div class="empty">No requests yet. Be the first to ask.</div>')+'</div>';
   } else {
     h+=connRail();
-    if(mine.length) h+='<p class="rail-label">📌 Your requests</p><div class="grid" style="margin-bottom:26px">'+mine.map(function(r){return card(r,true);}).join('')+'</div>';
     h+='<p class="rail-label">📋 For you</p><p class="rail-sub">Requests in topics you can help with come first, then everything else, newest first.</p><div class="grid">'+
       forYouGrid(forYou)+'</div>';
-    h+=jumpRail()+trailsRail()+spottedRail();
+    h+=guidesRail()+jumpRail()+trailsRail()+spottedRail();
   }
   root.innerHTML=h;
 }
@@ -1948,14 +2077,26 @@ function card(r,own){
 }
 
 function viewNew(){
-  root.innerHTML='<button class="back-btn" data-go="">← Back to feed</button><div class="auth card-box wide-box"><h2 class="form-h">What do you need help with?</h2><p class="hint">We match you with the best helper for your topic and budget — and helpers can offer too.</p>'+msgs()+
-   '<label>Topic</label><select id="rtopic"><option value="">Choose…</option>'+S.topics.map(function(t){return '<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>';}).join('')+'<option value="__new">Other (type your own)…</option></select>'+
-   '<input id="rtopicnew" placeholder="Name the topic" style="display:none;margin-top:8px">'+
-   '<label>Your project, in one line</label><input id="rtitle" placeholder="e.g. Portfolio site keeps breaking on mobile">'+
-   '<label>Where are you stuck?</label><textarea id="rdetails" placeholder="Details help your match prepare"></textarea>'+
-   '<label>Most you\'d pay per 30 minutes (CAD)</label><input id="rbudget" type="number" min="0" step="1" value="25">'+
-   '<label>Photo of your work (optional)</label><input id="rphoto" type="file" accept="image/*">'+(S.newImage?'<img class="prev" src="'+S.newImage+'" alt="">':'')+
-   '<button class="post-btn wide" data-act="postreq" style="margin-top:16px">Post request</button></div>';
+  var k=S.newKind||'need', need=k==='need';
+  var pick='<div class="kind-pick"><button type="button" class="kind-pill'+(need?' on':'')+'" data-act="nkind" data-k="need">🤝 Asking for help</button><button type="button" class="kind-pill'+(need?'':' on')+'" data-act="nkind" data-k="offer">🙌 Offering help</button></div>';
+  var body;
+  if(need){
+    body='<h2 class="form-h">What do you need help with?</h2><p class="hint">We match you with the best helper for your topic and budget — and helpers can offer too.</p>'+msgs()+
+     '<label>Topic</label><select id="rtopic"><option value="">Choose…</option>'+S.topics.map(function(t){return '<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>';}).join('')+'<option value="__new">Other (type your own)…</option></select>'+
+     '<input id="rtopicnew" placeholder="Name the topic" style="display:none;margin-top:8px">'+
+     '<label>Your project, in one line</label><input id="rtitle" placeholder="e.g. Portfolio site keeps breaking on mobile">'+
+     '<label>Where are you stuck?</label><textarea id="rdetails" placeholder="Details help your match prepare"></textarea>'+
+     '<label>Most you\'d pay per 30 minutes (CAD)</label><input id="rbudget" type="number" min="0" step="1" value="25">'+
+     '<label>Photo of your work (optional)</label><input id="rphoto" type="file" accept="image/*">'+(S.newImage?'<img class="prev" src="'+S.newImage+'" alt="">':'')+
+     '<button class="post-btn wide" data-act="postreq" style="margin-top:16px">Post request</button>';
+  } else {
+    body='<h2 class="form-h">What can you help with?</h2><p class="hint">When someone asks for help in this topic, you\'re matched automatically.</p>'+msgs()+
+     '<label>Topic</label><input id="otopic" list="topiclist" placeholder="Pick one or type your own"><datalist id="topiclist">'+S.topics.map(function(t){return '<option value="'+esc(t.name)+'">';}).join('')+'</datalist>'+
+     '<label>What do you offer? (one line)</label><input id="onote2" placeholder="e.g. Debugging, portfolio feedback, beginner-friendly">'+
+     '<label>Price per 30 minutes (CAD)</label><input id="oprice2" type="number" min="0" step="1" value="20">'+
+     '<button class="post-btn wide" data-act="postoffer" style="margin-top:16px">Post offer</button>';
+  }
+  root.innerHTML='<button class="back-btn" data-go="">← Back to feed</button><div class="auth card-box wide-box">'+pick+body+'</div>';
 }
 
 function offerCard(b){
@@ -1984,27 +2125,34 @@ var EMOJIS=['😀','😊','😂','🥹','😎','🤓','🤔','😴','🥳','😌
 function curEmoji(){return S.draftEmoji!=null?S.draftEmoji:S.my.emoji;}
 function statusLive(){return S.my.visible&&(S.my.text||S.my.emoji)&&Date.now()-S.my.at<STATUS_TTL;}
 function emojiBadge(e,sm){var z=sm?22:26;return '<div style="position:absolute;bottom:-3px;right:-5px;width:'+z+'px;height:'+z+'px;border-radius:50%;background:var(--card);box-shadow:0 0 0 1.5px var(--border);display:flex;align-items:center;justify-content:center;font-size:'+(sm?13:15)+'px">'+esc(e)+'</div>';}
+function curTags(){return S.draftTags!=null?S.draftTags:(S.my.tags||[]);}
+function curTagsStr(){return curTags().join(', ');}
+function readStatusDraft(){var tb=$('#stext'),tg=$('#sttags');if(tb)S.draftText=tb.value;if(tg)S.draftTags=parseTags(tg.value);}
+function stTagChips(){var pool=followed().concat(COMMON_TAGS.slice(0,3)).filter(function(t,i,a){return a.indexOf(t)===i;}).slice(0,8),on=curTags();
+  return '<div class="st-chips">'+pool.map(function(t){return '<button type="button" class="st-chip'+(on.indexOf(t)>-1?' on':'')+'" data-act="sttag" data-t="'+esc(t)+'">#'+esc(t)+'</button>';}).join('')+'</div>';}
 function statusInline(){var live=statusLive();
   if(!S.editStatus) return '';
   return '<div style="margin-top:14px"><div class="st-pill"><button type="button" id="semoji" class="st-emoji'+(S.emojiOpen?' on':'')+'" data-act="epick" title="Pick an emoji">'+(curEmoji()||'🙂')+'</button><input id="stext" class="st-input" maxlength="50" placeholder="What are you up to?" value="'+esc(S.draftText!=null?S.draftText:S.my.text)+'"><button class="st-share" data-act="ssave">'+(live?'Update':'Share')+'</button></div>'+
    (S.emojiOpen?'<div class="st-picker">'+EMOJIS.map(function(e){return '<button type="button" data-act="eset" data-e="'+e+'">'+e+'</button>';}).join('')+'<button type="button" data-act="eset" data-e="" title="No emoji" style="font-size:14px;color:var(--muted)">✕</button></div>':'')+
-   '<div class="st-links"><button class="st-link" data-act="sedit">Cancel</button>'+(live?'<button class="st-link danger" data-act="sclear">Remove status</button>':'')+'</div></div>';}
+   '<div class="st-tagrow"><span class="st-hash">#</span><input id="sttags" class="st-taginput" maxlength="80" autocomplete="off" placeholder="Add tags, e.g. study, birds" value="'+esc(curTagsStr())+'"></div>'+stTagChips()+'<div class="st-links"><button class="st-link" data-act="sedit">Cancel</button>'+(live?'<button class="st-link danger" data-act="sclear">Remove status</button>':'')+'</div></div>';}
 function connBusy(){return S.conns.some(function(c){return c.status==='approved';});}
 function connRail(){
   var by={}; S.conns.forEach(function(c){by[c.other_id]=c;});
   var inc=S.conns.filter(function(c){return c.dir==='in'&&c.status==='pending';}), live=statusLive();
-  var o='<p class="rail-label">👥 Connections</p><p style="font-size:12px;color:var(--muted);margin:-6px 0 14px;">People with a status showing come first. Where to meet stays hidden until they approve, and either of you can disconnect anytime.</p>'+
+  var o='<p class="rail-label">👥 Connections</p><p style="font-size:12px;color:var(--muted);margin:-6px 0 14px;">People with a status showing come first, then the ones whose tags match yours. Where to meet stays hidden until they approve, and either of you can disconnect anytime.</p>'+
    '';
   if(inc.length) o+='<div class="stack" style="margin-bottom:16px">'+inc.map(function(c){return '<div class="offer-card"><div class="offer-avatar">'+esc(initials(c.other_name))+'</div><div class="offer-main"><div class="row-top"><b>'+esc(c.other_name)+'</b><span class="row-time">wants to join you</span></div><input id="place-'+c.id+'" placeholder="Where would you meet? (only they see it)"><div class="btn-row">'+(connBusy()?'<span class="hint" style="margin:0">Cancel your current connection to approve.</span>':'<button class="post-btn sm" data-act="cappr" data-id="'+c.id+'">Approve</button>')+'<button class="ghost-btn sm" data-act="cdecl" data-id="'+c.id+'">Decline</button></div></div></div>';}).join('')+'</div>';
-  var people=S.people.slice().sort(function(x,y){return (y.status?1:0)-(x.status?1:0);});
+  var mineT=followed().concat(COMMON_TAGS).concat(live?(S.my.tags||[]):[]);
+  function ovl(p){return (p.tags||[]).filter(function(t){return mineT.indexOf(t)>-1;});}
+  var people=S.people.slice().sort(function(x,y){return ((isOnline(y)?1000:0)+(y.status?100:0)+ovl(y).length)-((isOnline(x)?1000:0)+(x.status?100:0)+ovl(x).length);});
   o+='<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="conn-prev" data-act="cnav" data-dir="-1">‹</div><div class="live-rail" id="conn-rail" style="overflow-x:hidden;margin-bottom:0">'+(people.map(function(p){var c=by[p.id],st=c&&c.status,mineOut=c&&c.dir==='out',body='';
-    if(!c) body=connBusy()?'<div class="live-activity" style="margin-top:8px">Cancel first</div>':'<button class="live-join-btn" style="margin-top:8px" data-act="connect" data-to="'+p.id+'">Request to join</button>';
+    if(!c) body='';
     else if(st==='pending'&&mineOut) body='<div class="live-status-badge show pending">🕓 Requested</div><button class="ghost-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Withdraw</button>';
     else if(st==='pending') body='<div class="live-status-badge show pending">Asked to join you</div>';
     else if(st==='approved') body='<div class="live-status-badge show unlocked">✅ Approved</div><div class="live-visible-location show">📍 '+esc(c.place)+'</div><a class="live-join-btn unlocked" style="display:block;margin-top:8px;text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.place)+'">Get directions →</a>'+(S.cc===c.id?'<button class="post-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Yes, cancel</button><button class="ghost-btn sm" style="margin-top:4px" data-act="ckeep">Keep</button>':'<button class="ghost-btn sm" style="margin-top:6px" data-act="cask" data-id="'+c.id+'">Cancel</button>')+'';
     else body='<div class="live-activity">Not connected</div>';
-    var act=p.stext?'<div class="live-activity" title="'+esc(p.stext)+'" style="max-width:92px;overflow:hidden;text-overflow:ellipsis;display:block">'+esc(p.stext)+'</div>':'';
-    return '<div class="live-card'+(st==='approved'?' has-status':'')+(p.status?'':' offline')+'"><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.emoji?emojiBadge(p.emoji):p.status?'<div class="live-pulse"></div>':'')+'</div><div class="live-name">'+esc(p.name)+'</div>'+act+body+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
+    var act=p.stext?'<div class="live-activity" title="'+esc(p.stext)+'" style="max-width:92px;overflow:hidden;text-overflow:ellipsis;display:block">'+esc(p.stext)+'</div>':(isOnline(p)?'':'<div class="live-activity">'+esc(lastSeenText(p))+'</div>');
+    return '<div class="live-card'+(st==='approved'?' has-status':'')+(isOnline(p)?'':' offline')+'"'+(!c&&!connBusy()?' data-join="'+p.id+'"':'')+'><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.emoji?emojiBadge(p.emoji):(isOnline(p)?'<div class="live-online" title="Online"></div>':'<div class="live-online off" title="Offline"></div>'))+'</div><div class="live-name">'+esc(p.name)+'</div>'+(p.tags&&p.tags.length?'<div class="live-tags">'+p.tags.slice(0,3).map(function(t){return '<span class="'+(mineT.indexOf(t)>-1?'m':'')+'">#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+act+body+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
   return o;
 }
 /* Arrows instead of a scrollbar (same pattern as the feed): only whole cards show, arrows page by one card. */
@@ -2020,6 +2168,22 @@ function connArrows(){
   pv.classList.toggle('hidden',el.scrollLeft<=0); nx.classList.toggle('hidden',el.scrollLeft+el.clientWidth>=el.scrollWidth-1);
 }
 window.addEventListener('resize',fitConnRail);
+/* Request to join stays hidden until you hover (or tap) a person, like the neighbourhood feed: a floating button under their card. */
+var joinTipCard=null, joinTipTimer=null;
+function joinTipEl(){var el=document.getElementById('live-hover-tooltip');if(el)return el;el=document.createElement('div');el.id='live-hover-tooltip';el.className='live-hover-tooltip';
+  el.addEventListener('mouseenter',function(){clearTimeout(joinTipTimer);});el.addEventListener('mouseleave',schedHideJoinTip);document.body.appendChild(el);return el;}
+function posJoinTip(){if(!joinTipCard)return;if(!document.body.contains(joinTipCard))return hideJoinTip();var r=joinTipCard.getBoundingClientRect(),w=Math.max(r.width,150),tip=joinTipEl();
+  tip.style.left=Math.max(4,Math.min(window.innerWidth-w-4,r.left+r.width/2-w/2))+'px';tip.style.width=w+'px';tip.style.top=(r.bottom+4)+'px';}
+function showJoinTip(card){clearTimeout(joinTipTimer);joinTipCard=card;var tip=joinTipEl();
+  tip.innerHTML='<button class="live-join-btn" data-act="connect" data-to="'+esc(card.dataset.join)+'">Request to join</button>';posJoinTip();tip.classList.add('show');}
+function hideJoinTip(){clearTimeout(joinTipTimer);joinTipCard=null;var tip=document.getElementById('live-hover-tooltip');if(tip)tip.classList.remove('show');}
+function schedHideJoinTip(){clearTimeout(joinTipTimer);joinTipTimer=setTimeout(hideJoinTip,150);}
+document.addEventListener('mouseover',function(e){var c=e.target.closest&&e.target.closest('.live-card[data-join]');if(c)showJoinTip(c);});
+document.addEventListener('mouseout',function(e){if(e.target.closest&&e.target.closest('.live-card[data-join]'))schedHideJoinTip();});
+document.addEventListener('click',function(e){if(!window.matchMedia||!matchMedia('(hover:none)').matches)return;
+  var c=e.target.closest&&e.target.closest('.live-card[data-join]');
+  if(c){if(joinTipCard===c)hideJoinTip();else showJoinTip(c);}else if(!e.target.closest('#live-hover-tooltip'))hideJoinTip();});
+window.addEventListener('scroll',posJoinTip,true);
 
 /* ===== Field guide + map (same structure as the neighbourhood feed: rails on For you, then a topic page) ===== */
 var MAP_URL="maps/montreal.pmtiles"; /* stored next to index.html for now. To move it later, paste the full link of the new host here, e.g. "https://maps.example.com/montreal.pmtiles" (the host must allow cross-origin requests) */
@@ -2076,9 +2240,10 @@ async function syncSights(){var me=S.me&&S.me.id,key='sx2_'+me,c={};try{c=JSON.p
   var at=fresh.reduce(function(m,r){return r.created_at>m?r.created_at:m;},since||'');
   try{localStorage.setItem(key,JSON.stringify({at:at||since,rows:all}));}catch(e){}
   return all;}
-function spRows(tk){var c=TOPICS[tk].cat;return S.sights.filter(function(r){return r.category===c;});}
+function spRows(tk){var T=TOPICS[tk],c=T.cat;return S.sights.filter(function(r){return T.tag?((r.tags||[]).indexOf(T.tag)>-1||(COMMON_CAT[T.tag]&&r.category===COMMON_CAT[T.tag])):r.category===c;});}
 function spHave(name){return S.sights.some(function(r){return r.species===name&&r.user_id===S.me.id;});}
-function spPins(){return spRows('wildlife').filter(function(r){return r.lat!=null&&(!S.spFilter||r.species===S.spFilter);}).slice(0,200);}
+var curGuide='wildlife';
+function spPins(){return spRows(curGuide||'wildlife').filter(function(r){return r.lat!=null&&(!S.spFilter||r.species===S.spFilter);}).slice(0,200);}
 function spStat(tk,name){var rows=spRows(tk).filter(function(r){return r.species===name;}),u={},who=[];
   rows.forEach(function(r){if(!u[r.user_id]){u[r.user_id]=1;who.push({n:r.user_id===S.me.id?'You':r.user_name});}});
   var mine=rows.filter(function(r){return r.user_id===S.me.id;});
@@ -2090,26 +2255,87 @@ function spEm(tk,name){var it=TOPICS[tk].items.filter(function(x){return x[0]===
 function hubCard(tk){var T=TOPICS[tk],n=T.items.filter(function(it){return spStat(tk,it[0]).n>0;}).length,w=tk==='wildlife';
   return '<div class="card clickable" data-go="guide/'+tk+'" style="grid-column:span 1"><div class="card-body" style="padding-top:16px"><span class="tag" style="'+(w?'background:var(--sage-light);color:#3E5A3B':'background:#F3E7D8;color:#8A5A1E')+'">'+(w?'🪶 Field guide':'🎨 Mural guide')+'</span><p class="title">'+(w?'See every bird logged nearby — and log your own':'Every piece your neighbours have found nearby')+'</p><div class="meta"><span>'+n+' '+(w?'species':'pieces')+' so far</span><span>tap to open</span></div></div></div>';}
 function forYouGrid(list){var c=list.map(function(r){return card(r,false);});c.splice(Math.min(4,c.length),0,hubCard('wildlife'));c.splice(Math.min(10,c.length),0,hubCard('art'));return c.join('');}
-/* ---- rails below the grid ---- */
+/* ---- tags: sightings carry free tags; people follow tags; the feed ranks by overlap (an AI tagger can plug in later) ---- */
+function normTag(x){return String(x||'').toLowerCase().replace(/^#/,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30);}
+function parseTags(v){var o=[];String(v||'').split(/[,\n]/).forEach(function(x){var t=normTag(x);if(t&&o.indexOf(t)<0)o.push(t);});return o.slice(0,8);}
+var COMMON_TAGS=['birds','animals','trees','flowers','architecture','art','murals'],COMMON_CAT={birds:'bird',art:'art',animals:'animal',trees:'tree',flowers:'flower',architecture:'architecture'};
+function topicVisible(tk){return !!TOPICS[tk];}
+function saveInterests(){try{localStorage.setItem('gah_interests',JSON.stringify(S.interests));}catch(e){}}
+function syncTag(tag,on){try{Promise.resolve(api.setTag(tag,on)).catch(function(){});}catch(e){}}
+function followTag(tg){if(tg&&COMMON_TAGS.indexOf(tg)<0&&S.interests.indexOf(tg)<0){S.interests.push(tg);saveInterests();syncTag(tg,true);}}
+function tagPopularity(){var m={};
+  if(S.tagStats&&S.tagStats.length){S.tagStats.forEach(function(r){m[r.tag]={f:+r.followers||0,u:+r.uses||0};});}
+  else{S.sights.forEach(function(r){(r.tags||[]).forEach(function(t){m[t]=m[t]||{f:0,u:0};m[t].u++;});});}
+  return m;}
+function suggestHtml(q){
+  var raw=normTag(q),pop=tagPopularity(),mine=followed(),rows=[];
+  Object.keys(pop).forEach(function(t){if(mine.indexOf(t)>-1||COMMON_TAGS.indexOf(t)>-1)return;var cls=raw?(t.indexOf(raw)===0?0:(t.indexOf(raw)>-1?1:9)):0;if(cls===9)return;rows.push({t:t,cls:cls,sc:pop[t].f*3+pop[t].u,f:pop[t].f,u:pop[t].u});});
+  rows.sort(function(a,b){return a.cls-b.cls||b.sc-a.sc||a.t.length-b.t.length||(a.t<b.t?-1:1);});
+  var out=rows.slice(0,6).map(function(r){var meta=(r.f?r.f+' following':'')+(r.f&&r.u?' · ':'')+(r.u?r.u+' spotted':'');
+    return '<button class="sugg" data-act="tagpick" data-t="'+esc(r.t)+'"><span>#'+esc(r.t)+'</span><span class="sugg-m">'+meta+'</span></button>';}).join('');
+  if(raw&&COMMON_TAGS.indexOf(raw)<0&&mine.indexOf(raw)<0&&!rows.some(function(r){return r.t===raw;}))out+='<button class="sugg" data-act="tagpick" data-t="'+esc(raw)+'"><span>Add #'+esc(raw)+'</span><span class="sugg-m">new tag</span></button>';
+  return out||'<div class="sugg-empty">No tags yet. Type one to add it.</div>';}
+document.addEventListener('input',function(e){var el=e.target;if(el&&el.id==='tagnew'){var b=document.getElementById('tagsuggest');if(b)b.innerHTML=suggestHtml(el.value);}});
+function ensureTagTopic(tk){ if(String(tk).indexOf('tag:')!==0)return; var tag=tk.slice(4),seen={},items=[];
+  S.sights.filter(function(r){return (r.tags||[]).indexOf(tag)>-1;}).forEach(function(r){if(!seen[r.species]){seen[r.species]=1;items.push([r.species,r.emoji]);}});
+  if(!items.length)items=[['Something I spotted','🔖']];
+  TOPICS[tk]={cat:COMMON_CAT[tag]||'other',tag:tag,icon:'🏷️',label:'#'+tag,itemNoun:'thing',itemPlural:'things',fgSub:"Tap one you've seen too.",logVerb:'👀 I saw this',hasMap:true,mapLabel:'🗺️ Where this has been seen',mapTitle:'🗺️ #'+tag+' map',mapSub:"Where neighbours have spotted these — tap a pin to see what's there.",locatable:true,items:items};}
+function tagLevel(tag){var n=S.sights.filter(function(r){return r.user_id===S.me.id&&(r.tags||[]).indexOf(tag)>-1;}).length;return n>=8?'experienced':(n>=3?'practising':'new');}
+function noteLabel(tk){var T=TOPICS[tk];if(!T||!T.tag)return 'Note (optional)';var l=tagLevel(T.tag);return l==='new'?'What caught your eye? (optional)':(l==='experienced'?'How was it done? Materials, technique (optional)':'Note (optional)');}
+function notePh(tk){var T=TOPICS[tk];if(!T||!T.tag)return '';var l=tagLevel(T.tag);return l==='new'?'e.g. I liked the colours':(l==='experienced'?'Details a beginner could learn from':'');}
+function followed(){return S.interests.filter(function(x){return x.indexOf('area:')!==0&&COMMON_TAGS.indexOf(x)<0;});}
+function guideCard(k,ic,label,tagline){var n=spRows(k).length;return '<div class="continue-card" data-go="guide/'+esc(k)+'"><div class="emoji-thumb">'+ic+'</div><div class="continue-card-body"><div class="continue-tag">'+(String(tagline).indexOf('⭐')>-1?'⭐ ':'')+esc(label)+'</div><div class="continue-meta">'+n+' sighting'+(n===1?'':'s')+'</div></div></div>';}
+function guidesRail(){
+  var mine=followed(),common=[['wildlife','🪶','#birds'],['art','🎨','#art'],['tag:animals','🐿️','#animals'],['tag:trees','🌳','#trees'],['tag:flowers','🌸','#flowers'],['tag:architecture','🏛️','#architecture']];
+  common.concat(mine.map(function(t){return ['tag:'+t,'🏷️','#'+t];})).forEach(function(x){ensureTagTopic(x[0]);});
+  var cards=common.map(function(x){return guideCard(x[0],x[1],x[2],'open to everyone');}).concat(mine.map(function(t){return guideCard('tag:'+t,'🏷️','#'+t,'⭐ your interest');})).join('');
+  var now=Date.now(),cand=[];
+  S.sights.forEach(function(r){if(r.user_id===S.me.id)return;var ov=(r.tags||[]).filter(function(t){return mine.indexOf(t)>-1;});if(!ov.length)return;
+    cand.push({r:r,ov:ov,sc:ov.length*10-Math.min((now-new Date(r.created_at))/36e5,200)/20});});
+  cand.sort(function(a,b){return b.sc-a.sc;});
+  var pick=cand.slice(0,6).map(function(c){var r=c.r;return '<div class="continue-card" data-go="guide/tag:'+esc(c.ov[0])+'"><div class="emoji-thumb">'+esc(r.emoji)+'</div><div class="continue-card-body"><div class="continue-tag">'+c.ov.map(function(t){return '#'+esc(t);}).join(' ')+'</div><div class="continue-title">'+esc(first(r.user_name))+' spotted '+esc(r.species)+'</div><div class="continue-meta">'+spAgo(r.seen_at)+(r.place?' · '+esc(r.place):'')+'</div></div></div>';}).join('');
+  return '<p class="rail-label">🧭 Field guides</p><p class="rail-sub"><a href="#/me" data-go="me" data-ptab="interests">Edit your interests</a></p>'+arrowRail('r-guides',cards)+(pick?'<p class="rail-label">✨ Spotted for you</p>'+arrowRail('r-pick',pick):'');}
+function interestsBody(){
+  var mine=followed(),counts={};
+  S.sights.forEach(function(r){(r.tags||[]).forEach(function(t){counts[t]=(counts[t]||0)+1;});});
+  var pop=Object.keys(counts).filter(function(t){return mine.indexOf(t)<0&&COMMON_TAGS.indexOf(t)<0;}).sort(function(a,b){return counts[b]-counts[a];}).slice(0,12);
+  var lock=[['🪶','#birds'],['🎨','#art'],['🐿️','#animals'],['🌳','#trees'],['🌸','#flowers'],['🏛️','#architecture']].map(function(x){return '<span class="ichip lock">🔒 '+x[0]+' '+x[1]+'</span>';}).join('');
+  return '<p class="hint">Interests decide which requests and sightings show up first, and which field guides appear on your feed.</p>'+
+   '<label>Always on</label><div class="ichips">'+lock+'</div><p class="hint">These are open to everyone and cannot be turned off.</p>'+
+   '<label>Following</label><div class="ichips">'+(mine.length?mine.map(function(t){return '<button class="ichip on" data-act="interest" data-t="'+esc(t)+'">#'+esc(t)+' ✕</button>';}).join(''):'<span class="hint">Nothing yet. Add one below.</span>')+'</div>'+
+   '<label>Find an interest</label><div class="tagadd"><input id="tagnew" maxlength="30" autocomplete="off" placeholder="Start typing, e.g. cooking"></div><div id="tagsuggest" class="suggest">'+suggestHtml('')+'</div>';}
+function viewInterests(){
+  root.innerHTML='<button class="back-btn" data-go="">← Back to feed</button><div class="auth card-box wide-box"><h2 class="form-h">Your interests</h2>'+interestsBody()+'</div>';}
+/* ---- rails below the grid: arrows instead of a scrollbar, same as the neighbourhood feed (whole cards only, one card per click) ---- */
+var RAIL_GAP=12, railPos={};
+function arrowRail(id,html){return '<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="'+id+'-prev" data-act="rnav" data-r="'+id+'" data-dir="-1">‹</div><div class="continue-rail" id="'+id+'" data-rail="1">'+html+'</div><div class="rail-nav-arrow right hidden" id="'+id+'-next" data-act="rnav" data-r="'+id+'" data-dir="1">›</div></div>';}
+function railStep(el){var c=el.querySelector('.continue-card');return c?c.offsetWidth+RAIL_GAP:0;}
+function railArrows(el){var pv=document.getElementById(el.id+'-prev'),nx=document.getElementById(el.id+'-next');if(!pv||!nx)return;
+  pv.classList.toggle('hidden',el.scrollLeft<=0);nx.classList.toggle('hidden',el.scrollLeft+el.clientWidth>=el.scrollWidth-1);}
+function fitRails(){document.querySelectorAll('.continue-rail[data-rail]').forEach(function(el){var st=railStep(el);if(!st)return;
+  el.style.maxWidth='none';var n=Math.max(1,Math.floor((el.clientWidth+RAIL_GAP)/st));el.style.maxWidth=(n*st-RAIL_GAP)+'px';
+  el.style.scrollBehavior='auto';el.scrollLeft=railPos[el.id]||0;el.style.scrollBehavior='smooth';
+  el.onscroll=function(){railPos[el.id]=el.scrollLeft;railArrows(el);};railArrows(el);});}
+window.addEventListener('resize',fitRails);
 function jumpRail(){
   var cards=[];
-  Object.keys(TOPICS).forEach(function(tk){var T=TOPICS[tk],your=spYour(tk),total=T.items.length; if(your===0||your>=total)return;
+  Object.keys(TOPICS).forEach(function(tk){var T=TOPICS[tk],your=spYour(tk),total=T.items.length; if(!topicVisible(tk)||your===0||your>=total)return;
     var nx=T.items.filter(function(it){return !spStat(tk,it[0]).mine;})[0], pct=Math.round(your/total*100), pl=T.itemPlural.charAt(0).toUpperCase()+T.itemPlural.slice(1);
     cards.push('<div class="continue-card" data-go="guide/'+tk+'"><div class="emoji-thumb">'+nx[1]+'</div><div class="continue-card-body"><div class="continue-tag">'+T.icon+' '+pl+'</div><div class="continue-title">Next up: '+esc(nx[0])+'</div><div class="continue-meta">'+your+' of '+total+' '+T.itemNoun+' logged</div><div class="continue-progress-bar"><div class="continue-progress-fill" style="width:'+pct+'%"></div></div></div></div>');});
   if(!cards.length)return '';
-  return '<p class="rail-label">🔁 Jump back in</p><div class="continue-rail">'+cards.join('')+'</div>';}
+  return '<p class="rail-label">🔁 Jump back in</p>'+arrowRail('r-jump',cards.join(''));}
 function trailsRail(){
-  return '<p class="rail-label">🥾 Trails nearby</p><p class="rail-sub">Hand-picked walks — see what you could spot along the way.</p><div class="continue-rail">'+TRAILS.map(function(t){var pg=trailProg(t);
-    return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">🥾 trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join('')+'</div>';}
+  return '<p class="rail-label">🥾 Trails nearby</p><p class="rail-sub">Hand-picked walks — see what you could spot along the way.</p>'+arrowRail('r-trails',TRAILS.map(function(t){var pg=trailProg(t);
+    return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">🥾 trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join(''));}
 function spottedRail(){
   var cards=[],seen={};
-  S.sights.forEach(function(r){var tk=Object.keys(TOPICS).filter(function(k){return TOPICS[k].cat===r.category;})[0]; if(!tk||r.user_id===S.me.id)return;
+  S.sights.forEach(function(r){var tk=Object.keys(TOPICS).filter(function(k){return TOPICS[k].cat===r.category;})[0]; if(!tk||!topicVisible(tk)||r.user_id===S.me.id)return;
     var key=tk+':'+r.species; if(seen[key]||spStat(tk,r.species).mine)return; seen[key]=1; if(cards.length>=6)return;
     var T=TOPICS[tk],pin=T.locatable&&T.hasMap&&r.lat!=null;
     var thumb=pin?'<div class="mini-map-thumb">'+MINI_SVG+'<div class="mini-map-pulse" style="left:50%;top:50%"></div><div class="mini-map-pin" style="left:50%;top:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:#fff">'+esc(r.emoji)+'</div></div>':'<div class="emoji-thumb">'+esc(r.emoji)+'</div>';
     cards.push('<div class="continue-card spotted" data-act="railgo" data-t="'+tk+'" data-id="'+esc(r.id)+'">'+thumb+'<div class="continue-card-body"><div class="continue-tag">👀 spotted nearby</div><div class="continue-title">'+esc(first(r.user_name))+' spotted a '+esc(r.species)+'</div><div class="continue-meta">'+spAgo(r.seen_at)+(r.place?' · '+esc(r.place):'')+'</div><div class="continue-meta" style="color:var(--sage);font-weight:600">'+(pin?'🗺️ tap to see it on the map':T.icon+' tap to see the full '+T.itemPlural+' list')+'</div></div></div>');});
   if(!cards.length)return '';
-  return '<p class="rail-label">👀 Spotted nearby</p><div class="continue-rail">'+cards.join('')+'</div>';}
+  return '<p class="rail-label">👀 Spotted nearby</p>'+arrowRail('r-spotted',cards.join(''));}
 
 /* ---- map file saved once in the browser (IndexedDB) ---- */
 function idb(){return new Promise(function(res,rej){var q=indexedDB.open('giveahand',1);q.onupgradeneeded=function(){q.result.createObjectStore('maps');};q.onsuccess=function(){res(q.result);};q.onerror=function(){rej(q.error);};});}
@@ -2211,6 +2437,9 @@ function viewTrail(id){
         return '<div class="tr-stop'+(S.tstop===i?' on':'')+(x.sp&&!have?' grey':'')+'" data-act="tstop" data-i="'+i+'"><div class="num">'+(i+1)+'</div><div class="e">'+x.e+'</div><div class="tx"><div class="n1">'+esc(x.name)+(x.sp?' · '+esc(x.sp):'')+'</div><div class="n2">'+esc(x.note)+'</div></div>'+act+'</div>';}).join('')+'</div></div>';
   root.innerHTML=h;}
 function viewGuide(tk){
+  ensureTagTopic(tk);
+  if(!TOPICS[tk]||!topicVisible(tk)){location.hash='';return;}
+  curGuide=tk;
   var T=TOPICS[tk]; if(!T){location.hash='#/';return;}
   var your=spYour(tk),total=T.items.length,sel=S.sights.filter(function(r){return r.id===S.pin;})[0],h='';
   h+='<button class="back-btn" data-go="">← Back to feed</button><div style="margin-bottom:20px"><p class="rail-label" style="margin-top:0">'+T.icon+' '+esc(T.label)+'</p><p class="post-desc" style="margin-top:-8px">Everything logged nearby, all in one place. Tap one you\'ve seen — no need to find someone else\'s post about it first.</p></div>'+msgs();
@@ -2236,13 +2465,14 @@ function viewGuide(tk){
     '<div class="fg-progress">🌿 You\'ve personally logged <b>'+your+' of '+total+'</b> '+T.itemPlural+' here'+(nx?' — next up: <b>'+esc(nx[0])+'</b>.':' — you\'ve got them all.')+'</div><div class="fieldguide-grid compact">'+grid+'</div></div>';
   root.innerHTML=h;}
 function grabSpot(){var sp=S.spot,g=function(id){var e=document.getElementById(id);return e?e.value:null;};
-  if(g('spsp')!=null)sp.name=g('spsp'); if(g('spplace')!=null)sp.place=g('spplace'); if(g('spnote')!=null)sp.note=g('spnote');}
-function viewSpot(tk){var T=TOPICS[tk]||TOPICS.wildlife; tk=TOPICS[tk]?tk:'wildlife'; var sp=S.spot,sel=sp.name||T.items[0][0];
+  if(g('spsp')!=null)sp.name=g('spsp'); if(g('spplace')!=null)sp.place=g('spplace'); if(g('spnote')!=null)sp.note=g('spnote'); if(g('spnew')!=null)sp.nw=g('spnew'); if(g('sptags')!=null)sp.tagsStr=g('sptags');}
+function viewSpot(tk){ensureTagTopic(tk);var T=TOPICS[tk]||TOPICS.wildlife; tk=TOPICS[tk]?tk:'wildlife'; var sp=S.spot,sel=sp.name||T.items[0][0];
   root.innerHTML='<button class="back-btn" data-go="guide/'+tk+'">← Back to '+esc(T.label.toLowerCase())+'</button><div class="auth card-box wide-box"><h2 class="form-h">'+(T.hasMap?'Put it on the map':'Add where you saw it')+'</h2>'+msgs()+
-   '<label>Which one?</label><select id="spsp">'+T.items.map(function(x){return '<option value="'+esc(x[0])+'"'+(x[0]===sel?' selected':'')+'>'+x[1]+' '+esc(x[0])+'</option>';}).join('')+'</select>'+
+   (T.tag?'<label>Something new? (optional)</label><input id="spnew" maxlength="60" placeholder="e.g. Cedar pergola" value="'+esc(sp.nw||'')+'">':'')+'<label>Which one?</label><select id="spsp">'+T.items.map(function(x){return '<option value="'+esc(x[0])+'"'+(x[0]===sel?' selected':'')+'>'+x[1]+' '+esc(x[0])+'</option>';}).join('')+'</select>'+
    '<label>Where?</label><input id="spplace" maxlength="80" placeholder="e.g. Parc La Fontaine, by the pond" value="'+esc(sp.place||'')+'">'+
    (T.hasMap?'<button class="ghost-btn" data-act="upos" style="margin-top:8px">'+(sp.pos?'📍 Location added — it will show on the map':'📍 Use my location to show it on the map')+'</button><p class="hint">Saved rounded to about 100 m, so exact spots stay private.</p>':'')+
-   '<label>Note (optional)</label><input id="spnote" maxlength="200" value="'+esc(sp.note||'')+'">'+
+   '<label>'+noteLabel(tk)+'</label><input id="spnote" maxlength="200" placeholder="'+esc(notePh(tk))+'" value="'+esc(sp.note||'')+'">'+
+   '<label>Tags (optional)</label><input id="sptags" maxlength="120" placeholder="e.g. dry-stone, beginner" value="'+esc(sp.tagsStr!=null?sp.tagsStr:(T.tag||''))+'">'+
    '<button class="post-btn wide" data-act="spotpost" data-t="'+tk+'" style="margin-top:16px">Post sighting</button></div>';}
 
 function helperRow(h,r,best){
@@ -2251,6 +2481,21 @@ function helperRow(h,r,best){
    '<button class="'+(best?'post-btn':'ghost-btn')+' sm" data-act="ask" data-req="'+r.id+'" data-helper="'+h.id+'" data-price="'+h.price_cents+'">Ask '+esc(first(h.name))+(best?' — best match':'')+'</button></div></div>';
 }
 
+function viewOffer(id){
+  var sv=S.services.filter(function(x){return String(x.id)===String(id);})[0];
+  if(!sv){root.innerHTML='<button class="back-btn" data-go="me" data-ptab="posts">← Back to my posts</button><div class="empty">This offer is no longer here.</div>';return;}
+  var tn=sv.topics.name, open=S.feed.filter(function(r){return r.requester_id!==S.me.id&&r.topic_id===sv.topic_id;});
+  var h='<button class="back-btn" data-go="me" data-ptab="posts">← Back to my posts</button>'+msgs()+
+   '<div class="post-top-row"><div class="post-hero"><div class="topic-fill big" style="'+thumbStyle(tn)+'"><span>'+esc(tn)+'</span></div></div><div>'+
+   '<div class="post-author"><div class="avatar-big">'+esc(initials(S.me.name))+'</div><div><div class="pname">'+esc(S.me.name)+'</div><div class="ptime">'+(sv.created_at?agoLong(sv.created_at):'Your offer')+'</div></div></div>'+
+   '<span class="tag labor">'+esc(tn)+'</span><span class="axis-dot">🙌 offering</span><p class="post-title">'+esc(sv.note||tn)+'</p>'+
+   '<p class="post-desc">When someone asks for help with '+esc(tn)+', you\'re matched with them automatically.</p>'+
+   '<div class="post-meta-row"><span>'+money(sv.price_cents)+' / 30 min</span><span>·</span><span>open to requests</span></div></div></div>'+
+   '<p class="rail-label">🤝 People asking about this</p><p class="rail-sub">Open requests in '+esc(tn)+' right now.</p>'+
+   (open.length?'<div class="grid">'+open.map(function(r){return card(r);}).join('')+'</div>':'<div class="empty small">No open requests in this topic yet.</div>')+
+   '<p style="margin-top:22px"><button class="ghost-btn sm" data-act="delservice" data-back="1" data-id="'+esc(sv.id)+'">Remove this offer</button></p>';
+  root.innerHTML=h;
+}
 function viewPost(id){
   var r=S.page.req; if(!r){root.innerHTML='<div class="empty">Loading…</div>';return;}
   var isMine=r.requester_id===S.me.id, bks=S.bookings.filter(function(b){return b.request_id===r.id;});
@@ -2287,19 +2532,21 @@ function viewPost(id){
 }
 
 function viewMe(){
-  var m=S.me, pt=S.ptab, pend=pendingForMe();
+  var m=S.me, pt=(S.ptab==='offer'?'posts':S.ptab), pend=pendingForMe(), myPosts=S.feed.filter(function(r){return r.requester_id===m.id;});
   var ratingN=S.ratings.length, avg=ratingN?S.ratings.reduce(function(a,r){return a+r.rating;},0)/ratingN:0;
   var h='<div id="profile-page" style="display:block"><button class="back-btn" data-go="">← Back to feed</button><div class="header"><div class="head-row"><div class="avatar-lg">'+esc(initials(m.name))+'</div><div class="head-info"><h1>'+esc(m.name)+'</h1><div class="handle">'+esc(m.space.name)+' · '+stars(avg,ratingN)+'</div></div>'+
    '<div><button class="ghost-btn sm" data-act="signout">Sign out</button></div></div>'+
-   '<div class="tabs prof-tabs">'+[['about','About'],['offer','Help I offer'],['sessions','Sessions'+(pend?' ('+pend+')':'')]].map(function(t){return '<div class="tab '+(pt===t[0]?'active':'')+'" data-ptab="'+t[0]+'">'+t[1]+'</div>';}).join('')+'</div></div><div class="prof-body">'+msgs();
+   '<div class="tabs prof-tabs">'+[['about','About'],['posts','Posts'+(myPosts.length?' ('+myPosts.length+')':'')],['interests','Interests'],['sessions','Sessions'+(pend?' ('+pend+')':'')]].map(function(t){return '<div class="tab '+(pt===t[0]?'active':'')+'" data-ptab="'+t[0]+'">'+t[1]+'</div>';}).join('')+'</div></div><div class="prof-body">'+msgs();
   if(pt==='about'){
     h+='<label>Name</label><input id="pname" value="'+esc(m.name)+'"><label>About you</label><textarea id="pbio">'+esc(m.bio)+'</textarea><label>How people reach you after an offer is accepted</label><input id="pcontact" value="'+esc(m.contact)+'"><button class="post-btn" data-act="saveprofile" style="margin-top:14px">Save</button>';
-  } else if(pt==='offer'){
-    h+='<p class="rail-label">🛠️ What I can help with</p><p class="rail-sub">When someone posts in these topics, you\'re matched automatically.</p><div class="stack">'+
-      (S.services.map(function(s){return '<div class="offer-card"><div class="offer-main"><div class="row-top"><b>'+esc(s.topics.name)+'</b><span class="row-time">'+money(s.price_cents)+' /30 min</span></div><p class="offer-note">'+esc(s.note)+'</p></div><button class="ghost-btn sm" data-act="delservice" data-id="'+s.id+'">Remove</button></div>';}).join('')||'<div class="empty small">Nothing yet — add a topic below.</div>')+'</div>'+
-      '<div class="auth card-box wide-box" style="margin-top:16px"><label>Topic</label><input id="stopic" list="topiclist" placeholder="Pick one or type your own"><datalist id="topiclist">'+S.topics.map(function(t){return '<option value="'+esc(t.name)+'">';}).join('')+'</datalist>'+
-      '<label>Price per 30 minutes (CAD)</label><input id="sprice" type="number" min="0" step="1" value="20"><label>What do you offer? (one line)</label><input id="snote" placeholder="e.g. Debugging, portfolio feedback, beginner-friendly">'+
-      '<button class="post-btn wide" data-act="addservice">Save</button></div>';
+  } else if(pt==='posts'){
+    var offerCards=S.services.map(function(sv){return {t:sv.created_at?Date.parse(sv.created_at):0,html:'<div class="card clickable" data-go="offer/'+esc(sv.id)+'"><div class="card-body"><span class="tag labor">'+esc(sv.topics.name)+'</span><span class="axis-dot">🙌 offering</span><p class="title">'+esc(sv.note||sv.topics.name)+'</p><div class="meta"><span>'+money(sv.price_cents)+' / 30 min</span><button class="st-link danger" data-act="delservice" data-id="'+sv.id+'">Remove</button></div></div></div>'};});
+    var reqCards=myPosts.map(function(r){return {t:Date.parse(r.created_at)||0,html:card(r,true)};});
+    var all=reqCards.concat(offerCards).sort(function(x,y){return y.t-x.t;});
+    h+='<div class="posts-head"><p class="rail-label" style="margin:0">📌 My posts</p><button class="post-btn sm" data-go="new">＋ Create</button></div><p class="rail-sub">Tag each one as asking for help or offering help.</p>'+
+      (all.length?'<div class="grid">'+all.map(function(x){return x.html;}).join('')+'</div>':'<div class="empty small">Nothing posted yet. Tap ＋ Create to ask for help or offer it.</div>');
+  } else if(pt==='interests'){
+    h+=interestsBody();
   } else {
     var items=S.bookings.filter(function(b){return b.status!=='declined';});
     h+='<p class="rail-label">📅 Sessions & offers</p><div class="stack">'+(items.map(function(b){return '<div class="sess"><a class="sess-link" data-go="post/'+b.request_id+'"><span class="tag labor">'+esc(b.topic)+'</span> '+esc(b.title)+'</a>'+offerCard(b)+'</div>';}).join('')||'<div class="empty small">No sessions yet.</div>')+'</div>';
@@ -2307,8 +2554,12 @@ function viewMe(){
   root.innerHTML=h+'</div></div>';
 }
 
+var lastPing=0;
+function pingPresence(){ if(document.hidden||Date.now()-lastPing<60000)return; lastPing=Date.now(); try{Promise.resolve(api.ping()).catch(function(){});}catch(e){} }
 async function loadAll(){
-  S.topics=await api.topics(); S.services=await api.myServices(); S.feed=await api.feed(); S.bookings=await api.bookings(); S.ratings=await api.myRatings(); S.my=await api.myStatus(); S.conns=await api.conns(); S.people=await api.people(); S.sights=await syncSights();
+  pingPresence();
+  S.topics=await api.topics(); S.services=await api.myServices(); S.feed=await api.feed(); S.bookings=await api.bookings(); S.ratings=await api.myRatings(); S.my=await api.myStatus(); S.conns=await api.conns(); S.people=await api.people(); S.notifs=await api.notifs(); S.sights=await syncSights();
+  try{S.tagStats=await api.tagStats(); var mt=await api.myTags(); if(mt){S.interests=mt;saveInterests();}}catch(e){S.tagStats=null;}
   var mine=S.feed.filter(function(r){return r.requester_id===S.me.id;});
   for(var i=0;i<mine.length;i++){ S.matches[mine[i].id]=rankHelpers(await api.findHelpers(mine[i].topic_id),mine[i].budget_cents); }
   var rt=route(); if(rt.v==='post'){ try{S.page.req=await api.getRequest(rt.id);}catch(e){S.page.req=null;} 
@@ -2318,9 +2569,9 @@ function render(){
   if(!S.session){appbar();return viewAuth();}
   if(!S.me){appbar();return viewSetup();}
   appbar(); var rt=route(), y=window.scrollY, fid=document.activeElement&&document.activeElement.id, fv=document.activeElement&&document.activeElement.value;
-  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
+  if(rt.v==='post')viewPost(rt.id);else if(rt.v==='offer')viewOffer(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='interests')viewInterests();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
   if(fid&&document.getElementById(fid)&&document.activeElement.tagName!=='SELECT'&&document.getElementById(fid).type!=='file'){var f=document.getElementById(fid);f.focus();if(fv!=null)f.value=fv;}
-  fitConnRail(); mountMap(); window.scrollTo(0,y);
+  hideJoinTip(); fitConnRail(); fitRails(); mountMap(); window.scrollTo(0,y);
 }
 async function refresh(){ if(!S.me)return; try{await loadAll();}catch(e){S.err=e.message;} render(); }
 function typing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA');}
@@ -2329,7 +2580,7 @@ async function start(){
   try{ S.session=await api.session(); S.me=S.session?await api.me():null; if(S.me)await loadAll(); }catch(e){S.err=e.message;}
   render(); if(S.me) prepMap();
 }
-window.addEventListener('hashchange',function(){S.tstop=null;S.err='';S.ok='';S.page={};S.newImage=null;refresh();window.scrollTo(0,0);});
+window.addEventListener('hashchange',function(){S.newKind='need';S.tstop=null;S.err='';S.ok='';S.page={};S.newImage=null;refresh();window.scrollTo(0,0);});
 
 function dollars(id){return Math.round(parseFloat($(id).value||'0')*100);}
 function resizeImage(file,cb){
@@ -2339,9 +2590,10 @@ document.addEventListener('change',function(e){
   if(e.target.id==='rtopic'){$('#rtopicnew').style.display=e.target.value==='__new'?'block':'none';}
   if(e.target.id==='rphoto'&&e.target.files[0]){resizeImage(e.target.files[0],function(u){S.newImage=u;var p=$('.prev');if(!p){p=document.createElement('img');p.className='prev';e.target.insertAdjacentElement('afterend',p);}p.src=u;});}
 });
+document.addEventListener('click',function(e){if(S.notifOpen&&!e.target.closest('.notif-panel,[data-act="bell"]'))closeNotif();});
 document.addEventListener('click',async function(e){
   var t=e.target.closest('[data-go],[data-act],[data-tab],[data-ptab]'); if(!t)return;
-  if(t.hasAttribute('data-go')){ e.preventDefault(); if(t.dataset.ptab)S.ptab=t.dataset.ptab; var g=t.dataset.go; S.err='';S.ok=''; if(location.hash.replace(/^#\/?/,'')===g){refresh();}else{location.hash=g?('#/'+g):'#/';} return; }
+  if(t.hasAttribute('data-go')){ e.preventDefault(); if(t.dataset.ptab)S.ptab=t.dataset.ptab; var g=t.dataset.go; S.err='';S.ok='';closeNotif(); if(location.hash.replace(/^#\/?/,'')===g){refresh();}else{location.hash=g?('#/'+g):'#/';} return; }
   if(t.dataset.tab){S.tab=t.dataset.tab;return render();}
   if(t.dataset.ptab&&!t.dataset.act){S.ptab=t.dataset.ptab;S.err='';S.ok='';return render();}
   var a=t.dataset.act; if(!a)return; e.preventDefault(); S.err='';S.ok='';
@@ -2359,13 +2611,22 @@ document.addEventListener('click',async function(e){
     if(a==='offer'){var price=dollars('#oprice');await api.offer(t.dataset.req,t.dataset.to,price,($('#onote').value||'').trim());flash('ok','Offer sent.');return refresh();}
     if(a==='accept'){await api.setBooking(t.dataset.id,{status:'accepted'},t.dataset.req);flash('ok','Accepted — their contact is shown below.');return refresh();}
     if(a==='decline'){S.cc=null;await api.setBooking(t.dataset.id,{status:'declined'},t.dataset.req,t.dataset.reopen==='1');flash('ok',t.dataset.reopen==='1'?'Cancelled. Contact hidden, request reopened.':'Done.');return refresh();}
+    if(a==='rnav'){var rel=document.getElementById(t.dataset.r);if(rel)rel.scrollBy({left:parseInt(t.dataset.dir,10)*railStep(rel),behavior:'smooth'});return;}
+    if(a==='nkind'){S.newKind=t.dataset.k;return render();}
+    if(a==='postoffer'){var ot=($('#otopic').value||'').trim();if(!ot)throw new Error('Choose or type a topic.');await api.saveService({topic:ot,price_cents:dollars('#oprice2'),note:($('#onote2').value||'').trim()});S.services=await api.myServices();S.ptab='posts';S.newKind='need';flash('ok','Posted. You\'ll be matched when someone needs '+ot+'.');location.hash='#/me';return;}
+    if(a==='bell'){if(S.notifOpen)return closeNotif();S.notifOpen=true;return appbar();}
+    if(a==='ndismiss'){var dx=notifItems().filter(function(x){return x.id===t.dataset.id;});if(dx.length)dismissNotifs(dx);return;}
+    if(a==='nclear'){dismissNotifs(notifItems().filter(canDismiss));return;}
+    if(a==='nread'){S.notifs.forEach(function(x){x.read=true;});try{await api.markNotifsRead();}catch(e){}return appbar();}
+    if(a==='nappr'){var npl=(($('#nplace-'+t.dataset.id)||{}).value||'').trim();if(!npl)throw new Error('Say where you would meet.');await api.setConn(t.dataset.id,{status:'approved',place:npl});flash('ok','Accepted. They can now see the place.');return refresh();}
     if(a==='cnav'){var el=document.getElementById('conn-rail');if(el)el.scrollBy({left:parseInt(t.dataset.dir,10)*Math.max(1,Math.floor((el.clientWidth+CONN_GAP)/CONN_STEP))*CONN_STEP,behavior:'smooth'});return;}
-    if(a==='sedit'){S.editStatus=!S.editStatus;S.emojiOpen=false;S.draftEmoji=S.draftText=null;return render();}
-    if(a==='epick'||a==='eset'){var tb=$('#stext');if(tb)S.draftText=tb.value;if(a==='eset'){S.draftEmoji=t.dataset.e;S.emojiOpen=false;}else S.emojiOpen=!S.emojiOpen;return render();}
+    if(a==='sedit'){S.editStatus=!S.editStatus;S.emojiOpen=false;S.draftEmoji=S.draftText=S.draftTags=null;return render();}
+    if(a==='sttag'){readStatusDraft();var tl=curTags().slice(),ti=tl.indexOf(t.dataset.t);if(ti>-1)tl.splice(ti,1);else if(tl.length<8)tl.push(t.dataset.t);S.draftTags=tl;return render();}
+    if(a==='epick'||a==='eset'){readStatusDraft();if(a==='eset'){S.draftEmoji=t.dataset.e;S.emojiOpen=false;}else S.emojiOpen=!S.emojiOpen;return render();}
     if(a==='ssave'){var tx=($('#stext').value||'').trim(),em=(curEmoji()||'').trim();
       if(!tx&&!em)throw new Error('Add an emoji or a few words first.');
-      await api.setStatus(em,tx,true);S.draftEmoji=S.draftText=null;S.emojiOpen=false;S.editStatus=false;return refresh();}
-    if(a==='sclear'){await api.setStatus('','',false);S.draftEmoji=S.draftText=null;S.emojiOpen=false;S.editStatus=false;return refresh();}
+      var stg=parseTags(($('#sttags')||{}).value);await api.setStatus(em,tx,true,stg);S.draftEmoji=S.draftText=S.draftTags=null;S.emojiOpen=false;S.editStatus=false;return refresh();}
+    if(a==='sclear'){await api.setStatus('','',false,[]);S.draftEmoji=S.draftText=S.draftTags=null;S.emojiOpen=false;S.editStatus=false;return refresh();}
     if(a==='connect'){await api.connect(t.dataset.to);flash('ok','Request sent.');return refresh();}
     if(a==='cappr'){var pl=($('#place-'+t.dataset.id).value||'').trim();if(!pl)throw new Error('Say where you would meet.');await api.setConn(t.dataset.id,{status:'approved',place:pl});flash('ok','Approved. They can now see the place.');return refresh();}
     if(a==='cdecl'){await api.setConn(t.dataset.id,{status:'declined'});return refresh();}
@@ -2373,13 +2634,16 @@ document.addEventListener('click',async function(e){
     if(a==='ckeep'){S.cc=null;return render();}
     if(a==='ccancel'){S.cc=null;await api.cancelConn(t.dataset.id);flash('ok','Cancelled.');return refresh();}
     if(a==='pinsel'){S.spNote='';S.pin=t.dataset.id;return render();}
+    if(a==='tagadd'){var ti=document.getElementById('tagnew');followTag(normTag(ti&&ti.value));return render();}
+    if(a==='tagpick'){followTag(normTag(t.dataset.t));return render();}
+    if(a==='interest'){var k=t.dataset.t;if(COMMON_TAGS.indexOf(k)>-1)return;var i=S.interests.indexOf(k);if(i>-1)S.interests.splice(i,1);else S.interests.push(k);saveInterests();syncTag(k,i<0);return render();}
     if(a==='guide'){S.guideOpen=true;return render();}
     if(a==='guideclose'){S.guideOpen=false;return render();}
     if(a==='tstop'){S.tstop=+t.dataset.i; var tt=trailBy(route().id),sx=tt&&tt.stops[S.tstop]; if(sx&&mapState.map)mapState.map.flyTo({center:sx.ll,zoom:16}); return render();}
     if(a==='tstopclear'){S.tstop=null;return render();}
     if(a==='pinclear'){S.pin=null;return render();}
     if(a==='spfilter'){ var nm=t.dataset.name; S.guideOpen=false; S.spFocus=nm||null; S.spNote='';
-      if(nm){ var rows=spRows('wildlife').filter(function(r){return r.species===nm&&r.lat!=null;}).sort(function(x,y){return new Date(y.seen_at)-new Date(x.seen_at);});
+      if(nm){ var rows=spRows(curGuide).filter(function(r){return r.species===nm&&r.lat!=null;}).sort(function(x,y){return new Date(y.seen_at)-new Date(x.seen_at);});
         if(!rows.length){S.pin=null;S.spNote='No pin for '+nm+' yet';}
         else{ S.spCycle=S.spCycle||{}; var k=(S.spCycle[nm]==null?0:S.spCycle[nm]+1)%rows.length; S.spCycle[nm]=k; var pr=rows[k]; S.pin=pr.id;
           if(mapState.map)mapState.map.flyTo({center:[pr.lng,pr.lat],zoom:15}); if(rows.length>1)S.spNote=nm+' · '+(k+1)+' of '+rows.length+' — tap again for the next'; } }
@@ -2387,7 +2651,7 @@ document.addEventListener('click',async function(e){
       return render();}
     if(a==='railgo'){S.pin=t.dataset.id;location.hash='#/guide/'+t.dataset.t;return;}
     if(a==='fglog'){var T0=TOPICS[t.dataset.t],it0=T0.items.filter(function(x){return x[0]===t.dataset.name;})[0];
-      await api.addSighting({category:T0.cat,species:it0[0],emoji:it0[1],count:1,note:'',place:'',lat:null,lng:null});
+      await api.addSighting({category:T0.cat,species:it0[0],emoji:it0[1],count:1,note:'',place:'',lat:null,lng:null,tags:T0.tag?[T0.tag]:[]});
       S.just=it0[0];S.sights=await syncSights();return render();}
     if(a==='fgopen'){var T1=TOPICS[t.dataset.t],pr=null;
       if(T1.hasMap){pr=spRows(t.dataset.t).filter(function(r){return r.species===t.dataset.name&&r.lat!=null;})[0];}
@@ -2398,10 +2662,10 @@ document.addEventListener('click',async function(e){
     if(a==='mapdl'){return downloadMap();}
     if(a==='upos'){grabSpot();S.spot.pos=await getPos();return render();}
     if(a==='spotpost'){grabSpot();var tk=t.dataset.t,T2=TOPICS[tk],sp=S.spot,name=sp.name||T2.items[0][0],place=(sp.place||'').trim();
-      var it2=T2.items.filter(function(x){return x[0]===name;})[0]; if(!it2)throw new Error('Pick one from the list.');
+      var nw=(sp.nw||'').trim(),it2=nw?[nw.slice(0,60),'🔖']:T2.items.filter(function(x){return x[0]===name;})[0]; if(!it2)throw new Error('Pick one from the list.'); if(it2[0]==='Something I spotted')throw new Error('Say what you spotted.');
       var pos=(T2.locatable&&T2.hasMap&&sp.pos)?sp.pos:null;
       if(!place&&!pos)throw new Error(T2.hasMap?'Add a place or use your location.':'Add where you saw it.');
-      await api.addSighting({category:T2.cat,species:it2[0],emoji:it2[1],count:1,note:(sp.note||'').trim(),place:place,lat:pos?r3(pos.lat):null,lng:pos?r3(pos.lng):null});
+      await api.addSighting({category:T2.cat,species:it2[0],emoji:it2[1],count:1,note:(sp.note||'').trim(),place:place,lat:pos?r3(pos.lat):null,lng:pos?r3(pos.lng):null,tags:parseTags(sp.tagsStr!=null?sp.tagsStr:(T2.tag||''))});
       S.spot={};S.sights=await syncSights();flash('ok','Posted.');location.hash='#/guide/'+tk;return;}
     if(a==='closereq'){await api.closeRequest(t.dataset.id);location.hash='#/';return;}
     if(a==='paid'){await api.setBooking(t.dataset.id,{requester_paid:true});return refresh();}
@@ -2410,7 +2674,7 @@ document.addEventListener('click',async function(e){
     if(a==='star'){S.stars=parseInt(t.dataset.n,10);return render();}
     if(a==='review'){if(!S.stars)throw new Error('Tap a star rating first.');await api.review(t.dataset.id,t.dataset.helper,S.stars,($('#rv-'+t.dataset.id).value||'').trim());S.stars=0;flash('ok','Thanks — review sent.');return refresh();}
     if(a==='addservice'){var tp=$('#stopic').value.trim();if(!tp)throw new Error('Choose or type a topic.');await api.saveService({topic:tp,price_cents:dollars('#sprice'),note:$('#snote').value.trim()});flash('ok','Saved. You\'ll be matched when someone needs '+tp+'.');return refresh();}
-    if(a==='delservice'){await api.deleteService(t.dataset.id);return refresh();}
+    if(a==='delservice'){await api.deleteService(t.dataset.id);if(t.dataset.back){S.services=await api.myServices();S.ptab='posts';location.hash='#/me';return;}return refresh();}
   }catch(err){flash('err',err.message);if(t.disabled)t.disabled=false;render();}
 });
 (async function boot(){
