@@ -77,7 +77,7 @@
     background:var(--coral);
     border:1.5px solid var(--card);
   }
-  .icon-btn .badge.pulse{width:10px;height:10px;background:#E5322D;box-shadow:0 0 0 0 rgba(229,50,45,.6);animation:badgePulse 1.8s infinite}
+  .icon-btn .badge.pulse{width:10px;height:10px;background:#E5322D}
   @keyframes badgePulse{0%{box-shadow:0 0 0 0 rgba(229,50,45,.55)}70%{box-shadow:0 0 0 8px rgba(229,50,45,0)}100%{box-shadow:0 0 0 0 rgba(229,50,45,0)}}
   .notif-panel{position:absolute;top:100%;right:-50px;margin-top:12px;width:330px;max-width:calc(100vw - 32px);background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(32,48,61,.18);z-index:60;max-height:70vh;overflow:auto}
   .notif-head{font-weight:600;font-size:13px;padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:1}
@@ -168,6 +168,15 @@
     background:var(--ink);
     color:#fff;
   }
+  .meet-strip{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:var(--card);margin:0 0 12px;font-size:13px;color:var(--ink)}
+  .meet-strip.approved{background:#EEF8F1;border-color:#BFE3CB}
+  .meet-strip.pending{background:#FFF8E8;border-color:#F0DDA8}
+  .meet-text{min-width:0;flex:1 1 200px}
+  .meet-actions{display:flex;align-items:center;gap:6px;flex:none}
+  .join-banner{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 66px);transform:translate(-50%,-10px);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:90;display:flex;align-items:center;gap:12px;background:var(--card);color:var(--ink);border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.18);border-radius:14px;padding:10px 12px;width:max-content;max-width:min(92vw,440px);font-size:14px}
+  .join-banner.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  .jb-actions{display:flex;align-items:center;gap:6px;flex:none}
+  .jb-x{background:none;border:0;color:var(--muted);font-size:14px;cursor:pointer;padding:4px 6px}
   .hdr-logo{flex:none;display:flex;margin-right:8px}
   .hdr-logo img{width:30px;height:30px;border-radius:8px;display:block}
   .hdr-place{font-size:16px;text-decoration:none;min-width:0;flex:0 1 auto;margin-right:12px}
@@ -240,6 +249,17 @@
   .grid.two-rows .title{font-size:12.5px;line-height:1.3;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .grid.two-rows .meta{font-size:10.5px;gap:6px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
   .grid.two-rows .meta span:nth-child(n+2){overflow:hidden;text-overflow:ellipsis}
+  #r-req .card{border-radius:12px}
+  #r-req .thumb{aspect-ratio:16/9}
+  #r-req .pin{top:6px;left:6px;font-size:9px;padding:2px 6px}
+  #r-req .card-body{padding:8px 10px 10px;gap:4px}
+  #r-req .tag{font-size:10px;padding:2px 7px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #r-req .axis-dot{display:none}
+  #r-req .title{font-size:12.5px;line-height:1.3;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #r-req .meta{font-size:10.5px;gap:6px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+  #r-req .meta span:nth-child(n+2){overflow:hidden;text-overflow:ellipsis}
+  #r-req .card{margin:0;min-width:0}
+
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
@@ -2059,7 +2079,7 @@ var NOTIF_ICON={join:'🤝',approved:'✅',declined:'💬',offer:'💬',ask:'�
 function notifLine(x){var w='<b>'+esc(first(x.actor_name))+'</b>',d=x.detail?esc(x.detail):'';
   switch(x.kind){
     case 'join':return w+' would like to join you';
-    case 'approved':return w+' approved your request — open Connections to see where to meet';
+    case 'approved':return w+' approved your request — see where to meet at the top of Home';
     case 'declined':return w+' declined your request';
     case 'offer':return w+' sent you an offer'+(d?' on “'+d+'”':'');
     case 'ask':return w+' asked for your help'+(d?': “'+d+'”':'');
@@ -2077,7 +2097,7 @@ function notifPanel(){
       else { var st=c?(c.status==='approved'?'accepted':c.status==='declined'?'declined':'closed'):(x.state||'closed');
         body='<div class="notif-state '+st+'">'+(st==='accepted'?'✓ You accepted':st==='declined'?'You declined':'No longer available')+'</div>'; }
     } else if(x.kind==='offer'||x.kind==='ask'||x.kind==='offer_accepted'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="me" data-ptab="sessions">View</button></div>'; }
-    else if(x.kind==='approved'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="">Open Connections</button></div>'; }
+    else if(x.kind==='approved'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="">See where</button></div>'; }
     else if(x.kind==='spotted'){ body='<div class="btn-row"><button class="ghost-btn sm" data-go="guide/wildlife">See it</button></div>'; }
     o+='<div class="notif-item'+(x.read&&!pend?'':' unread')+'">'+(canDismiss(x)?'<button class="notif-x" data-act="ndismiss" data-id="'+esc(x.id)+'" title="Dismiss" aria-label="Dismiss">✕</button>':'')+'<div class="offer-avatar">'+esc(initials(x.actor_name))+'</div><div class="notif-main"><div class="notif-text">'+(NOTIF_ICON[x.kind]||'')+' '+notifLine(x)+' <span class="notif-time">'+notifAgo(x.created_at)+'</span></div>'+body+'</div></div>';});
   if(!items.length)o+='<div class="notif-empty">You\'re all caught up.</div>';
@@ -2118,7 +2138,7 @@ function viewFeed(){
   var rest=S.feed.filter(function(r){return r.requester_id!==S.me.id;});
   var recent=S.feed.slice();
   var forYou=rest.slice().sort(function(a,b){var am=(mineTopics.indexOf(a.topic_id)>-1||S.interests.indexOf(normTag(a.topic))>-1)?1:0,bm=(mineTopics.indexOf(b.topic_id)>-1||S.interests.indexOf(normTag(b.topic))>-1)?1:0;return bm-am||new Date(b.created_at)-new Date(a.created_at);});
-  var h=composer()+msgs();
+  var h=connStrip()+composer()+msgs();
   if(S.tab==='recent'){
     h+='<p class="tab-desc"><span class="dot"></span>Everyone in the space, newest first — no ranking, no filtering.</p><div class="list">'+
       (recent.map(function(r){return '<div class="row clickable" data-go="post/'+r.id+'">'+
@@ -2126,7 +2146,7 @@ function viewFeed(){
         '<div class="row-body"><div class="row-top"><span class="row-name">'+esc(r.requester_name)+'</span><span class="row-time">· '+agoLong(r.created_at)+'</span></div>'+
         '<p class="row-text">'+esc(r.title)+'</p><div class="row-tags"><span class="tag labor">'+esc(r.topic)+'</span><span class="row-offers">'+offersLabel(r)+'</span></div></div></div>';}).join('')||'<div class="empty">No requests yet. Be the first to ask.</div>')+'</div>';
   } else if(S.tab==='explore'){
-    h+='<p class="rail-sub" style="margin:0 0 14px">Look around: see what neighbours have spotted, open a field guide or try a trail.</p>'+neighboursRail()+spottedRail()+guidesRail()+trailsRail();
+    h+='<p class="rail-sub" style="margin:0 0 14px">Look around: see what neighbours have spotted, open a field guide or try a trail.</p>'+neighboursRail()+spottedRail()+requestsRail()+guidesRail()+trailsRail();
   } else {
     h+=connRail();
     h+='<p class="rail-label">📋 For you</p><div class="grid two-rows">'+forYouGrid(forYou)+'</div>';
@@ -2203,6 +2223,32 @@ function statusInline(){var live=statusLive();
    (S.emojiOpen?'<div class="st-picker">'+EMOJIS.map(function(e){return '<button type="button" data-act="eset" data-e="'+e+'">'+e+'</button>';}).join('')+'<button type="button" data-act="eset" data-e="" title="No emoji" style="font-size:14px;color:var(--muted)">✕</button></div>':'')+
    '<div class="st-tagrow"><span class="st-hash">#</span><input id="sttags" class="st-taginput" maxlength="80" autocomplete="off" placeholder="Add tags, e.g. study, birds" value="'+esc(curTagsStr())+'"></div>'+stTagChips()+'<div class="st-links"><button class="st-link" data-act="sedit">Cancel</button>'+(live?'<button class="st-link danger" data-act="sclear">Remove status</button>':'')+'</div></div>';}
 function connBusy(){return S.conns.some(function(c){return c.status==='approved';});}
+/* A new join request pops up at the top with a Review button that opens the notification panel (where you accept and pick a place). */
+var joinSeen={};
+function checkJoinBanner(){
+  if(!S.me)return;
+  var fresh=incomingConns().filter(function(c){return !joinSeen[c.id];});
+  if(!fresh.length)return;
+  fresh.forEach(function(c){joinSeen[c.id]=1;});
+  var el=document.getElementById('join-banner'); if(!el){el=document.createElement('div');el.id='join-banner';el.className='join-banner';document.body.appendChild(el);}
+  el.innerHTML='<div class="jb-text">🤝 <b>'+esc(first(fresh[0].other_name))+'</b>'+(fresh.length>1?' and '+(fresh.length-1)+' more':'')+' would like to join you</div><div class="jb-actions"><button class="post-btn sm" data-act="jbreview">Review</button><button class="jb-x" data-act="jbx" aria-label="Dismiss">✕</button></div>';
+  requestAnimationFrame(function(){el.classList.add('show');});
+  clearTimeout(checkJoinBanner.t); checkJoinBanner.t=setTimeout(hideJoinBanner,12000);
+}
+function hideJoinBanner(){var el=document.getElementById('join-banner');if(el)el.classList.remove('show');}
+function connStrip(){
+  var o='';
+  S.conns.forEach(function(c){
+    var nm=esc(first(c.other_name));
+    if(c.status==='approved'){
+      o+='<div class="meet-strip approved"><div class="meet-text">✅ Meeting <b>'+nm+'</b> · 📍 '+esc(c.place)+'</div><div class="meet-actions"><a class="live-join-btn unlocked" style="text-decoration:none;display:inline-block;width:auto;padding:6px 12px" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.place)+'">Get directions →</a>'+
+        (S.cc===c.id?'<button class="post-btn sm" data-act="ccancel" data-id="'+c.id+'">Yes, cancel</button><button class="ghost-btn sm" data-act="ckeep">Keep</button>':'<button class="ghost-btn sm" data-act="cask" data-id="'+c.id+'">Cancel</button>')+'</div></div>';
+    } else if(c.status==='pending'&&c.dir==='out'){
+      o+='<div class="meet-strip pending"><div class="meet-text">🕓 Waiting for <b>'+nm+'</b> to reply</div><div class="meet-actions"><button class="ghost-btn sm" data-act="ccancel" data-id="'+c.id+'">Withdraw</button></div></div>';
+    }
+  });
+  return o;
+}
 function connRail(){
   var by={}; S.conns.forEach(function(c){by[c.other_id]=c;});
   var inc=S.conns.filter(function(c){return c.dir==='in'&&c.status==='pending';}), live=statusLive();
@@ -2212,13 +2258,9 @@ function connRail(){
   function ovl(p){return (p.tags||[]).filter(function(t){return mineT.indexOf(t)>-1;});}
   var people=S.people.slice().sort(function(x,y){return ((isOnline(y)?1000:0)+(y.status?100:0)+ovl(y).length)-((isOnline(x)?1000:0)+(x.status?100:0)+ovl(x).length);});
   o+='<div class="rail-with-arrows conn-wrap"><div class="rail-nav-arrow left hidden" id="conn-prev" data-act="cnav" data-dir="-1">‹</div><div class="live-rail" id="conn-rail" style="overflow-x:hidden;margin-bottom:0'+(people.some(function(p){return p.stext;})?';padding-top:9px':'')+'">'+(people.map(function(p){var c=by[p.id],st=c&&c.status,mineOut=c&&c.dir==='out',body='';
-    if(!c) body='';
-    else if(st==='pending'&&mineOut) body='<div class="live-status-badge show pending">🕓 Requested</div><button class="ghost-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Withdraw</button>';
-    else if(st==='pending') body='<div class="live-status-badge show pending">Asked to join you</div>';
-    else if(st==='approved') body='<div class="live-status-badge show unlocked">✅ Approved</div><div class="live-visible-location show">📍 '+esc(c.place)+'</div><a class="live-join-btn unlocked" style="display:block;margin-top:8px;text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.place)+'">Get directions →</a>'+(S.cc===c.id?'<button class="post-btn sm" style="margin-top:6px" data-act="ccancel" data-id="'+c.id+'">Yes, cancel</button><button class="ghost-btn sm" style="margin-top:4px" data-act="ckeep">Keep</button>':'<button class="ghost-btn sm" style="margin-top:6px" data-act="cask" data-id="'+c.id+'">Cancel</button>')+'';
-    else body='';
+    var chip=!c?'':(st==='approved'?emojiBadge('✅',1):(st==='pending'?emojiBadge(mineOut?'🕓':'🤝',1):''));
     var act=p.stext?'<div class="live-activity" title="'+esc(p.stext)+'" style="max-width:92px;overflow:hidden;text-overflow:ellipsis;display:block">'+esc(p.stext)+'</div>':(isOnline(p)?'':'<div class="live-activity">'+esc(lastSeenText(p))+'</div>');
-    return '<div class="live-card'+(st==='approved'?' has-status':'')+(isOnline(p)?'':' offline')+'"'+(!c&&!connBusy()&&p.status?' data-join="'+p.id+'"':'')+'><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.stext?'<div class="live-note" title="'+esc(p.stext)+'"><span>'+esc(p.stext)+'</span></div>':'')+(p.emoji?emojiBadge(p.emoji):isOnline(p)?'<div class="live-online" title="Online"></div>':'<div class="live-online off" title="'+esc(lastSeenText(p))+'"></div>')+'</div><div class="live-name">'+esc(p.name)+'</div>'+(p.tags&&p.tags.length?'<div class="live-tags">'+p.tags.slice(0,3).map(function(t){return '<span class="'+(mineT.indexOf(t)>-1?'m':'')+'">#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+body+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
+    return '<div class="live-card'+(st==='approved'?' has-status':'')+(isOnline(p)?'':' offline')+'"'+(!c&&!connBusy()&&p.status?' data-join="'+p.id+'"':'')+'><div class="live-avatar-wrap"><div class="live-avatar">'+esc(initials(p.name))+'</div>'+(p.stext?'<div class="live-note" title="'+esc(p.stext)+'"><span>'+esc(p.stext)+'</span></div>':'')+(chip?chip:p.emoji?emojiBadge(p.emoji):isOnline(p)?'<div class="live-online" title="Online"></div>':'<div class="live-online off" title="'+esc(lastSeenText(p))+'"></div>')+'</div><div class="live-name">'+esc(p.name)+'</div>'+(p.tags&&p.tags.length?'<div class="live-tags">'+p.tags.slice(0,3).map(function(t){return '<span class="'+(mineT.indexOf(t)>-1?'m':'')+'">#'+esc(t)+'</span>';}).join(' ')+'</div>':'')+'</div>';}).join('')||'<div class="empty small">No one else here yet.</div>')+'</div><div class="rail-nav-arrow right hidden" id="conn-next" data-act="cnav" data-dir="1">›</div></div>';
   return o;
 }
 /* Arrows instead of a scrollbar (same pattern as the feed): only whole cards show, arrows page by one card. */
@@ -2416,13 +2458,13 @@ function viewInterests(){
 /* ---- rails below the grid: arrows instead of a scrollbar, same as the neighbourhood feed (whole cards only, one card per click) ---- */
 var RAIL_GAP=12, railPos={};
 function arrowRail(id,html,min){return '<div class="rail-with-arrows"><div class="rail-nav-arrow left hidden" id="'+id+'-prev" data-act="rnav" data-r="'+id+'" data-dir="-1">‹</div><div class="continue-rail" id="'+id+'" data-rail="1"'+(min?' data-min="'+min+'"':'')+'>'+html+'</div><div class="rail-nav-arrow right hidden" id="'+id+'-next" data-act="rnav" data-r="'+id+'" data-dir="1">›</div></div>';}
-function railStep(el){if(el.dataset.step)return +el.dataset.step; var c=el.querySelector('.continue-card,.neighbour-tile');return c?c.offsetWidth+RAIL_GAP:0;}
+function railStep(el){if(el.dataset.step)return +el.dataset.step; var c=el.querySelector('.continue-card,.neighbour-tile,.card');return c?c.offsetWidth+RAIL_GAP:0;}
 function railArrows(el){var pv=document.getElementById(el.id+'-prev'),nx=document.getElementById(el.id+'-next');if(!pv||!nx)return;
   pv.classList.toggle('hidden',el.scrollLeft<=0);nx.classList.toggle('hidden',el.scrollLeft+el.clientWidth>=el.scrollWidth-1);}
 function fitRails(){document.querySelectorAll('.continue-rail[data-rail]').forEach(function(el){
   if(el.dataset.min){ /* same sizing as the For you grid: as many cards as fit, stretched evenly to fill the row */
     el.style.maxWidth='none'; var mn=+el.dataset.min,W=el.clientWidth,k=Math.max(1,Math.floor((W+RAIL_GAP)/(mn+RAIL_GAP))),w=(W-(k-1)*RAIL_GAP)/k;
-    el.querySelectorAll('.continue-card').forEach(function(c){c.style.flex='0 0 '+w+'px';}); el.dataset.step=w+RAIL_GAP; }
+    el.querySelectorAll('.continue-card,.card').forEach(function(c){c.style.flex='0 0 '+w+'px';}); el.dataset.step=w+RAIL_GAP; }
   var st=railStep(el);if(!st)return;
   if(!el.dataset.min){el.style.maxWidth='none';var n=Math.max(1,Math.floor((el.clientWidth+RAIL_GAP)/st));el.style.maxWidth=(n*st-RAIL_GAP)+'px';}
   el.style.scrollBehavior='auto';el.scrollLeft=railPos[el.id]||0;el.style.scrollBehavior='smooth';
@@ -2461,6 +2503,12 @@ function viewPerson(id){
 function trailsRail(){
   return '<p class="rail-label">🥾 Trails nearby</p><p class="rail-sub">Hand-picked walks — see what you could spot along the way.</p>'+arrowRail('r-trails',TRAILS.map(function(t){var pg=trailProg(t);
     return '<div class="continue-card" data-go="trail/'+t.id+'"><div class="emoji-thumb">'+t.icon+'</div><div class="continue-card-body"><div class="continue-tag">'+TKIND[t.kind].e+' '+TKIND[t.kind].l+' trail</div><div class="continue-title">'+esc(t.name)+'</div><div class="continue-meta">'+t.km+' km · about '+t.mins+' min</div><div class="continue-meta">'+pg.got+' of '+pg.total+' seen</div></div></div>';}).join(''));}
+/* ---- Explore > For you: the help requests (cooking, gardening, language practice...) ---- */
+function requestsRail(){
+  var mineTopics=S.services.map(function(x){return x.topic_id;});
+  var list=S.feed.filter(function(r){return r.requester_id!==S.me.id;}).sort(function(a,b){var am=(mineTopics.indexOf(a.topic_id)>-1||S.interests.indexOf(normTag(a.topic))>-1)?1:0,bm=(mineTopics.indexOf(b.topic_id)>-1||S.interests.indexOf(normTag(b.topic))>-1)?1:0;return bm-am||new Date(b.created_at)-new Date(a.created_at);}).slice(0,16);
+  if(!list.length)return '';
+  return '<p class="rail-label">📋 For you</p>'+arrowRail('r-req',list.map(function(r){return card(r,false);}).join(''),150);}
 function spottedRail(){
   var cards=[],seen={};
   S.sights.forEach(function(r){var tk=Object.keys(TOPICS).filter(function(k){return TOPICS[k].cat===r.category;})[0]; if(!tk||!topicVisible(tk)||r.user_id===S.me.id)return;
@@ -2705,7 +2753,7 @@ function render(){
   appbar(); var rt=route(), y=window.scrollY, fid=document.activeElement&&document.activeElement.id, fv=document.activeElement&&document.activeElement.value;
   if(rt.v==='post')viewPost(rt.id);else if(rt.v==='offer')viewOffer(rt.id);else if(rt.v==='me')viewMe();else if(rt.v==='new')viewNew();else if(rt.v==='interests')viewInterests();else if(rt.v==='guide')viewGuide(rt.t);else if(rt.v==='trail')viewTrail(rt.id);else if(rt.v==='person')viewPerson(rt.id);else if(rt.v==='spot')viewSpot(rt.t);else viewFeed();
   if(fid&&document.getElementById(fid)&&document.activeElement.tagName!=='SELECT'&&document.getElementById(fid).type!=='file'){var f=document.getElementById(fid);f.focus();if(fv!=null)f.value=fv;}
-  hideJoinTip(); fitConnRail(); fitRails(); mountMap(); window.scrollTo(0,y);
+  hideJoinTip(); fitConnRail(); fitRails(); mountMap(); window.scrollTo(0,y); checkJoinBanner();
 }
 async function refresh(){ if(!S.me)return; try{await loadAll();}catch(e){S.err=e.message;} render(); }
 function typing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA');}
@@ -2724,7 +2772,7 @@ document.addEventListener('change',function(e){
   if(e.target.id==='rtopic'){$('#rtopicnew').style.display=e.target.value==='__new'?'block':'none';}
   if(e.target.id==='rphoto'&&e.target.files[0]){resizeImage(e.target.files[0],function(u){S.newImage=u;var p=$('.prev');if(!p){p=document.createElement('img');p.className='prev';e.target.insertAdjacentElement('afterend',p);}p.src=u;});}
 });
-document.addEventListener('click',function(e){if(S.notifOpen&&!e.target.closest('.notif-panel,[data-act="bell"]'))closeNotif();});
+document.addEventListener('click',function(e){if(S.notifOpen&&!e.target.closest('.notif-panel,[data-act="bell"],[data-act="jbreview"]'))closeNotif();});
 document.addEventListener('click',async function(e){
   var t=e.target.closest('[data-go],[data-act],[data-tab],[data-ptab]'); if(!t)return;
   if(t.hasAttribute('data-go')){ e.preventDefault(); if(t.dataset.ptab)S.ptab=t.dataset.ptab; var g=t.dataset.go; S.err='';S.ok='';closeNotif(); if(location.hash.replace(/^#\/?/,'')===g){refresh();}else{location.hash=g?('#/'+g):'#/';} return; }
@@ -2748,6 +2796,8 @@ document.addEventListener('click',async function(e){
     if(a==='rnav'){var rel=document.getElementById(t.dataset.r);if(rel)rel.scrollBy({left:parseInt(t.dataset.dir,10)*railStep(rel),behavior:'smooth'});return;}
     if(a==='nkind'){S.newKind=t.dataset.k;return render();}
     if(a==='postoffer'){var ot=($('#otopic').value||'').trim();if(!ot)throw new Error('Choose or type a topic.');await api.saveService({topic:ot,price_cents:dollars('#oprice2'),note:($('#onote2').value||'').trim()});S.services=await api.myServices();S.ptab='posts';S.newKind='need';flash('ok','Posted. You\'ll be matched when someone needs '+ot+'.');location.hash='#/me';return;}
+    if(a==='jbreview'){hideJoinBanner();S.notifOpen=true;appbar();window.scrollTo({top:0,behavior:'smooth'});return;}
+    if(a==='jbx'){hideJoinBanner();return;}
     if(a==='bell'){if(S.notifOpen)return closeNotif();S.notifOpen=true;return appbar();}
     if(a==='ndismiss'){var dx=notifItems().filter(function(x){return x.id===t.dataset.id;});if(dx.length)dismissNotifs(dx);return;}
     if(a==='nclear'){dismissNotifs(notifItems().filter(canDismiss));return;}
